@@ -2,7 +2,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <div className='footer'>
+    <footer>
       <p>
         © Made by{' '}
         <a href='https://github.com/Barrymoonshine'>Barry Moonshine</a> for{' '}
@@ -11,7 +11,7 @@ const Footer = () => {
           Icons8
         </a>
       </p>
-    </div>
+    </footer>
   );
 };
 
