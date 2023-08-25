@@ -9,8 +9,6 @@ const Home = () => {
     data = [],
   } = useFetch('https://ancient-water-2934.fly.dev/blogs', { method: 'GET' });
 
-  // Update Blogs state, note pass additional props to blog when collected via Create
-
   if (error) return <p>Error! {error}</p>;
   if (loading) return <p>Loading...</p>;
 

@@ -2,7 +2,6 @@ import ACTIONS from '../utils/ACTIONS';
 
 export const initialState = {
   isUserLoggedIn: false,
-  blogs: [],
 };
 
 const userReducer = (state, action) => {
@@ -12,11 +11,6 @@ const userReducer = (state, action) => {
       return {
         ...state,
         isUserLoggedIn: !state.isUserLoggedIn,
-      };
-    case ACTIONS.UPDATE_BlOGS:
-      return {
-        ...state,
-        blogs: payload.data,
       };
     default:
       return state;

@@ -5,6 +5,7 @@ const useFetch = (url = '', options = null) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Fetch options object not needed for rendering
   const objRef = useRef(options);
 
   useEffect(() => {

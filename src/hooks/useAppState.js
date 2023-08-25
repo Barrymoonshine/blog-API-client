@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
-const useGameState = () => {
+const useAppState = () => {
   const { state } = useContext(AppContext);
 
   return {
@@ -9,4 +9,4 @@ const useGameState = () => {
   };
 };
 
-export default useGameState;
+export default useAppState;
