@@ -5,12 +5,35 @@ const Create = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+  const onSubmit = async (formData) => {
+    try {
+      const multiFormData = new FormData();
+
+      multiFormData.append('title', formData.title);
+      multiFormData.append('caption', formData.caption);
+      multiFormData.append('content', formData.content);
+      multiFormData.append('region', formData.region);
+      multiFormData.append('image', formData.image[0]);
+
+      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
+        method: 'POST',
+        body: multiFormData,
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // Nav to Home
+        console.log('form successfully submitted');
+      } else {
+        console.log(data);
+        // handle errors
+      }
+    } catch (err) {
+      // handle errors
+      console.log(err);
+    }
   };
 
   return (
@@ -39,6 +62,10 @@ const Create = () => {
         <option value='South America'>South America</option>
       </select>
       {errors.region && <span>Please select a region</span>}
+
+      <label htmlFor='image'> Image:</label>
+      <input {...register('image', { required: true })} type='file' />
+      {errors.image && <span>This field is required</span>}
 
       <input type='submit' />
     </form>
