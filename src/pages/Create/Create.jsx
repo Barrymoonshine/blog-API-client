@@ -6,6 +6,7 @@ const Create = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -29,13 +30,14 @@ const Create = () => {
       const data = await response.json();
       if (response.ok) {
         setSuccessMessage(data);
+        reset();
       } else {
         setErrorMessage(data.message);
         console.log(data);
       }
     } catch (err) {
       setErrorMessage(
-        'An internal server error occurred when sending your request, please try again or report issue to site maintainer.'
+        'An internal server error occurred when sending your request, please try again or report the issue to site maintainer.'
       );
       console.log(err);
     }
@@ -44,7 +46,13 @@ const Create = () => {
   return (
     <>
       {successMessage ? (
-        <div> {successMessage} </div>
+        <div>
+          {' '}
+          {successMessage}
+          <button onClick={() => setSuccessMessage(null)}>
+            Create another post?
+          </button>
+        </div>
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='title'> Title:</label>
@@ -76,7 +84,12 @@ const Create = () => {
           <input {...register('image', { required: true })} type='file' />
           {errors.image && <span>This field is required</span>}
 
-          {errorMessage && errorMessage}
+          {errorMessage && (
+            <div>
+              {errorMessage}
+              <button onClick={() => setErrorMessage(null)}>Try again?</button>
+            </div>
+          )}
           <input type='submit' />
         </form>
       )}
