@@ -1,5 +1,6 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 
 const Create = () => {
   const {
@@ -7,6 +8,9 @@ const Create = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const onSubmit = async (formData) => {
     try {
@@ -24,51 +28,59 @@ const Create = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        // Nav to Home
-        console.log('form successfully submitted');
+        setSuccessMessage(data);
       } else {
+        setErrorMessage(data.message);
         console.log(data);
-        // handle errors
       }
     } catch (err) {
-      // handle errors
+      setErrorMessage(
+        'An internal server error occurred when sending your request, please try again or report issue to site maintainer.'
+      );
       console.log(err);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor='title'> Title:</label>
-      <input {...register('title', { required: true })} />
-      {errors.title && <span>This field is required</span>}
+    <>
+      {successMessage ? (
+        <div> {successMessage} </div>
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor='title'> Title:</label>
+          <input {...register('title', { required: true })} />
+          {errors.title && <span>This field is required</span>}
 
-      <label htmlFor='caption'> Caption:</label>
-      <input {...register('caption', { required: true })} />
-      {errors.caption && <span>This field is required</span>}
+          <label htmlFor='caption'> Caption:</label>
+          <input {...register('caption', { required: true })} />
+          {errors.caption && <span>This field is required</span>}
 
-      <label htmlFor='content'> Content:</label>
-      <textarea {...register('content', { required: true })} />
-      {errors.content && <span>This field is required</span>}
+          <label htmlFor='content'> Content:</label>
+          <textarea {...register('content', { required: true })} />
+          {errors.content && <span>This field is required</span>}
 
-      <select {...register('region', { required: true })}>
-        <option value=''>--Please choose a region--</option>
-        <option value='Africa'>Africa</option>
-        <option value='Asia'>Asia</option>
-        <option value='The Caribbean'>The Caribbean</option>
-        <option value='Central America'>Central America</option>
-        <option value='Europe'>Europe</option>
-        <option value='North America'>North America</option>
-        <option value='Oceania'>Oceania</option>
-        <option value='South America'>South America</option>
-      </select>
-      {errors.region && <span>Please select a region</span>}
+          <select {...register('region', { required: true })}>
+            <option value=''>--Please choose a region--</option>
+            <option value='Africa'>Africa</option>
+            <option value='Asia'>Asia</option>
+            <option value='The Caribbean'>The Caribbean</option>
+            <option value='Central America'>Central America</option>
+            <option value='Europe'>Europe</option>
+            <option value='North America'>North America</option>
+            <option value='Oceania'>Oceania</option>
+            <option value='South America'>South America</option>
+          </select>
+          {errors.region && <span>Please select a region</span>}
 
-      <label htmlFor='image'> Image:</label>
-      <input {...register('image', { required: true })} type='file' />
-      {errors.image && <span>This field is required</span>}
+          <label htmlFor='image'> Image:</label>
+          <input {...register('image', { required: true })} type='file' />
+          {errors.image && <span>This field is required</span>}
 
-      <input type='submit' />
-    </form>
+          {errorMessage && errorMessage}
+          <input type='submit' />
+        </form>
+      )}
+    </>
   );
 };
 
