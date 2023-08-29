@@ -85,7 +85,9 @@ const Create = () => {
 
           {errorMessage && (
             <div>
-              {errorMessage}
+              {errorMessage.map((error) => {
+                <p>{error}</p>;
+              })}
               <button onClick={() => setErrorMessage(null)}>Try again?</button>
             </div>
           )}

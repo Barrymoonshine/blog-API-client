@@ -32,10 +32,9 @@ const Header = () => {
         ) : (
           <ul>
             <li>
-              <button>Register</button>
-            </li>
-            <li>
-              <button onClick={() => toggleUserLogIn()}>Log in</button>
+              <NavLink to='/log-in' style={{ textDecoration: 'none' }}>
+                <h3>Log in</h3>
+              </NavLink>
             </li>
           </ul>
         )}

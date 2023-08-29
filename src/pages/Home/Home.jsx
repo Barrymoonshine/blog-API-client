@@ -1,6 +1,7 @@
 import './Home.css';
 import useFetch from '../../hooks/useFetch';
 import Blog from '../../components/Blog/Blog';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const {
@@ -13,12 +14,14 @@ const Home = () => {
     <div className='home-container'>
       <div className='welcome-container'>
         <div>
-          <h4>Want to create the travel blog of your dreams?</h4>
+          <h4>Create the travel blog of your dreams</h4>
           <p>
             Sign up for a free account today, to create and edit your very own
             travel blog!
           </p>
-          <button className='register-button'>Register</button>
+          <Link to='/register' style={{ textDecoration: 'none' }}>
+            <button className='register-button'>Register</button>
+          </Link>
         </div>
         <div>
           <img
