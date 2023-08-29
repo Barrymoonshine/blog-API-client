@@ -8,22 +8,20 @@ const Header = () => {
   const { toggleUserLogIn } = useAppDispatch();
   return (
     <header>
-      <div>
-        <NavLink to='/'>
-          <h3>Sayonara</h3>
-        </NavLink>
-        <h4>Region - Drop down to view by Region </h4>
-      </div>
+      <p>Region</p>
+      <NavLink to='/' style={{ textDecoration: 'none' }}>
+        <h3>Sayonara</h3>
+      </NavLink>
       <nav>
         {isUserLoggedIn ? (
           <ul>
             <li>
-              <NavLink to='/create'>
+              <NavLink to='/create' style={{ textDecoration: 'none' }}>
                 <h3>Create</h3>
               </NavLink>
             </li>
             <li>
-              <NavLink to='/my-account'>
+              <NavLink to='/my-account' style={{ textDecoration: 'none' }}>
                 <h3>My Account</h3>
               </NavLink>
             </li>
@@ -33,7 +31,9 @@ const Header = () => {
           </ul>
         ) : (
           <ul>
-            <li>Register - TBC</li>
+            <li>
+              <button>Register</button>
+            </li>
             <li>
               <button onClick={() => toggleUserLogIn()}>Log in</button>
             </li>

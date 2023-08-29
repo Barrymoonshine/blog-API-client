@@ -2,13 +2,16 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0px;
-}
-
-h3 {
-  color: red;
+  font-family: 'Lato', sans-serif;
+  background-color: #f8fafc;
+  color: #3f3f46;
 }
 
 ul {
   list-style: none;
   padding: 0px;
+}
+
+a {
+  color: #3f3f46;
 }

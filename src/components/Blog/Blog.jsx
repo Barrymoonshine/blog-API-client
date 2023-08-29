@@ -1,10 +1,11 @@
 import './Blog.css';
 
-const Blog = ({ title, content }) => {
+const Blog = ({ title, caption, image }) => {
   return (
     <div>
       <div>{title}</div>
-      <div>{content}</div>
+      <div>{caption}</div>
+      <div>{image}</div>
     </div>
   );
 };

@@ -14,10 +14,18 @@ const Home = () => {
 
   return (
     <div>
-      <p>Welcome to Sayonara - this is the home page</p>
+      <h4>Sayonara</h4>
+      <p>Create the travel blog of your dreams</p>
+      <p>Photo by Annie Spratt</p>
       {data &&
         data.map((item) => (
-          <Blog key={item._id} title={item.title} content={item.content} />
+          <Blog
+            key={item._id}
+            title={item.title}
+            caption={item.caption}
+            region={item.region}
+            image={item.image}
+          />
         ))}
     </div>
   );
