@@ -1,0 +1,15 @@
+.create-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.create-form input {
+  width: 400px;
+}
+
+.create-form textarea {
+  width: 400px;
+}

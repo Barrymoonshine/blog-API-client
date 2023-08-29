@@ -47,14 +47,13 @@ const Create = () => {
     <>
       {successMessage ? (
         <div>
-          {' '}
           {successMessage}
           <button onClick={() => setSuccessMessage(null)}>
             Create another post?
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className='create-form' onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor='title'> Title:</label>
           <input {...register('title', { required: true })} />
           {errors.title && <span>This field is required</span>}
