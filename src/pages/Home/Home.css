@@ -1,0 +1,41 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.welcome-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 10px 10px 30px 10px;
+  margin: 20px 0px 20px 0px;
+  border-bottom: 1px solid #d4d4d8;
+  width: 100%;
+}
+
+.welcome-container h4 {
+  font-size: 25px;
+}
+
+.welcome-image {
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+}
+
+.register-button {
+  background-color: #7e22ce;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  color: #f8fafc;
+  transition: 500ms;
+}
+
+.register-button:hover {
+  cursor: pointer;
+  background-color: #621aa144;
+}
