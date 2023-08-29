@@ -1,11 +1,19 @@
 import './Blog.css';
 
-const Blog = ({ title, caption, image }) => {
+const Blog = ({ image, region, title, caption, author, createdAt }) => {
   return (
-    <div>
-      <div>{title}</div>
-      <div>{caption}</div>
-      <div>{image}</div>
+    <div className='blog-container'>
+      <div>
+        <img className='travel-image' src={image} alt='travel image' />
+      </div>
+      <div className='right-blog-container'>
+        <h4>{region}</h4>
+        <h6>{title}</h6>
+        <p>{caption}</p>
+        <p className='blog-credits'>
+          By: {author}, Date: {createdAt}
+        </p>
+      </div>
     </div>
   );
 };

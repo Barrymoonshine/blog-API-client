@@ -31,13 +31,15 @@ const Home = () => {
       {error && <p>Error! {error}</p>}
       {loading && <p>Loading...</p>}
       {data &&
-        data.map((item) => (
+        data.map((blog) => (
           <Blog
-            key={item._id}
-            title={item.title}
-            caption={item.caption}
-            region={item.region}
-            image={item.image}
+            key={blog._id}
+            author={blog.author}
+            title={blog.title}
+            caption={blog.caption}
+            region={blog.region}
+            image={blog.image}
+            createdAt={blog.createdAt}
           />
         ))}
     </div>
