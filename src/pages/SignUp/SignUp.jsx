@@ -62,7 +62,7 @@ const SignUp = () => {
         />
         {errors.confirmPassword && <span>Passwords do not match</span>}
 
-        {error && <span className='error'>{error}</span>}
+        {error && <span className='error'>{error.message}</span>}
         <button disabled={isLoading}> Sign up </button>
       </form>
     </>
