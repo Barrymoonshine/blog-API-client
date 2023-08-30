@@ -17,13 +17,16 @@ const Register = () => {
 
   const onSubmit = async (formData) => {
     try {
-      const response = await fetch('http://localhost:3000/user/register', {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'https://ancient-water-2934.fly.dev/user/register',
+        {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setSuccessMessage(data);

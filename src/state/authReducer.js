@@ -4,7 +4,7 @@ export const initialState = {
   isUserLoggedIn: false,
 };
 
-const userReducer = (state, action) => {
+const authReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case ACTIONS.TOGGLE_LOG_IN:
@@ -17,4 +17,4 @@ const userReducer = (state, action) => {
   }
 };
 
-export default userReducer;
+export default authReducer;

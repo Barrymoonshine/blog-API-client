@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { AuthContext } from '../context/AuthContext';
 import ACTIONS from '../utils/ACTIONS';
 
-const useAppDispatch = () => {
-  const { dispatch } = useContext(AppContext);
+const useAuthDispatch = () => {
+  const { dispatch } = useContext(AuthContext);
 
   const toggleUserLogIn = () => {
     dispatch({
@@ -16,4 +16,4 @@ const useAppDispatch = () => {
   };
 };
 
-export default useAppDispatch;
+export default useAuthDispatch;

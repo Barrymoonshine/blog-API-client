@@ -1,11 +1,11 @@
 import './Header.css';
 import { NavLink } from 'react-router-dom';
-import useAppState from '../../hooks/useAppState';
-import useAppDispatch from '../../hooks/useAppDispatch';
+import useAuthState from '../../hooks/useAuthState';
+import useAuthDispatch from '../../hooks/useAuthDispatch';
 
 const Header = () => {
-  const { isUserLoggedIn } = useAppState();
-  const { toggleUserLogIn } = useAppDispatch();
+  const { isUserLoggedIn } = useAuthState();
+  const { toggleUserLogIn } = useAuthDispatch();
   return (
     <header>
       <p>Region</p>
