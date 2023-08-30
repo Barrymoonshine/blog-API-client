@@ -1,11 +1,9 @@
 import './Header.css';
 import { NavLink } from 'react-router-dom';
 import useAuthState from '../../hooks/useAuthState';
-import useAuthDispatch from '../../hooks/useAuthDispatch';
 
 const Header = () => {
-  const { isUserLoggedIn } = useAuthState();
-  const { toggleUserLogIn } = useAuthDispatch();
+  const { user } = useAuthState();
   return (
     <header>
       <p>Region</p>
@@ -13,7 +11,7 @@ const Header = () => {
         <h3>Sayonara</h3>
       </NavLink>
       <nav>
-        {isUserLoggedIn ? (
+        {user ? (
           <ul>
             <li>
               <NavLink to='/create' style={{ textDecoration: 'none' }}>
@@ -25,9 +23,7 @@ const Header = () => {
                 <h3>My Account</h3>
               </NavLink>
             </li>
-            <li>
-              <button onClick={() => toggleUserLogIn()}>Log out</button>
-            </li>
+            <li>Log out - TBC</li>
           </ul>
         ) : (
           <ul>

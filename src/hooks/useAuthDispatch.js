@@ -5,14 +5,22 @@ import ACTIONS from '../utils/ACTIONS';
 const useAuthDispatch = () => {
   const { dispatch } = useContext(AuthContext);
 
-  const toggleUserLogIn = () => {
+  const logIn = (user) => {
     dispatch({
-      type: ACTIONS.TOGGLE_LOG_IN,
+      type: ACTIONS.LOG_IN,
+      payload: { user },
+    });
+  };
+
+  const logOut = () => {
+    dispatch({
+      type: ACTIONS.LOG_OUT,
     });
   };
 
   return {
-    toggleUserLogIn,
+    logIn,
+    logOut,
   };
 };
 
