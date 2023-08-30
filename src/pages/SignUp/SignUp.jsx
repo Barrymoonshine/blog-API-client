@@ -14,7 +14,7 @@ const SignUp = () => {
   const { createAuth, error, isLoading } = useCreateAuth();
 
   const onSubmit = async (formData) => {
-    await createAuth('https://ancient-water-2934.fly.dev/user/register', {
+    await createAuth('https://ancient-water-2934.fly.dev/user/sign-up', {
       method: 'POST',
       body: JSON.stringify(formData),
       headers: {
