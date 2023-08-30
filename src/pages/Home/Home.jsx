@@ -19,8 +19,8 @@ const Home = () => {
             Sign up for a free account today, to create and edit your very own
             travel blog!
           </p>
-          <Link to='/register' style={{ textDecoration: 'none' }}>
-            <button className='register-button'>Register</button>
+          <Link to='/sign-up' style={{ textDecoration: 'none' }}>
+            Sign up
           </Link>
         </div>
         <div>

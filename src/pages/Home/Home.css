@@ -25,16 +25,3 @@
   height: 90%;
   border-radius: 10px;
 }
-
-.register-button {
-  background-color: #7e22ce;
-  padding: 5px 10px 5px 10px;
-  border-radius: 10px;
-  color: #f8fafc;
-  transition: 500ms;
-}
-
-.register-button:hover {
-  cursor: pointer;
-  background-color: #621aa144;
-}

@@ -1,9 +1,9 @@
-import './Register.css';
+import './SignUp.css';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-const Register = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -104,4 +104,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignUp;
