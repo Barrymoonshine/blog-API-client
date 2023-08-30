@@ -1,5 +1,5 @@
 import './Home.css';
-import useFetch from '../../hooks/useFetch';
+import useFetchGet from '../../hooks/useFetchGet';
 import Blog from '../../components/Blog/Blog';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,9 @@ const Home = () => {
     loading,
     error,
     data = [],
-  } = useFetch('https://ancient-water-2934.fly.dev/blogs', { method: 'GET' });
+  } = useFetchGet('https://ancient-water-2934.fly.dev/blogs', {
+    method: 'GET',
+  });
 
   return (
     <div className='home-container'>

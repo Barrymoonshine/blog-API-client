@@ -1,36 +1,27 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 const useFetch = (url = '', options = null) => {
-  const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Fetch options object not needed for rendering
-  const objRef = useRef(options);
-
-  useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      const fetchData = async () => {
-        setLoading(true);
-        try {
-          const response = await fetch(url, objRef);
-          const json = await response.json();
-          setData(json);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchData();
+  const sendFetch = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(url, options);
+      const json = await response.json();
+      if (response.ok) {
+        // Do something ...?
+      } else {
+        setError(json);
+      }
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
     }
-    return () => {
-      isMounted = false;
-    };
-  }, [url]);
-
-  return { error, data, loading };
+  };
+  return { sendFetch, error, loading };
 };
 
 export default useFetch;
