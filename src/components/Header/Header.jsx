@@ -4,6 +4,7 @@ import useAuthState from '../../hooks/useAuthState';
 
 const Header = () => {
   const { user } = useAuthState();
+  console.log('user', { user });
   return (
     <header>
       <p>Region</p>

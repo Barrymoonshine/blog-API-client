@@ -5,7 +5,7 @@ const useAuthState = () => {
   const { state } = useContext(AuthContext);
 
   return {
-    isUserLoggedIn: state.isUserLoggedIn,
+    user: state.user,
   };
 };
 
