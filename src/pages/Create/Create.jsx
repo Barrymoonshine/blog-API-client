@@ -1,7 +1,7 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import useAuthState from '../../hooks/useAuthState';
+import useFetch from '../../hooks/useFetch';
 
 const Create = () => {
   const {
@@ -13,48 +13,36 @@ const Create = () => {
 
   const { token } = useAuthState();
 
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { sendFetch, success, setSuccess, error, isLoading } = useFetch();
 
   const onSubmit = async (formData) => {
-    try {
-      const multiFormData = new FormData();
+    const multiFormData = new FormData();
 
-      multiFormData.append('title', formData.title);
-      multiFormData.append('caption', formData.caption);
-      multiFormData.append('content', formData.content);
-      multiFormData.append('region', formData.region);
-      multiFormData.append('image', formData.image[0]);
+    multiFormData.append('title', formData.title);
+    multiFormData.append('caption', formData.caption);
+    multiFormData.append('content', formData.content);
+    multiFormData.append('region', formData.region);
+    multiFormData.append('image', formData.image[0]);
 
-      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
-        method: 'POST',
-        body: multiFormData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setSuccessMessage(data);
-        reset();
-      } else {
-        setErrorMessage(data.message);
-        console.log(data);
-      }
-    } catch (err) {
-      setErrorMessage(
-        'An internal server error occurred when sending your request, please try again or report the issue to site maintainer.'
-      );
-      console.log(err);
-    }
+    await sendFetch('https://ancient-water-2934.fly.dev/blogs', {
+      method: 'POST',
+      body: multiFormData,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
 
   return (
     <>
-      {successMessage ? (
+      {success ? (
         <div>
-          {successMessage}
-          <button onClick={() => setSuccessMessage(null)}>
+          {success}
+          <button
+            onClick={() => {
+              reset(), setSuccess(null);
+            }}
+          >
             Create another post?
           </button>
         </div>
@@ -89,13 +77,8 @@ const Create = () => {
           <input {...register('image', { required: true })} type='file' />
           {errors.image && <span>This field is required</span>}
 
-          {errorMessage && (
-            <span>
-              {errorMessage}
-              <button onClick={() => setErrorMessage(null)}>Try again?</button>
-            </span>
-          )}
-          <input type='submit' />
+          {error && <span>{error}</span>}
+          <button disabled={isLoading}> Submit </button>
         </form>
       )}
     </>
