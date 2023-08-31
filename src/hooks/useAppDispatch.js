@@ -1,10 +1,10 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AppContext } from '../context/AppContext';
 import ACTIONS from '../utils/ACTIONS';
 import { useEffect } from 'react';
 
-const useAuthDispatch = () => {
-  const { dispatch } = useContext(AuthContext);
+const useAppDispatch = () => {
+  const { dispatch } = useContext(AppContext);
 
   useEffect(() => {
     // Check for an existing user in local storage on page load
@@ -32,10 +32,19 @@ const useAuthDispatch = () => {
     });
   };
 
+  const saveBlogs = (blogs) => {
+    console.log('Blogs are saved to state', blogs);
+    dispatch({
+      type: ACTIONS.SAVE_BLOGS,
+      payload: blogs,
+    });
+  };
+
   return {
     logIn,
     logOut,
+    saveBlogs,
   };
 };
 
-export default useAuthDispatch;
+export default useAppDispatch;

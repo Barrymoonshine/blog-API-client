@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import useAuthDispatch from '../hooks/useAuthDispatch';
+import useAppDispatch from '../hooks/useAppDispatch';
 
 const useCreateAuth = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { logIn } = useAuthDispatch();
+  const { logIn } = useAppDispatch();
 
   const createAuth = async (url, options) => {
     setIsLoading(true);

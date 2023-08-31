@@ -2,6 +2,7 @@ import ACTIONS from '../utils/ACTIONS';
 
 export const initialState = {
   token: null,
+  blogs: [],
 };
 
 const authReducer = (state, action) => {
@@ -16,6 +17,11 @@ const authReducer = (state, action) => {
       return {
         ...state,
         token: null,
+      };
+    case ACTIONS.SAVE_BLOGS:
+      return {
+        ...state,
+        blogs: payload.blogs,
       };
     default:
       return state;

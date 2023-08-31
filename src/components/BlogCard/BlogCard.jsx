@@ -1,6 +1,6 @@
-import './Blog.css';
+import './BlogCard.css';
 
-const Blog = ({ image, region, title, caption, author, createdAt }) => {
+const BlogCard = ({ image, region, title, caption, author, createdAt }) => {
   return (
     <div className='blog-container'>
       <div>
@@ -18,4 +18,4 @@ const Blog = ({ image, region, title, caption, author, createdAt }) => {
   );
 };
 
-export default Blog;
+export default BlogCard;

@@ -1,6 +1,6 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
-import useAuthState from '../../hooks/useAuthState';
+import useAppState from '../../hooks/useAppState';
 import useFetch from '../../hooks/useFetch';
 
 const Create = () => {
@@ -11,7 +11,7 @@ const Create = () => {
     formState: { errors },
   } = useForm();
 
-  const { token } = useAuthState();
+  const { token } = useAppState();
 
   const { sendFetch, success, setSuccess, error, isLoading } = useFetch();
 

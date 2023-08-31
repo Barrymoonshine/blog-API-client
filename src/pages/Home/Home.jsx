@@ -1,6 +1,6 @@
 import './Home.css';
 import useFetchGet from '../../hooks/useFetchGet';
-import Blog from '../../components/Blog/Blog';
+import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -37,7 +37,7 @@ const Home = () => {
       {loading && <p>Loading...</p>}
       {data &&
         data.map((blog) => (
-          <Blog
+          <BlogCard
             key={blog._id}
             author={blog.author}
             title={blog.title}
