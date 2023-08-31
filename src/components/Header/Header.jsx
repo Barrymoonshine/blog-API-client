@@ -4,7 +4,7 @@ import useAuthState from '../../hooks/useAuthState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
 
 const Header = () => {
-  const { user } = useAuthState();
+  const { token } = useAuthState();
   const { logOut } = useAuthDispatch();
 
   return (
@@ -14,7 +14,7 @@ const Header = () => {
         <h3>Sayonara</h3>
       </NavLink>
       <nav>
-        {user ? (
+        {token ? (
           <ul>
             <li>
               <NavLink to='/create' style={{ textDecoration: 'none' }}>

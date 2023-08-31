@@ -13,7 +13,7 @@ const useAuthDispatch = () => {
       console.log('existing user in local storage', token);
       dispatch({
         type: ACTIONS.LOG_IN,
-        payload: { token },
+        payload: token,
       });
     }
   }, []);

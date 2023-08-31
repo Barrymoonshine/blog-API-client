@@ -5,7 +5,7 @@ const useAuthState = () => {
   const { state } = useContext(AuthContext);
 
   return {
-    user: state.user,
+    token: state.token,
   };
 };
 

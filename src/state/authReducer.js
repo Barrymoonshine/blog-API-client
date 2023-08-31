@@ -1,7 +1,7 @@
 import ACTIONS from '../utils/ACTIONS';
 
 export const initialState = {
-  user: null,
+  token: null,
 };
 
 const authReducer = (state, action) => {
@@ -10,12 +10,12 @@ const authReducer = (state, action) => {
     case ACTIONS.LOG_IN:
       return {
         ...state,
-        user: payload.token,
+        token: payload.token,
       };
     case ACTIONS.LOG_OUT:
       return {
         ...state,
-        user: null,
+        token: null,
       };
     default:
       return state;

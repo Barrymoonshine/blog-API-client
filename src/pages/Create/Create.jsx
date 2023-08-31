@@ -1,6 +1,7 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import useAuthState from '../../hooks/useAuthState';
 
 const Create = () => {
   const {
@@ -9,6 +10,8 @@ const Create = () => {
     reset,
     formState: { errors },
   } = useForm();
+
+  const { token } = useAuthState();
 
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -26,6 +29,9 @@ const Create = () => {
       const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
         method: 'POST',
         body: multiFormData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await response.json();
       if (response.ok) {
@@ -84,12 +90,10 @@ const Create = () => {
           {errors.image && <span>This field is required</span>}
 
           {errorMessage && (
-            <div>
-              {errorMessage.map((error) => {
-                <p>{error}</p>;
-              })}
+            <span>
+              {errorMessage}
               <button onClick={() => setErrorMessage(null)}>Try again?</button>
-            </div>
+            </span>
           )}
           <input type='submit' />
         </form>
