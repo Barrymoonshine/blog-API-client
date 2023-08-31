@@ -1,6 +1,7 @@
 import './BlogCard.css';
+import { Link } from 'react-router-dom';
 
-const BlogCard = ({ image, region, title, caption, author, createdAt }) => {
+const BlogCard = ({ id, image, region, title, caption, author, createdAt }) => {
   return (
     <div className='blog-container'>
       <div>
@@ -10,6 +11,7 @@ const BlogCard = ({ image, region, title, caption, author, createdAt }) => {
         <h4>{region}</h4>
         <h6>{title}</h6>
         <p>{caption}</p>
+        <Link to={`/blog/${id}`}>More Details</Link>
         <p className='blog-credits'>
           By: {author}, Date: {createdAt}
         </p>

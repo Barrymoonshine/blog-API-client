@@ -39,6 +39,7 @@ const Home = () => {
         data.map((blog) => (
           <BlogCard
             key={blog._id}
+            id={blog._id}
             author={blog.author}
             title={blog.title}
             caption={blog.caption}

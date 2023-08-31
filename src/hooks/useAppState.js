@@ -6,6 +6,7 @@ const useAppState = () => {
 
   return {
     token: state.token,
+    blogs: state.blogs,
   };
 };
 

@@ -33,10 +33,9 @@ const useAppDispatch = () => {
   };
 
   const saveBlogs = (blogs) => {
-    console.log('Blogs are saved to state', blogs);
     dispatch({
       type: ACTIONS.SAVE_BLOGS,
-      payload: blogs,
+      payload: { blogs },
     });
   };
 

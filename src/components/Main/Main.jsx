@@ -6,6 +6,7 @@ import MyAccount from '../../pages/MyAccount/MyAccount';
 import NotFound from '../../pages/NotFound/NotFound';
 import LogIn from '../../pages/LogIn/LogIn';
 import SignUp from '../../pages/SignUp/SignUp';
+import Blog from '../../pages/Blog/Blog';
 
 const Main = () => {
   return (
@@ -16,6 +17,7 @@ const Main = () => {
         <Route path='/log-in' element={<LogIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/my-account' element={<MyAccount />} />
+        <Route path='/blog/:id' element={<Blog />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </main>
