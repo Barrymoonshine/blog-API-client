@@ -1,10 +1,12 @@
 import './Header.css';
 import { NavLink } from 'react-router-dom';
 import useAuthState from '../../hooks/useAuthState';
+import useAuthDispatch from '../../hooks/useAuthDispatch';
 
 const Header = () => {
   const { user } = useAuthState();
-  console.log('user', { user });
+  const { logOut } = useAuthDispatch();
+
   return (
     <header>
       <p>Region</p>
@@ -24,7 +26,9 @@ const Header = () => {
                 <h3>My Account</h3>
               </NavLink>
             </li>
-            <li>Log out - TBC</li>
+            <li>
+              <button onClick={() => logOut()}>Log out</button>
+            </li>
           </ul>
         ) : (
           <ul>

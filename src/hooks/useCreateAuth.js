@@ -14,7 +14,7 @@ const useCreateAuth = () => {
       const json = await response.json();
       if (response.ok) {
         logIn(json);
-        localStorage.setItem('user', JSON.stringify(json));
+        localStorage.setItem('token', JSON.stringify(json));
       } else {
         setError(json);
       }
