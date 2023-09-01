@@ -8,17 +8,19 @@ const Blog = () => {
   const blog = blogs.find((item) => item._id === id);
 
   return (
-    <div>
-      <div>
-        <img className='travel-image' src={blog.image} alt='travel image' />
-      </div>
-      <div className='right-blog-container'>
-        <h4>{blog.region}</h4>
-        <h6>{blog.title}</h6>
-        <p>{blog.caption}</p>
-        <p className='blog-credits'>
-          By: {blog.author}, Date: {blog.createdAt}
+    <div className='blog-page-container'>
+      <div className='blog-title'>
+        <h4>{blog.title}</h4>
+        <p>
+          By: {blog.author} || Date: {blog.createdAt.slice(0, 10)}
         </p>
+      </div>
+      <div>
+        <img className='blog-image' src={blog.image} alt='travel image' />
+      </div>
+      <div className='blog-content'>
+        <h5>{blog.region}</h5>
+        <p>{blog.content}</p>
       </div>
     </div>
   );

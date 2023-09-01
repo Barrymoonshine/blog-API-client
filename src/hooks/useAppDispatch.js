@@ -12,16 +12,13 @@ const useAppDispatch = () => {
     // Check for an existing user in local storage on page load
     const token = JSON.parse(localStorage.getItem('token'));
     if (token) {
-      console.log('existing user in local storage', token);
       dispatch({
         type: ACTIONS.LOG_IN,
         payload: token,
       });
     }
-    // Check for blogs saved in state on page load
-    console.log('blogs', blogs);
+    // Save blogs in state on page load
     if (!blogs) {
-      console.log('No blogs saved');
       let isMounted = true;
       if (isMounted) {
         const fetchData = async () => {
