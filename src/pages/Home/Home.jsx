@@ -1,16 +1,10 @@
 import './Home.css';
-import useFetchGet from '../../hooks/useFetchGet';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
+import useAppState from '../../hooks/useAppState';
 
 const Home = () => {
-  const {
-    loading,
-    error,
-    data = [],
-  } = useFetchGet('https://ancient-water-2934.fly.dev/blogs', {
-    method: 'GET',
-  });
+  const { isLoading, error, blogs } = useAppState();
 
   return (
     <div className='home-container'>
@@ -34,13 +28,12 @@ const Home = () => {
         </div>
       </div>
       {error && <p>Error! {error}</p>}
-      {loading && <p>Loading...</p>}
-      {data &&
-        data.map((blog) => (
+      {isLoading && <p>Loading...</p>}
+      {blogs &&
+        blogs.map((blog) => (
           <BlogCard
             key={blog._id}
             id={blog._id}
-            author={blog.author}
             title={blog.title}
             caption={blog.caption}
             region={blog.region}

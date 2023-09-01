@@ -2,7 +2,9 @@ import ACTIONS from '../utils/ACTIONS';
 
 export const initialState = {
   token: null,
-  blogs: [],
+  isLoading: false,
+  error: null,
+  blogs: null,
 };
 
 const authReducer = (state, action) => {
@@ -18,10 +20,20 @@ const authReducer = (state, action) => {
         ...state,
         token: null,
       };
+    case ACTIONS.TOGGLE_LOADING:
+      return {
+        ...state,
+        isLoading: !state.isLoading,
+      };
     case ACTIONS.SAVE_BLOGS:
       return {
         ...state,
         blogs: payload.blogs,
+      };
+    case ACTIONS.UPDATE_ERROR:
+      return {
+        ...state,
+        blogs: payload.err,
       };
     default:
       return state;

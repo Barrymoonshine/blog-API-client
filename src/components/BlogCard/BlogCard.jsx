@@ -1,7 +1,7 @@
 import './BlogCard.css';
 import { Link } from 'react-router-dom';
 
-const BlogCard = ({ id, image, region, title, caption, author, createdAt }) => {
+const BlogCard = ({ id, image, region, title, caption, createdAt }) => {
   return (
     <div className='blog-container'>
       <div>
@@ -12,9 +12,7 @@ const BlogCard = ({ id, image, region, title, caption, author, createdAt }) => {
         <h6>{title}</h6>
         <p>{caption}</p>
         <Link to={`/blog/${id}`}>More Details</Link>
-        <p className='blog-credits'>
-          By: {author}, Date: {createdAt}
-        </p>
+        <p className='blog-credits'>By: TBC, Date: {createdAt} </p>
       </div>
     </div>
   );
