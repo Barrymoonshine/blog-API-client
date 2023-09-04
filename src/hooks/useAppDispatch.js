@@ -10,19 +10,40 @@ const useAppDispatch = () => {
 
   useEffect(() => {
     // Check for an existing user in local storage on page load
-    const token = JSON.parse(localStorage.getItem('token'));
+    const user = JSON.parse(localStorage.getItem('user'));
     // const username = JSON.parse(localStorage.getItem('username'));
 
-    if (token) {
-      dispatch({
-        type: ACTIONS.LOG_IN,
-        payload: token,
-      });
-      // dispatch({
-      //   type: ACTIONS.SET_USERNAME,
-      //   payload: username,
-      // });
+    if (user) {
+      const isTokenExpired = async () => {
+        const response = await fetch(
+          'https://ancient-water-2934.fly.dev/user/authenticate',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        // Only load the user's token into state if it hasn't expired
+        if (response.ok) {
+          console.log('response ok, user', user);
+          dispatch({
+            type: ACTIONS.LOG_IN,
+            payload: { user },
+          });
+        } else {
+          console.log(data);
+        }
+      };
+      isTokenExpired();
     }
+
+    // dispatch({
+    //   type: ACTIONS.SET_USERNAME,
+    //   payload: username,
+    // });
+
     // Save blogs in state on page load
     if (!blogs) {
       let isMounted = true;
@@ -60,32 +81,23 @@ const useAppDispatch = () => {
     }
   }, []);
 
-  const logIn = (token) => {
+  const logIn = (json) => {
     dispatch({
       type: ACTIONS.LOG_IN,
-      payload: token,
+      payload: json,
     });
   };
 
   const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem('user');
     dispatch({
       type: ACTIONS.LOG_OUT,
-    });
-  };
-
-  const setUsername = (username) => {
-    dispatch({
-      type: ACTIONS.SET_USERNAME,
-      payload: { username },
     });
   };
 
   return {
     logIn,
     logOut,
-    setUsername,
   };
 };
 

@@ -1,7 +1,7 @@
 import ACTIONS from '../utils/ACTIONS';
 
 export const initialState = {
-  token: null,
+  user: null,
   username: 'BarryMoonshine',
   isLoading: false,
   error: null,
@@ -12,15 +12,10 @@ const authReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case ACTIONS.LOG_IN:
-      console.log('payload', payload);
+      console.log('payload.user', payload.user);
       return {
         ...state,
-        token: payload.token,
-      };
-    case ACTIONS.SET_USERNAME:
-      return {
-        ...state,
-        token: payload.username,
+        user: payload.user,
       };
     case ACTIONS.LOG_OUT:
       return {

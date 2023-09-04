@@ -5,7 +5,7 @@ const useAppState = () => {
   const { state } = useContext(AppContext);
 
   return {
-    token: state.token,
+    user: state.user,
     username: state.username,
     isLoading: state.isLoading,
     error: state.isLoading,

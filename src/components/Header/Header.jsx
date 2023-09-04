@@ -4,10 +4,11 @@ import useAppState from '../../hooks/useAppState';
 import useAppDispatch from '../../hooks/useAppDispatch';
 
 const Header = () => {
-  const { token } = useAppState();
+  const { user } = useAppState();
   const { logOut } = useAppDispatch();
 
-  console.log('token on Header', token);
+  console.log('user', user);
+
   return (
     <header>
       <p>Region</p>
@@ -15,7 +16,7 @@ const Header = () => {
         <h3>Sayonara</h3>
       </NavLink>
       <nav>
-        {token ? (
+        {user ? (
           <ul>
             <li>
               <NavLink to='/create' style={{ textDecoration: 'none' }}>

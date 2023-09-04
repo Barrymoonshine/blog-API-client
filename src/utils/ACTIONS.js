@@ -1,11 +1,9 @@
 const ACTIONS = {
-  LOG_IN: 'log-user-in',
+  LOG_IN: 'set-user-object-properties-username-accessToken-refreshToken',
   LOG_OUT: 'log-user-out',
   SAVE_BLOGS: 'save-all-blogs',
   UPDATE_ERROR: 'update-error-from-server',
   TOGGLE_LOADING: 'toggle-loading-status',
-  SET_USERNAME: 'add-username-to-state',
-  REMOVE_USERNAME: 'remove-username-from-state',
 };
 
 export default ACTIONS;
