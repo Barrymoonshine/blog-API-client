@@ -4,6 +4,8 @@ const ACTIONS = {
   SAVE_BLOGS: 'save-all-blogs',
   UPDATE_ERROR: 'update-error-from-server',
   TOGGLE_LOADING: 'toggle-loading-status',
+  SET_USERNAME: 'add-username-to-state',
+  REMOVE_USERNAME: 'remove-username-from-state',
 };
 
 export default ACTIONS;

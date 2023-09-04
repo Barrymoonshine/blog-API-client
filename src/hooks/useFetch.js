@@ -2,12 +2,12 @@ import { useState } from 'react';
 
 const useFetch = () => {
   const [success, setSuccess] = useState(null);
-  const [error, setError] = useState(null);
+  const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const sendFetch = async (url, options) => {
     setIsLoading(true);
-    setError(null);
+    setIsError(null);
     setSuccess(null);
     try {
       const response = await fetch(url, options);
@@ -17,15 +17,15 @@ const useFetch = () => {
         return response;
       } else {
         setIsLoading(false);
-        setError(json);
+        setIsError(json);
       }
     } catch (err) {
-      setError(err);
+      setIsError(err);
     } finally {
       setIsLoading(false);
     }
   };
-  return { sendFetch, success, setSuccess, error, isLoading };
+  return { sendFetch, success, setSuccess, isError, isLoading };
 };
 
 export default useFetch;

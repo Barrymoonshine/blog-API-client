@@ -7,6 +7,7 @@ const Header = () => {
   const { token } = useAppState();
   const { logOut } = useAppDispatch();
 
+  console.log('token on Header', token);
   return (
     <header>
       <p>Region</p>

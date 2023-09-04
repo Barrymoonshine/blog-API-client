@@ -13,7 +13,7 @@ const Create = () => {
 
   const { token } = useAppState();
 
-  const { sendFetch, success, setSuccess, error, isLoading } = useFetch();
+  const { sendFetch, success, setSuccess, isError, isLoading } = useFetch();
 
   const onSubmit = async (formData) => {
     const multiFormData = new FormData();
@@ -77,7 +77,7 @@ const Create = () => {
           <input {...register('image', { required: true })} type='file' />
           {errors.image && <span>This field is required</span>}
 
-          {error && <span>{error}</span>}
+          {isError && <span>{isError}</span>}
           <button disabled={isLoading}> Submit </button>
         </form>
       )}

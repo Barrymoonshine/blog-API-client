@@ -1,37 +1,38 @@
-// import { useState, useEffect } from 'react';
-// import useAppDispatch from '../hooks/useAppDispatch';
+import { useState, useEffect } from 'react';
+import { useRef } from 'react';
 
-// const useFetchGet = (url = '') => {
-//   const [data, setData] = useState(null);
-//   const [error, setError] = useState(null);
-//   const [loading, setLoading] = useState(false);
+const useFetchGet = (url = '', options = null) => {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-//   const { saveBlogs } = useAppDispatch();
+  // Obj reference fixed with useRef, not needed for rendering
+  const objRef = useRef(options);
 
-//   useEffect(() => {
-//     let isMounted = true;
-//     if (isMounted) {
-//       const fetchData = async () => {
-//         setLoading(true);
-//         try {
-//           const response = await fetch(url, { method: 'GET' });
-//           const json = await response.json();
-//           saveBlogs(json);
-//           setData(json);
-//         } catch (err) {
-//           setError(err);
-//         } finally {
-//           setLoading(false);
-//         }
-//       };
-//       fetchData();
-//     }
-//     return () => {
-//       isMounted = false;
-//     };
-//   }, [url]);
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch(url, objRef);
+          const json = await response.json();
 
-//   return { error, data, loading };
-// };
+          setData(json);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [url]);
 
-// export default useFetchGet;
+  return { error, data, loading };
+};
+
+export default useFetchGet;
