@@ -6,8 +6,47 @@ import useAppState from './useAppState';
 import { getItem, removeItem } from '../helpers/localStorage';
 
 const useAppDispatch = () => {
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const { blogs } = useAppState();
+
+  const logIn = (token) => {
+    dispatch({
+      type: ACTIONS.LOG_IN,
+      payload: { token },
+    });
+  };
+
+  const toggleLoading = () => {
+    dispatch({
+      type: ACTIONS.TOGGLE_LOADING,
+    });
+  };
+
+  const updateError = (err) => {
+    dispatch({
+      type: ACTIONS.UPDATE_ERROR,
+      payload: { err },
+    });
+  };
+
+  const logOut = () => {
+    removeItem('token');
+    dispatch({
+      type: ACTIONS.LOG_OUT,
+    });
+  };
+
+  const saveComments = (comments) => {
+    // Allow for initial update to comments value of null
+    const newComments = state.comments
+      ? [...state.comments, comments]
+      : comments;
+    console.log('newComments', newComments);
+    dispatch({
+      type: ACTIONS.SAVE_COMMENTS,
+      payload: { newComments },
+    });
+  };
 
   // Only run on page-load
   useEffect(() => {
@@ -36,9 +75,7 @@ const useAppDispatch = () => {
       let isMounted = true;
       if (isMounted) {
         const fetchData = async () => {
-          dispatch({
-            type: ACTIONS.TOGGLE_LOADING,
-          });
+          toggleLoading();
           try {
             const response = await fetch(
               'https://ancient-water-2934.fly.dev/blogs',
@@ -50,14 +87,9 @@ const useAppDispatch = () => {
               payload: { blogs },
             });
           } catch (err) {
-            dispatch({
-              type: ACTIONS.UPDATE_ERROR,
-              payload: { err },
-            });
+            updateError(err);
           } finally {
-            dispatch({
-              type: ACTIONS.TOGGLE_LOADING,
-            });
+            toggleLoading();
           }
         };
         fetchData();
@@ -68,23 +100,12 @@ const useAppDispatch = () => {
     }
   }, []);
 
-  const logIn = (token) => {
-    dispatch({
-      type: ACTIONS.LOG_IN,
-      payload: { token },
-    });
-  };
-
-  const logOut = () => {
-    removeItem('token');
-    dispatch({
-      type: ACTIONS.LOG_OUT,
-    });
-  };
-
   return {
     logIn,
+    toggleLoading,
+    updateError,
     logOut,
+    saveComments,
   };
 };
 

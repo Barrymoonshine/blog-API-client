@@ -6,6 +6,7 @@ export const initialState = {
   isLoading: false,
   error: null,
   blogs: null,
+  comments: null,
 };
 
 const authReducer = (state, action) => {
@@ -35,6 +36,12 @@ const authReducer = (state, action) => {
       return {
         ...state,
         blogs: payload.err,
+      };
+    case ACTIONS.SAVE_COMMENTS:
+      console.log('payload.newComments', payload.newComments);
+      return {
+        ...state,
+        comments: payload.newComments,
       };
     default:
       return state;

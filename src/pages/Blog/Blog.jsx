@@ -1,5 +1,6 @@
 import './Blog.css';
 import useAppState from '../../hooks/useAppState';
+import useAppDispatch from '../../hooks/useAppDispatch';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
@@ -7,7 +8,8 @@ import useFetchGet from '../../hooks/useFetchGet';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs, username, token } = useAppState();
+  const { blogs, username, token, comments } = useAppState();
+  const { saveComments } = useAppDispatch();
 
   const { id } = useParams();
 
@@ -18,42 +20,42 @@ const Blog = () => {
     formState: { errors },
   } = useForm();
 
-  const { sendFetch, success, setSuccess, isError, isLoading } = useFetch();
+  const { sendFetch, isError, isLoading } = useFetch();
 
-  const {
-    loading,
-    error,
-    data = [],
-  } = useFetchGet(`https://ancient-water-2934.fly.dev/comments/${id}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const { loading, error } = useFetchGet(
+    `https://ancient-water-2934.fly.dev/comments/${id}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   const blog = blogs.find((item) => item._id === id);
 
   const onSubmit = async (formData) => {
-    console.log('formData', formData);
-
-    const bodyData = {
+    const newComment = {
       ...formData,
       blogID: id,
       username: username,
       date: '5 Sept 23',
     };
-
-    console.log('bodyData', bodyData);
-
     await sendFetch('https://ancient-water-2934.fly.dev/comments', {
       method: 'POST',
-      body: JSON.stringify(bodyData),
+      body: JSON.stringify(newComment),
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });
+    if (!isError) {
+      saveComments(newComment);
+      reset();
+    }
   };
+
+  console.log('comments on Blog', comments);
 
   return (
     <>
@@ -96,8 +98,8 @@ const Blog = () => {
           </form>
           {loading && <p>Comments are loading </p>}
           {error && <p>{error} </p>}
-          {data &&
-            data.map((item) => (
+          {comments &&
+            comments.map((item) => (
               <CommentCard key={item._id} comment={item.comment} />
             ))}
         </div>

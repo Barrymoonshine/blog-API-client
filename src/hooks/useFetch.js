@@ -25,6 +25,7 @@ const useFetch = () => {
       setIsLoading(false);
     }
   };
+
   return { sendFetch, success, setSuccess, isError, isLoading };
 };
 

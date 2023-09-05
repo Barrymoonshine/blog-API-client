@@ -4,6 +4,7 @@ const ACTIONS = {
   SAVE_BLOGS: 'save-all-blogs',
   UPDATE_ERROR: 'update-error-from-server',
   TOGGLE_LOADING: 'toggle-loading-status',
+  SAVE_COMMENTS: 'save-all-comments',
 };
 
 export default ACTIONS;
