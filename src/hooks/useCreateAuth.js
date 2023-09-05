@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
+import { saveItem } from '../helpers/localStorage';
 
 const useCreateAuth = () => {
   const [error, setError] = useState(null);
@@ -11,12 +12,13 @@ const useCreateAuth = () => {
     setError(null);
     try {
       const response = await fetch(url, options);
-      const json = await response.json();
+      const data = await response.json();
       if (response.ok) {
-        logIn(json);
-        localStorage.setItem('user', JSON.stringify(json));
+        // Save token value
+        saveItem('token', data.token);
+        logIn(data.token);
       } else {
-        setError(json);
+        setError(data);
       }
     } catch (err) {
       setError(err);

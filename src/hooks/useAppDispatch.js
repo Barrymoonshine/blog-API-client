@@ -3,48 +3,35 @@ import { AppContext } from '../context/AppContext';
 import ACTIONS from '../utils/ACTIONS';
 import { useEffect } from 'react';
 import useAppState from './useAppState';
+import { getItem } from '../helpers/localStorage';
 
 const useAppDispatch = () => {
   const { dispatch } = useContext(AppContext);
   const { blogs } = useAppState();
 
+  // Only run on page-load
   useEffect(() => {
-    // Check for an existing user in local storage on page load
-    const user = JSON.parse(localStorage.getItem('user'));
-    // const username = JSON.parse(localStorage.getItem('username'));
-
-    if (user) {
-      const isTokenExpired = async () => {
-        const response = await fetch(
-          'https://ancient-water-2934.fly.dev/user/authenticate',
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        const data = await response.json();
-        // Only load the user's token into state if it hasn't expired
-        if (response.ok) {
-          console.log('response ok, user', user);
-          dispatch({
-            type: ACTIONS.LOG_IN,
-            payload: { user },
-          });
-        } else {
-          console.log(data);
+    // Check whether token is present and still valid
+    const token = getItem('token');
+    const verifyToken = async () => {
+      const response = await fetch(
+        'https://ancient-water-2934.fly.dev/user/authenticate',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      };
-      isTokenExpired();
+      );
+      if (response.ok) {
+        logIn(token);
+      }
+    };
+    if (token) {
+      verifyToken();
     }
 
-    // dispatch({
-    //   type: ACTIONS.SET_USERNAME,
-    //   payload: username,
-    // });
-
-    // Save blogs in state on page load
+    // Save blogs
     if (!blogs) {
       let isMounted = true;
       if (isMounted) {
@@ -81,15 +68,15 @@ const useAppDispatch = () => {
     }
   }, []);
 
-  const logIn = (json) => {
+  const logIn = (token) => {
     dispatch({
       type: ACTIONS.LOG_IN,
-      payload: json,
+      payload: { token },
     });
   };
 
   const logOut = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     dispatch({
       type: ACTIONS.LOG_OUT,
     });
