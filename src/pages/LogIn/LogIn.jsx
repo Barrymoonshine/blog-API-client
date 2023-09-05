@@ -1,7 +1,6 @@
 import './LogIn.css';
 import { useForm } from 'react-hook-form';
 import useCreateAuth from '../../hooks/useCreateAuth';
-import useAppState from '../../hooks/useAppState';
 
 const LogIn = () => {
   const {

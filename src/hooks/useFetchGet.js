@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useRef } from 'react';
 
 const useFetchGet = (url = '', options = null) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // Obj reference fixed with useRef, not needed for rendering
-  const objRef = useRef(options);
 
   useEffect(() => {
     let isMounted = true;
@@ -15,9 +11,8 @@ const useFetchGet = (url = '', options = null) => {
       const fetchData = async () => {
         setLoading(true);
         try {
-          const response = await fetch(url, objRef);
+          const response = await fetch(url, options);
           const json = await response.json();
-
           setData(json);
         } catch (err) {
           setError(err);
@@ -30,6 +25,7 @@ const useFetchGet = (url = '', options = null) => {
     return () => {
       isMounted = false;
     };
+    // Options is an object and it's reference should be fixed and not needed for re-rendering, hence it's not included in the dependency array
   }, [url]);
 
   return { error, data, loading };

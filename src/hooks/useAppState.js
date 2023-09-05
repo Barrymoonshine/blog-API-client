@@ -6,6 +6,7 @@ const useAppState = () => {
 
   return {
     token: state.token,
+    username: state.username,
     isLoading: state.isLoading,
     error: state.isLoading,
     blogs: state.blogs,

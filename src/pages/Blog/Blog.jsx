@@ -31,25 +31,23 @@ const Blog = () => {
     },
   });
 
-  console.log('blogs on Blog', blogs);
-
-  console.log('data', data);
-
-  console.log('!data', !data);
-
-  console.log('data === null', data === null);
-
   const blog = blogs.find((item) => item._id === id);
 
   const onSubmit = async (formData) => {
+    console.log('formData', formData);
+
+    const bodyData = {
+      ...formData,
+      blogID: id,
+      username: username,
+      date: '5 Sept 23',
+    };
+
+    console.log('bodyData', bodyData);
+
     await sendFetch('https://ancient-water-2934.fly.dev/comments', {
       method: 'POST',
-      body: JSON.stringify({
-        ...formData,
-        blogID: id,
-        username: username,
-        date: new Date(),
-      }),
+      body: JSON.stringify(bodyData),
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -91,6 +89,7 @@ const Blog = () => {
             {errors.comment && <span>This field is required</span>}
 
             {error && <span>{error}</span>}
+            {isError && <span>{isError.message}</span>}
             <button className='submit-button' disabled={isLoading}>
               Submit
             </button>

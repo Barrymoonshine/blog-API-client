@@ -3,7 +3,7 @@ import { AppContext } from '../context/AppContext';
 import ACTIONS from '../utils/ACTIONS';
 import { useEffect } from 'react';
 import useAppState from './useAppState';
-import { getItem } from '../helpers/localStorage';
+import { getItem, removeItem } from '../helpers/localStorage';
 
 const useAppDispatch = () => {
   const { dispatch } = useContext(AppContext);
@@ -76,7 +76,7 @@ const useAppDispatch = () => {
   };
 
   const logOut = () => {
-    localStorage.removeItem('token');
+    removeItem('token');
     dispatch({
       type: ACTIONS.LOG_OUT,
     });
