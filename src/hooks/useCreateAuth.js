@@ -12,10 +12,8 @@ const useCreateAuth = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log('options', options);
-      console.log('options.body.username', options.body.username);
       if (response.ok) {
-        handleLogIn(data.token, options.body.username);
+        handleLogIn(data.token, JSON.parse(options.body).username);
       } else {
         setError(data);
       }
