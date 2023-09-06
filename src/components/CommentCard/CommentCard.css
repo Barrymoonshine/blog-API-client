@@ -1,0 +1,26 @@
+.comment-card-container {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  width: 600px;
+  height: 75px;
+  border: 1px solid #9f9fa5;
+  margin: 10px 0px 10px 0px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.comment-card-container h6 {
+  margin: 0px 0px 10px 0px;
+  font-size: 15px;
+}
+
+.comment-card-container span {
+  padding-bottom: 5px;
+}
+
+.blog-date {
+  padding-top: 5px;
+  font-size: 12px;
+}

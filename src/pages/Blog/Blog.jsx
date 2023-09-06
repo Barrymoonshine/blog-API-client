@@ -53,24 +53,26 @@ const Blog = () => {
   return (
     <>
       <div className='blog-page-container'>
-        <div className='blog-title'>
-          <h4>{blog.title}</h4>
-          <p>By: TBC, blog.author || Date: {blog.createdAt.slice(0, 10)}</p>
-        </div>
         <div>
-          <img className='blog-image' src={blog.image} alt='travel image' />
+          <div className='blog-title'>
+            <h4>{blog.title}</h4>
+            <p>By: TBC, blog.author || Date: {blog.createdAt.slice(0, 10)}</p>
+          </div>
+          <div>
+            <img className='blog-image' src={blog.image} alt='travel image' />
+          </div>
+          <div className='blog-content'>
+            <h5>{blog.region}</h5>
+            <p>{blog.content}</p>
+          </div>
+          <button>Like - TBC</button>
         </div>
-        <div className='blog-content'>
-          <h5>{blog.region}</h5>
-          <p>{blog.content}</p>
-        </div>
-        <button>Like - TBC</button>
-      </div>
-      <div className='comments-container'>
         <div className='comments-title'>
           <h4>Comments</h4>
         </div>
-        <div>
+      </div>
+      <div className='comments-container'>
+        <div className='comment-form-container'>
           <form className='comment-form' onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor='content'> Add comment:</label>
             <textarea
@@ -87,17 +89,18 @@ const Blog = () => {
               Submit
             </button>
           </form>
-          {loading && <p>Comments are loading </p>}
-          {error && <p>{error.message} </p>}
-          {comments &&
-            comments.map((item) => (
-              <CommentCard
-                key={item._id}
-                username={item.username}
-                comment={item.comment}
-              />
-            ))}
         </div>
+        {loading && <p>Comments are loading </p>}
+        {error && <p>{error.message} </p>}
+        {comments &&
+          comments.map((item) => (
+            <CommentCard
+              key={item._id}
+              username={item.username}
+              comment={item.comment}
+              createdAt={item.createdAt}
+            />
+          ))}
       </div>
     </>
   );
