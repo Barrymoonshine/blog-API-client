@@ -10,18 +10,14 @@ import CommentCard from '../../components/CommentCard/CommentCard';
 const Blog = () => {
   const { blogs, username, token, comments } = useAppState();
   const { addComment } = useAppDispatch();
-
   const { id } = useParams();
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-
   const { sendFetch, isError, isLoading } = useFetch();
-
   const { loading, error } = useGetComments(
     `https://ancient-water-2934.fly.dev/comments/${id}`,
     {
@@ -38,8 +34,7 @@ const Blog = () => {
     const newComment = {
       ...formData,
       blogID: id,
-      username: username,
-      date: '5 Sept 23',
+      username,
     };
     await sendFetch('https://ancient-water-2934.fly.dev/comments', {
       method: 'POST',
@@ -96,7 +91,11 @@ const Blog = () => {
           {error && <p>{error.message} </p>}
           {comments &&
             comments.map((item) => (
-              <CommentCard key={item._id} comment={item.comment} />
+              <CommentCard
+                key={item._id}
+                username={item.username}
+                comment={item.comment}
+              />
             ))}
         </div>
       </div>

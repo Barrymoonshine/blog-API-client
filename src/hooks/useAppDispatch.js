@@ -110,10 +110,9 @@ const useAppDispatch = () => {
           },
         }
       );
-      const data = await response.json();
-      console.log('data', data);
       if (response.ok) {
-        handleLogIn(token, data);
+        const username = getItem('username');
+        handleLogIn(token, username);
       }
     };
     if (token) {
