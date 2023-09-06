@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
-import { saveItem } from '../helpers/localStorage';
 
 const useCreateAuth = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { logIn } = useAppDispatch();
+  const { handleLogIn } = useAppDispatch();
 
   const createAuth = async (url, options) => {
     setIsLoading(true);
@@ -13,10 +12,10 @@ const useCreateAuth = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
+      console.log('options', options);
+      console.log('options.body.username', options.body.username);
       if (response.ok) {
-        // Save token value
-        saveItem('token', data.token);
-        logIn(data.token);
+        handleLogIn(data.token, options.body.username);
       } else {
         setError(data);
       }

@@ -38,7 +38,7 @@ const useAppDispatch = () => {
   };
 
   const removeUsername = () => {
-    removeItem('token');
+    removeItem('username');
     dispatch({
       type: ACTIONS.REMOVE_USERNAME,
     });

@@ -5,7 +5,7 @@ import useAppDispatch from '../../hooks/useAppDispatch';
 
 const Header = () => {
   const { token } = useAppState();
-  const { logOut } = useAppDispatch();
+  const { handleLogOut } = useAppDispatch();
 
   return (
     <header>
@@ -27,7 +27,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <button onClick={() => logOut()}>Log out</button>
+              <button onClick={() => handleLogOut()}>Log out</button>
             </li>
           </ul>
         ) : (
