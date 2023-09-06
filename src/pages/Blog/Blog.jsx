@@ -22,9 +22,6 @@ const Blog = () => {
     `https://ancient-water-2934.fly.dev/comments/${id}`,
     {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     }
   );
 
@@ -70,26 +67,30 @@ const Blog = () => {
         <div className='comments-title'>
           <h4>Comments</h4>
         </div>
+        {username ? (
+          <div className='comment-form-container'>
+            <form className='comment-form' onSubmit={handleSubmit(onSubmit)}>
+              <label htmlFor='content'> Add comment:</label>
+              <textarea
+                {...register('comment', {
+                  required: true,
+                })}
+                placeholder='Type your comment here'
+              />
+              {errors.comment && <span>This field is required</span>}
+
+              {error && <span>{error.message}</span>}
+              {isError && <span>{isError.message}</span>}
+              <button className='submit-button' disabled={isLoading}>
+                Submit
+              </button>
+            </form>
+          </div>
+        ) : (
+          <h5> Please log in to add a comment </h5>
+        )}
       </div>
       <div className='comments-container'>
-        <div className='comment-form-container'>
-          <form className='comment-form' onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor='content'> Add comment:</label>
-            <textarea
-              {...register('comment', {
-                required: true,
-              })}
-              placeholder='Type your comment here'
-            />
-            {errors.comment && <span>This field is required</span>}
-
-            {error && <span>{error.message}</span>}
-            {isError && <span>{isError.message}</span>}
-            <button className='submit-button' disabled={isLoading}>
-              Submit
-            </button>
-          </form>
-        </div>
         {loading && <p>Comments are loading </p>}
         {error && <p>{error.message} </p>}
         {comments &&
