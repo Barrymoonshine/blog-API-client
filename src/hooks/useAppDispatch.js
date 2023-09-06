@@ -53,7 +53,7 @@ const useAppDispatch = () => {
       // Else if the first comment saved in state doesn't match the returned comments from the back-end
       // A new page has been loaded with a new comments array and should be saved directly into state
       // Note, including this check in the first conditional array was resulting in an error when first loading comments
-      // As state was initially null the first element was couldn't be returned
+      // As state was initially null the first element was couldn't be retrieved
       dispatchComments(comments);
     } else {
       // Else new comments belong to existing blog and can be concatenated
@@ -63,8 +63,7 @@ const useAppDispatch = () => {
   };
 
   const addComment = (comment) => {
-    // When adding the first comment onto a blog post, it will be returned as an object from the back-end
-    // This needs to be saved in an array so it can be mapped through on the Blog page
+    // Comments are sent as objects from the Blog page
     const newComments = state.comments
       ? [...state.comments, comment]
       : [comment];

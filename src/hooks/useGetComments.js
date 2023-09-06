@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
 
-// rename to useGetComments
-
-const useFetchGet = (url = '', options = null) => {
+const useGetComments = (url = '', options = null) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -35,10 +33,10 @@ const useFetchGet = (url = '', options = null) => {
     return () => {
       isMounted = false;
     };
-    // Options is an object and it's reference should be fixed and not needed for re-rendering, hence it's not included in the dependency array
+    // Options is an object and it's reference should be fixed and is not needed for re-rendering, hence it's not included in the dependency array
   }, [url]);
 
   return { error, loading };
 };
 
-export default useFetchGet;
+export default useGetComments;

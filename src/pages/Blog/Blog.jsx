@@ -4,7 +4,7 @@ import useAppDispatch from '../../hooks/useAppDispatch';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
-import useFetchGet from '../../hooks/useFetchGet';
+import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
@@ -22,7 +22,7 @@ const Blog = () => {
 
   const { sendFetch, isError, isLoading } = useFetch();
 
-  const { loading, error } = useFetchGet(
+  const { loading, error } = useGetComments(
     `https://ancient-water-2934.fly.dev/comments/${id}`,
     {
       method: 'GET',
