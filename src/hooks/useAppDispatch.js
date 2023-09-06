@@ -93,6 +93,8 @@ const useAppDispatch = () => {
     const newComments = state.comments
       ? [...state.comments, comment]
       : [comment];
+
+    console.log('comment in addComment', comment);
     dispatchComments(newComments);
   };
 

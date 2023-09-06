@@ -42,10 +42,16 @@ const Blog = () => {
       },
     });
     if (!isError) {
-      addComment(newComment);
+      // As the new comment isn't being retrieved from the backend add a createdAt property
+      addComment({
+        ...newComment,
+        createdAt: new Date().toISOString().split('T')[0],
+      });
       reset();
     }
   };
+
+  console.log('comments on Blog', comments);
 
   return (
     <>
@@ -91,13 +97,14 @@ const Blog = () => {
         )}
       </div>
       <div className='comments-container'>
-        {loading && <p>Comments are loading </p>}
-        {error && <p>{error.message} </p>}
+        {isLoading && <p>Comments are loading </p>}
+        {isError && <p>{isError.message} </p>}
         {comments &&
           comments.map((item) => (
             <CommentCard
               key={item._id}
-              username={item.username}
+              author={item.username}
+              username={username}
               comment={item.comment}
               createdAt={item.createdAt}
             />
