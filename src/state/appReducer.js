@@ -38,7 +38,7 @@ const authReducer = (state, action) => {
         blogs: payload.err,
       };
     case ACTIONS.SAVE_COMMENTS:
-      console.log('payload.newComments', payload.newComments);
+      console.log('payload.newComments in appReducer', payload.newComments);
       return {
         ...state,
         comments: payload.newComments,

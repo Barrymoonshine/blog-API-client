@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
 
+// rename to useGetComments
+
 const useFetchGet = (url = '', options = null) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,11 +14,16 @@ const useFetchGet = (url = '', options = null) => {
     if (isMounted) {
       const fetchData = async () => {
         setLoading(true);
+        setError(null);
         try {
           const response = await fetch(url, options);
           const json = await response.json();
-          console.log('json', json);
-          saveComments(json);
+          // When no comments are found, Mongoose returns an empty array
+          if (json.length === 0) {
+            saveComments(null);
+          } else {
+            saveComments(json);
+          }
         } catch (err) {
           setError(err);
         } finally {
