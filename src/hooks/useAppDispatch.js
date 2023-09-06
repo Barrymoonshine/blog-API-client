@@ -3,17 +3,50 @@ import { AppContext } from '../context/AppContext';
 import ACTIONS from '../utils/ACTIONS';
 import { useEffect } from 'react';
 import useAppState from './useAppState';
-import { getItem, removeItem } from '../helpers/localStorage';
+import { saveItem, getItem, removeItem } from '../helpers/localStorage';
 
 const useAppDispatch = () => {
   const { state, dispatch } = useContext(AppContext);
   const { blogs } = useAppState();
 
-  const logIn = (token) => {
+  const saveToken = (token) => {
+    saveItem('token', token);
     dispatch({
-      type: ACTIONS.LOG_IN,
+      type: ACTIONS.SAVE_TOKEN,
       payload: { token },
     });
+  };
+
+  const saveUsername = (username) => {
+    saveItem('username', username);
+    dispatch({
+      type: ACTIONS.SAVE_USERNAME,
+      payload: { username },
+    });
+  };
+
+  const handleLogIn = (token, username) => {
+    saveToken(token);
+    saveUsername(username);
+  };
+
+  const removeToken = () => {
+    removeItem('token');
+    dispatch({
+      type: ACTIONS.REMOVE_TOKEN,
+    });
+  };
+
+  const removeUsername = () => {
+    removeItem('token');
+    dispatch({
+      type: ACTIONS.REMOVE_USERNAME,
+    });
+  };
+
+  const handleLogOut = () => {
+    removeToken();
+    removeUsername();
   };
 
   const toggleLoading = () => {
@@ -26,13 +59,6 @@ const useAppDispatch = () => {
     dispatch({
       type: ACTIONS.UPDATE_ERROR,
       payload: { err },
-    });
-  };
-
-  const logOut = () => {
-    removeItem('token');
-    dispatch({
-      type: ACTIONS.LOG_OUT,
     });
   };
 
@@ -84,8 +110,10 @@ const useAppDispatch = () => {
           },
         }
       );
+      const data = await response.json();
+      console.log('data', data);
       if (response.ok) {
-        logIn(token);
+        handleLogIn(token, data);
       }
     };
     if (token) {
@@ -122,13 +150,15 @@ const useAppDispatch = () => {
     }
   }, []);
 
+  // Order return
   return {
-    logIn,
+    handleLogIn,
+    handleLogOut,
     toggleLoading,
     updateError,
-    logOut,
     saveComments,
     addComment,
+    saveUsername,
   };
 };
 

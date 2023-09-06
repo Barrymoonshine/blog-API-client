@@ -1,8 +1,9 @@
 import ACTIONS from '../utils/ACTIONS';
 
+// order initialState
 export const initialState = {
   token: null,
-  username: 'BarryMoonshine',
+  username: '',
   isLoading: false,
   error: null,
   blogs: null,
@@ -12,15 +13,25 @@ export const initialState = {
 const authReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case ACTIONS.LOG_IN:
+    case ACTIONS.SAVE_TOKEN:
       return {
         ...state,
         token: payload.token,
       };
-    case ACTIONS.LOG_OUT:
+    case ACTIONS.SAVE_USERNAME:
+      return {
+        ...state,
+        username: payload.username,
+      };
+    case ACTIONS.REMOVE_TOKEN:
       return {
         ...state,
         token: null,
+      };
+    case ACTIONS.REMOVE_USERNAME:
+      return {
+        ...state,
+        username: null,
       };
     case ACTIONS.TOGGLE_LOADING:
       return {
@@ -38,7 +49,6 @@ const authReducer = (state, action) => {
         blogs: payload.err,
       };
     case ACTIONS.SAVE_COMMENTS:
-      console.log('payload.newComments in appReducer', payload.newComments);
       return {
         ...state,
         comments: payload.newComments,
