@@ -1,17 +1,34 @@
 import './CommentCard.css';
+import useFetch from '../../hooks/useFetch';
+import useAppDispatch from '../../hooks/useAppDispatch';
 
-const CommentCard = ({ comment, author, createdAt, username }) => {
-  // need two different usernames to compare
-  // Name username coming from comments commentAuthor
+const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
+  const { sendFetch, isError } = useFetch();
+  const { deleteComment } = useAppDispatch();
 
-  // handleDelete request
+  const handleDelete = async () => {
+    await sendFetch(
+      `https://ancient-water-2934.fly.dev/comments/delete/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (!isError) {
+      deleteComment(id);
+    }
+  };
 
   return (
     <div className='comment-card-container'>
       <h6>{author}</h6>
       <span>{comment}</span>
       <span className='blog-date'>{createdAt.slice(0, 10)}</span>
-      {author === username && <button>Delete</button>}
+      {author === username && (
+        <button onClick={() => handleDelete()}>Delete</button>
+      )}
     </div>
   );
 };

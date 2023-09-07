@@ -1,3 +1,4 @@
+import uniqid from 'uniqid';
 import './Blog.css';
 import useAppState from '../../hooks/useAppState';
 import useAppDispatch from '../../hooks/useAppDispatch';
@@ -31,6 +32,8 @@ const Blog = () => {
     const newComment = {
       ...formData,
       blogID: id,
+      commentID: uniqid(),
+      date: new Date().toISOString().split('T')[0],
       username,
     };
     await sendFetch('https://ancient-water-2934.fly.dev/comments', {
@@ -42,16 +45,10 @@ const Blog = () => {
       },
     });
     if (!isError) {
-      // As the new comment isn't being retrieved from the backend add a createdAt property
-      addComment({
-        ...newComment,
-        createdAt: new Date().toISOString().split('T')[0],
-      });
+      addComment(newComment);
       reset();
     }
   };
-
-  console.log('comments on Blog', comments);
 
   return (
     <>
@@ -102,11 +99,13 @@ const Blog = () => {
         {comments &&
           comments.map((item) => (
             <CommentCard
-              key={item._id}
+              key={item.commentID}
+              id={item.commentID}
               author={item.username}
               username={username}
               comment={item.comment}
-              createdAt={item.createdAt}
+              createdAt={item.date}
+              token={token}
             />
           ))}
       </div>

@@ -13,6 +13,7 @@ const Create = () => {
 
   const { token } = useAppState();
 
+  // Get rid of success and use isError instead
   const { sendFetch, success, setSuccess, isError, isLoading } = useFetch();
 
   const onSubmit = async (formData) => {

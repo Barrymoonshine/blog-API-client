@@ -93,8 +93,13 @@ const useAppDispatch = () => {
     const newComments = state.comments
       ? [...state.comments, comment]
       : [comment];
+    dispatchComments(newComments);
+  };
 
-    console.log('comment in addComment', comment);
+  const deleteComment = (id) => {
+    const newComments = state.comments.filter(
+      (comment) => comment.commentID !== id
+    );
     dispatchComments(newComments);
   };
 
@@ -160,6 +165,7 @@ const useAppDispatch = () => {
     saveComments,
     addComment,
     saveUsername,
+    deleteComment,
   };
 };
 
