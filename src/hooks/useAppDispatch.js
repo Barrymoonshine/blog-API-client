@@ -103,6 +103,14 @@ const useAppDispatch = () => {
     dispatchComments(newComments);
   };
 
+  const addLike = (username) => {
+    const newLikes = state.likes ? [...state.likes, username] : [username];
+    dispatch({
+      type: ACTIONS.ADD_LIKE,
+      payload: { newLikes },
+    });
+  };
+
   // Only run on page-load
   useEffect(() => {
     // Check whether token is present and still valid
@@ -169,6 +177,7 @@ const useAppDispatch = () => {
     addComment,
     saveUsername,
     deleteComment,
+    addLike,
   };
 };
 

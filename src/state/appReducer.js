@@ -8,6 +8,7 @@ export const initialState = {
   error: null,
   blogs: null,
   comments: null,
+  likes: null,
 };
 
 const authReducer = (state, action) => {
@@ -52,6 +53,11 @@ const authReducer = (state, action) => {
       return {
         ...state,
         comments: payload.newComments,
+      };
+    case ACTIONS.ADD_LIKE:
+      return {
+        ...state,
+        likes: payload.newLikes,
       };
     default:
       return state;

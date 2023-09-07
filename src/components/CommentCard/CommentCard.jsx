@@ -23,7 +23,7 @@ const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
 
   return (
     <div className='comment-card-container'>
-      <h6>{author}</h6>
+      <h6>By: {author}</h6>
       <p>{comment}</p>
       <div className='date-delete-container'>
         <span className='blog-date'>{createdAt.slice(0, 10)}</span>

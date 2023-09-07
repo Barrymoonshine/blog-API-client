@@ -10,7 +10,7 @@ import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
   const { blogs, username, token, comments } = useAppState();
-  const { addComment } = useAppDispatch();
+  const { addComment, addLike } = useAppDispatch();
   const { id } = useParams();
   const {
     register,
@@ -27,6 +27,8 @@ const Blog = () => {
   );
 
   const blog = blogs.find((item) => item._id === id);
+  const isBlogLiked = blog.likes.includes(username);
+  const totalLikes = blog.likes.length;
 
   const onSubmit = async (formData) => {
     const newComment = {
@@ -50,6 +52,20 @@ const Blog = () => {
     }
   };
 
+  const likeBlog = async () => {
+    await sendFetch('https://ancient-water-2934.fly.dev/comments', {
+      method: 'PATH',
+      body: JSON.stringify(username),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!isError) {
+      addLike(username);
+    }
+  };
+
   return (
     <>
       <div className='blog-page-container'>
@@ -65,7 +81,14 @@ const Blog = () => {
             <h5>{blog.region}</h5>
             <p>{blog.content}</p>
           </div>
-          <button>Like - TBC</button>
+          {isBlogLiked ? (
+            <button disabled={true} onClick={() => likeBlog()}>
+              You like this blog!
+            </button>
+          ) : (
+            <button onClick={() => likeBlog()}>Like</button>
+          )}
+          <div>Total likes : {totalLikes}</div>
         </div>
         <div className='comments-title'>
           <h4>Comments</h4>
