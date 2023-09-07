@@ -24,11 +24,19 @@ const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
   return (
     <div className='comment-card-container'>
       <h6>{author}</h6>
-      <span>{comment}</span>
-      <span className='blog-date'>{createdAt.slice(0, 10)}</span>
-      {author === username && (
-        <button onClick={() => handleDelete()}>Delete</button>
-      )}
+      <p>{comment}</p>
+      <div className='date-delete-container'>
+        <span className='blog-date'>{createdAt.slice(0, 10)}</span>
+        {author === username && (
+          <button className='delete-button' onClick={() => handleDelete()}>
+            <img
+              className='delete-icon'
+              src='../images/delete.png'
+              alt='delete'
+            />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

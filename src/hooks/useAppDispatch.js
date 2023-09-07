@@ -89,7 +89,7 @@ const useAppDispatch = () => {
   };
 
   const addComment = (comment) => {
-    // Comments are sent as objects from the Blog page
+    // When adding a first comment to a blog this is sent as an object
     const newComments = state.comments
       ? [...state.comments, comment]
       : [comment];
@@ -120,6 +120,9 @@ const useAppDispatch = () => {
       if (response.ok) {
         const username = getItem('username');
         handleLogIn(token, username);
+      } else {
+        // Remove any data in local storage
+        handleLogOut();
       }
     };
     if (token) {
