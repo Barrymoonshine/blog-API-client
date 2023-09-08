@@ -13,6 +13,7 @@ const useAppState = () => {
     blogs: state.blogs,
     comments: state.comments,
     likes: state.likes,
+    likesError: state.likesError,
   };
 };
 

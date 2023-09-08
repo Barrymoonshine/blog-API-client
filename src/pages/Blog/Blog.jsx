@@ -9,8 +9,8 @@ import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs, username, token, comments, likes } = useAppState();
-  const { addComment, checkDuplicateLike, handleAddLike } = useAppDispatch();
+  const { blogs, username, token, comments, likes, likesError } = useAppState();
+  const { addComment, handleAddLike } = useAppDispatch();
   const { id } = useParams();
   const {
     register,
@@ -27,6 +27,8 @@ const Blog = () => {
     id
   );
 
+  console.log('likes on Blog', likes);
+
   const blog = blogs.find((item) => item._id === id);
   const isBlogLiked = likes.find(
     (like) => like.docID === id && like.username === username
@@ -34,10 +36,6 @@ const Blog = () => {
   const totalBlogLikes = likes.filter(
     (like) => like.docType === 'blog' && like.docID === id
   ).length;
-
-  console.log('id', id);
-
-  console.log('likes', likes);
 
   const onSubmit = async (formData) => {
     const newComment = {
@@ -61,24 +59,6 @@ const Blog = () => {
     }
   };
 
-  const addLike = async (docID, type) => {
-    if (!checkDuplicateLike(docID)) {
-      const newLike = { username, docType: `${type}`, docID };
-      console.log('newLike', newLike);
-      await sendFetch(`https://ancient-water-2934.fly.dev/like`, {
-        method: 'POST',
-        body: JSON.stringify(newLike),
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!isError) {
-        handleAddLike(newLike);
-      }
-    }
-  };
-
   return (
     <>
       <div className='blog-page-container'>
@@ -95,11 +75,11 @@ const Blog = () => {
             <p>{blog.content}</p>
           </div>
           {isBlogLiked ? (
-            <button disabled={true} onClick={() => addLike(id, 'blog')}>
+            <button disabled={true} onClick={() => handleAddLike('blog', id)}>
               You like this blog!
             </button>
           ) : (
-            <button onClick={() => addLike(id, 'blog')}>Like</button>
+            <button onClick={() => handleAddLike('blog', id)}>Like</button>
           )}
           <div>Total likes : {totalBlogLikes}</div>
         </div>
