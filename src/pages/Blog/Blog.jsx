@@ -10,7 +10,7 @@ import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
   const { blogs, username, token, comments, likes } = useAppState();
-  const { addComment, addLike } = useAppDispatch();
+  const { addComment, checkDuplicateLike, handleAddLike } = useAppDispatch();
   const { id } = useParams();
   const {
     register,
@@ -28,24 +28,16 @@ const Blog = () => {
   );
 
   const blog = blogs.find((item) => item._id === id);
-  // get blog likes
-  // To get the blog likes I need to loop through the likes array of objects
-  // for each username i need to look in the blog likes array
-  // in the blog likes array I need to check if any id's match the blog id
-  // Then get a
+  const isBlogLiked = likes.find(
+    (like) => like.docID === id && like.username === username
+  );
+  const totalBlogLikes = likes.filter(
+    (like) => like.docType === 'blog' && like.docID === id
+  ).length;
 
-  let totalLikes = 0;
+  console.log('id', id);
 
-  likes.forEach((user) => {
-    if (user.blogLikes && user.blogLikes.includes(id)) {
-      // If the user has liked any blogs and this blog is liked
-      totalLikes += 1;
-    }
-  });
-
-  const usersBlogLikes = likes.find((user) => user.username === username);
-
-  const isBlogLiked = usersBlogLikes ? usersBlogLikes.includes(id) : false;
+  console.log('likes', likes);
 
   const onSubmit = async (formData) => {
     const newComment = {
@@ -69,17 +61,21 @@ const Blog = () => {
     }
   };
 
-  const likeBlog = async () => {
-    await sendFetch(`https://ancient-water-2934.fly.dev/blogs/like/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({ username }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!isError) {
-      addLike(username);
+  const addLike = async (docID, type) => {
+    if (!checkDuplicateLike(docID)) {
+      const newLike = { username, docType: `${type}`, docID };
+      console.log('newLike', newLike);
+      await sendFetch(`https://ancient-water-2934.fly.dev/like`, {
+        method: 'POST',
+        body: JSON.stringify(newLike),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!isError) {
+        handleAddLike(newLike);
+      }
     }
   };
 
@@ -99,13 +95,13 @@ const Blog = () => {
             <p>{blog.content}</p>
           </div>
           {isBlogLiked ? (
-            <button disabled={true} onClick={() => likeBlog()}>
+            <button disabled={true} onClick={() => addLike(id, 'blog')}>
               You like this blog!
             </button>
           ) : (
-            <button onClick={() => likeBlog()}>Like</button>
+            <button onClick={() => addLike(id, 'blog')}>Like</button>
           )}
-          <div>Total likes : {totalLikes}</div>
+          <div>Total likes : {totalBlogLikes}</div>
         </div>
         <div className='comments-title'>
           <h4>Comments</h4>

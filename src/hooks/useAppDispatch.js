@@ -101,8 +101,11 @@ const useAppDispatch = () => {
     dispatchComments(newComments);
   };
 
-  const addLike = (username) => {
-    const newLikes = state.likes ? [...state.likes, username] : [username];
+  const checkDuplicateLike = (newLike) =>
+    state.likes.find((like) => like.docID === newLike.docID);
+
+  const handleAddLike = (newLike) => {
+    const newLikes = state.likes ? [...state.likes, newLike] : [newLike];
     dispatch({
       type: ACTIONS.ADD_LIKE,
       payload: { newLikes },
@@ -184,7 +187,8 @@ const useAppDispatch = () => {
     addComment,
     saveUsername,
     deleteComment,
-    addLike,
+    checkDuplicateLike,
+    handleAddLike,
   };
 };
 
