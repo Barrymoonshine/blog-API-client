@@ -2,12 +2,10 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import ACTIONS from '../utils/ACTIONS';
 import { useEffect } from 'react';
-import useAppState from './useAppState';
 import { saveItem, getItem, removeItem } from '../helpers/localStorage';
 
 const useAppDispatch = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { blogs } = useAppState();
 
   const saveToken = (token) => {
     saveItem('token', token);
@@ -111,7 +109,7 @@ const useAppDispatch = () => {
     });
   };
 
-  // Only run on page-load
+  // Only run on page-load or page refresh - currently causing bugs
   useEffect(() => {
     // Check whether token is present and still valid
     const token = getItem('token');
@@ -137,21 +135,30 @@ const useAppDispatch = () => {
       verifyToken();
     }
 
-    // Save blogs
-    if (!blogs) {
+    // Save blogs and likes
+    if (!state.blogs && !state.likes) {
       let isMounted = true;
       if (isMounted) {
         const fetchData = async () => {
           toggleLoading();
           try {
-            const response = await fetch(
+            const blogsResponse = await fetch(
               'https://ancient-water-2934.fly.dev/blogs',
               { method: 'GET' }
             );
-            const blogs = await response.json();
+            const likesResponse = await fetch(
+              'https://ancient-water-2934.fly.dev/like',
+              { method: 'GET' }
+            );
+            const blogs = await blogsResponse.json();
+            const likes = await likesResponse.json();
             dispatch({
               type: ACTIONS.SAVE_BLOGS,
               payload: { blogs },
+            });
+            dispatch({
+              type: ACTIONS.SAVE_LIKES,
+              payload: { likes },
             });
           } catch (err) {
             updateError(err);

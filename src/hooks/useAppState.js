@@ -12,6 +12,7 @@ const useAppState = () => {
     error: state.isLoading,
     blogs: state.blogs,
     comments: state.comments,
+    likes: state.likes,
   };
 };
 

@@ -8,6 +8,7 @@ const ACTIONS = {
   TOGGLE_LOADING: 'toggle-loading-status',
   SAVE_COMMENTS: 'save-all-comments',
   ADD_LIKE: 'add-new-like',
+  SAVE_LIKES: 'save-all-likes',
 };
 
 export default ACTIONS;

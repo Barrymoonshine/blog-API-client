@@ -59,6 +59,11 @@ const authReducer = (state, action) => {
         ...state,
         likes: payload.newLikes,
       };
+    case ACTIONS.SAVE_LIKES:
+      return {
+        ...state,
+        likes: payload.likes,
+      };
     default:
       return state;
   }

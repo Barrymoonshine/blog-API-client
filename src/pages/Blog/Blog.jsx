@@ -9,7 +9,7 @@ import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs, username, token, comments } = useAppState();
+  const { blogs, username, token, comments, likes } = useAppState();
   const { addComment, addLike } = useAppDispatch();
   const { id } = useParams();
   const {
@@ -23,10 +23,12 @@ const Blog = () => {
     `https://ancient-water-2934.fly.dev/comments/${id}`,
     {
       method: 'GET',
-    }
+    },
+    id
   );
 
   const blog = blogs.find((item) => item._id === id);
+  // get blog likes
   const isBlogLiked = blog.likes.includes(username);
   const totalLikes = blog.likes.length;
 
@@ -53,9 +55,9 @@ const Blog = () => {
   };
 
   const likeBlog = async () => {
-    await sendFetch('https://ancient-water-2934.fly.dev/comments', {
-      method: 'PATH',
-      body: JSON.stringify(username),
+    await sendFetch(`https://ancient-water-2934.fly.dev/blogs/like/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ username }),
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
