@@ -29,8 +29,23 @@ const Blog = () => {
 
   const blog = blogs.find((item) => item._id === id);
   // get blog likes
-  const isBlogLiked = blog.likes.includes(username);
-  const totalLikes = blog.likes.length;
+  // To get the blog likes I need to loop through the likes array of objects
+  // for each username i need to look in the blog likes array
+  // in the blog likes array I need to check if any id's match the blog id
+  // Then get a
+
+  let totalLikes = 0;
+
+  likes.forEach((user) => {
+    if (user.blogLikes && user.blogLikes.includes(id)) {
+      // If the user has liked any blogs and this blog is liked
+      totalLikes += 1;
+    }
+  });
+
+  const usersBlogLikes = likes.find((user) => user.username === username);
+
+  const isBlogLiked = usersBlogLikes ? usersBlogLikes.includes(id) : false;
 
   const onSubmit = async (formData) => {
     const newComment = {
@@ -107,7 +122,6 @@ const Blog = () => {
               />
               {errors.comment && <span>This field is required</span>}
 
-              {error && <span>{error.message}</span>}
               {isError && <span>{isError.message}</span>}
               <button className='submit-button' disabled={isLoading}>
                 Submit
@@ -119,8 +133,8 @@ const Blog = () => {
         )}
       </div>
       <div className='comments-container'>
-        {isLoading && <p>Comments are loading </p>}
-        {isError && <p>{isError.message} </p>}
+        {loading && <p>Comments are loading </p>}
+        {error && <p>{error.message} </p>}
         {comments &&
           comments.map((item) => (
             <CommentCard

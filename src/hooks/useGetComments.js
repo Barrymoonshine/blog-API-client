@@ -1,26 +1,15 @@
 import { useState, useEffect } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
-import useAppState from './useAppState';
 
-
-// Rename to useBlogEffect 
-const useGetComments = (url = '', options = null, id) => {
+const useGetComments = (url = '', options = null) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const {blogs} = useAppState()
 
   const { saveComments } = useAppDispatch();
 
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      // Get and save selected blog
-      const selectedBlog = blogs.find((item) => item._id === id);
-      // Get and save likes
-//
-
-      const likes = selectedBlog.likes 
-
       const fetchData = async () => {
         setLoading(true);
         setError(null);
