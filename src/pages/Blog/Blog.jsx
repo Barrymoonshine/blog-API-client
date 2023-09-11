@@ -74,13 +74,15 @@ const Blog = () => {
             <h5>{blog.region}</h5>
             <p>{blog.content}</p>
           </div>
-          {isBlogLiked ? (
+          {isBlogLiked && token && (
             <button disabled={true} onClick={() => handleAddLike('blog', id)}>
               You like this blog!
             </button>
-          ) : (
+          )}
+          {!isBlogLiked && token && (
             <button onClick={() => handleAddLike('blog', id)}>Like</button>
           )}
+          {!token && <span>Log in to like this post </span>}
           <div>Total likes : {totalBlogLikes}</div>
         </div>
         <div className='comments-title'>
