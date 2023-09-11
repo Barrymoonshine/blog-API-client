@@ -1,12 +1,10 @@
 import './Home.css';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
-import useAppState from '../../hooks/useAppState';
-import useAppDispatch from '../../hooks/useAppDispatch';
+import useBlogsState from '../../hooks/useBlogsState';
 
 const Home = () => {
-  const { isLoading, error, blogs } = useAppState();
-  const { toggleLoading } = useAppDispatch();
+  const { blogs, blogsLoading, blogsError } = useBlogsState();
 
   return (
     <div className='home-container'>
@@ -16,7 +14,6 @@ const Home = () => {
           <p>
             Sign up for a free account today, to create and edit your very own
             travel blog!
-            <button onClick={() => toggleLoading()}></button>
           </p>
           <Link to='/sign-up' style={{ textDecoration: 'none' }}>
             Sign up
@@ -30,8 +27,8 @@ const Home = () => {
           />
         </div>
       </div>
-      {error && <p>Error! {error}</p>}
-      {isLoading && <p>Loading...</p>}
+      {blogsError && <p>Error! {blogsError}</p>}
+      {blogsLoading && <p>Loading...</p>}
       {blogs &&
         blogs.map((blog) => (
           <BlogCard

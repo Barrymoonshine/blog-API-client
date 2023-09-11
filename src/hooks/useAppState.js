@@ -7,7 +7,6 @@ const useAppState = () => {
   return {
     isLoading: state.isLoading,
     error: state.isLoading,
-    blogs: state.blogs,
     comments: state.comments,
     likes: state.likes,
     likesError: state.likesError,

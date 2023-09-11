@@ -1,4 +1,5 @@
-const checkDuplicateLike = (likes, docID, username) =>
+export const checkDuplicateLike = (likes, docID, username) =>
   likes.some((like) => like.docID === docID && like.username === username);
 
-export default checkDuplicateLike;
+export const getObjFromArray = (array, id) =>
+  array.find((item) => item._id === id);

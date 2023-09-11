@@ -1,5 +1,4 @@
 export const ACTIONS = {
-  SAVE_BLOGS: 'save-all-blogs',
   UPDATE_ERROR: 'update-error-from-server',
   TOGGLE_LOADING: 'toggle-loading-status',
   SAVE_COMMENTS: 'save-all-comments',
@@ -16,4 +15,12 @@ export const AUTH_ACTIONS = {
   TOGGLE_AUTH_LOADING: 'toggle-auth-loading-status',
   SAVE_AUTH_ERROR: 'save-auth-error',
   REMOVE_AUTH_ERROR: 'remove-auth-error',
+};
+
+export const BLOGS_ACTIONS = {
+  SAVE_BLOGS: 'save-all-blogs',
+  TOGGLE_BLOGS_LOADING: 'toggle-blogs-loading-status',
+  SAVE_BLOGS_ERROR: 'save-blog-error',
+  REMOVE_BLOGS_ERROR: 'remove-blog-error',
+  ADD_BLOG: 'add-new-blog',
 };

@@ -1,7 +1,8 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
 import useAuthState from '../../hooks/useAuthState';
-import useFetch from '../../hooks/useFetch';
+import useBlogsDispatch from '../../hooks/useBlogsDispatch';
+import useBlogsState from '../../hooks/useBlogsState';
 
 const Create = () => {
   const {
@@ -12,76 +13,61 @@ const Create = () => {
   } = useForm();
 
   const { token } = useAuthState();
+  const { blogsLoading, blogsError } = useBlogsState();
 
-  // Get rid of success and use isError instead
-  const { sendFetch, success, setSuccess, isError, isLoading } = useFetch();
+  const { addBlog } = useBlogsDispatch();
 
   const onSubmit = async (formData) => {
-    const multiFormData = new FormData();
+    const blog = new FormData();
 
-    multiFormData.append('title', formData.title);
-    multiFormData.append('caption', formData.caption);
-    multiFormData.append('content', formData.content);
-    multiFormData.append('region', formData.region);
-    multiFormData.append('image', formData.image[0]);
+    blog.append('title', formData.title);
+    blog.append('caption', formData.caption);
+    blog.append('content', formData.content);
+    blog.append('region', formData.region);
+    blog.append('image', formData.image[0]);
 
-    await sendFetch('https://ancient-water-2934.fly.dev/blogs', {
-      method: 'POST',
-      body: multiFormData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await addBlog(blog, token);
+
+    if (!blogsError) {
+      reset();
+    }
   };
 
   return (
     <>
-      {success ? (
-        <div>
-          {success}
-          <button
-            onClick={() => {
-              reset(), setSuccess(null);
-            }}
-          >
-            Create another post?
-          </button>
-        </div>
-      ) : (
-        <form className='create-form' onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor='title'> Title:</label>
-          <input {...register('title', { required: true })} />
-          {errors.title && <span>This field is required</span>}
+      <form className='create-form' onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor='title'> Title:</label>
+        <input {...register('title', { required: true })} />
+        {errors.title && <span>This field is required</span>}
 
-          <label htmlFor='caption'> Caption:</label>
-          <input {...register('caption', { required: true })} />
-          {errors.caption && <span>This field is required</span>}
+        <label htmlFor='caption'> Caption:</label>
+        <input {...register('caption', { required: true })} />
+        {errors.caption && <span>This field is required</span>}
 
-          <label htmlFor='content'> Content:</label>
-          <textarea {...register('content', { required: true })} />
-          {errors.content && <span>This field is required</span>}
+        <label htmlFor='content'> Content:</label>
+        <textarea {...register('content', { required: true })} />
+        {errors.content && <span>This field is required</span>}
 
-          <select {...register('region', { required: true })}>
-            <option value=''>--Please choose a region--</option>
-            <option value='Africa'>Africa</option>
-            <option value='Asia'>Asia</option>
-            <option value='The Caribbean'>The Caribbean</option>
-            <option value='Central America'>Central America</option>
-            <option value='Europe'>Europe</option>
-            <option value='North America'>North America</option>
-            <option value='Oceania'>Oceania</option>
-            <option value='South America'>South America</option>
-          </select>
-          {errors.region && <span>Please select a region</span>}
+        <select {...register('region', { required: true })}>
+          <option value=''>--Please choose a region--</option>
+          <option value='Africa'>Africa</option>
+          <option value='Asia'>Asia</option>
+          <option value='The Caribbean'>The Caribbean</option>
+          <option value='Central America'>Central America</option>
+          <option value='Europe'>Europe</option>
+          <option value='North America'>North America</option>
+          <option value='Oceania'>Oceania</option>
+          <option value='South America'>South America</option>
+        </select>
+        {errors.region && <span>Please select a region</span>}
 
-          <label htmlFor='image'> Image:</label>
-          <input {...register('image', { required: true })} type='file' />
-          {errors.image && <span>This field is required</span>}
+        <label htmlFor='image'> Image:</label>
+        <input {...register('image', { required: true })} type='file' />
+        {errors.image && <span>This field is required</span>}
 
-          {isError && <span>{isError}</span>}
-          <button disabled={isLoading}> Submit </button>
-        </form>
-      )}
+        {blogsError && <span>{blogsError}</span>}
+        <button disabled={blogsLoading}> Submit </button>
+      </form>
     </>
   );
 };

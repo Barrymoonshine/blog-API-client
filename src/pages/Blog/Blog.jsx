@@ -3,6 +3,8 @@ import './Blog.css';
 import useAppState from '../../hooks/useAppState';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useAuthState from '../../hooks/useAuthState';
+import useBlogsState from '../../hooks/useBlogsState';
+import { getObjFromArray } from '../../helpers/helpers';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
@@ -10,7 +12,8 @@ import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs, comments, likes, likesError } = useAppState();
+  const { blogs } = useBlogsState();
+  const { comments, likes, likesError } = useAppState();
   const { addComment, handleAddLike } = useAppDispatch();
   const { username, token, isLoggedIn } = useAuthState();
   const { id } = useParams();
@@ -29,7 +32,7 @@ const Blog = () => {
     id
   );
 
-  const blog = blogs.find((item) => item._id === id);
+  const blog = getObjFromArray(blogs, id);
   const isBlogLiked = likes.find(
     (like) => like.docID === id && like.username === username
   );

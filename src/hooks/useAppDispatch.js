@@ -2,8 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { ACTIONS } from '../utils/ACTIONS';
 import { useEffect } from 'react';
-import { saveItem, getItem, removeItem } from '../helpers/localStorage';
-import checkDuplicateLike from '../helpers/helpers';
+import { checkDuplicateLike } from '../helpers/helpers';
 
 const useAppDispatch = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -109,7 +108,7 @@ const useAppDispatch = () => {
   useEffect(() => {
     // Save blogs and likes
     console.log('useEffect in useAppDispatch called');
-    if (!state.blogs && !state.likes) {
+    if (!state.likes) {
       console.log(
         'useEffect in useAppDispatch called & there is are not existing blogs or likes '
       );
@@ -118,20 +117,12 @@ const useAppDispatch = () => {
         const fetchData = async () => {
           toggleLoading();
           try {
-            const blogsResponse = await fetch(
-              'https://ancient-water-2934.fly.dev/blogs',
-              { method: 'GET' }
-            );
             const likesResponse = await fetch(
               'https://ancient-water-2934.fly.dev/like',
               { method: 'GET' }
             );
-            const blogs = await blogsResponse.json();
             const likes = await likesResponse.json();
-            dispatch({
-              type: ACTIONS.SAVE_BLOGS,
-              payload: { blogs },
-            });
+
             dispatch({
               type: ACTIONS.SAVE_LIKES,
               payload: { likes },

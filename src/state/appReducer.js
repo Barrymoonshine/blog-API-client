@@ -3,7 +3,6 @@ import { ACTIONS } from '../utils/ACTIONS';
 export const initialState = {
   isLoading: false,
   error: null,
-  blogs: null,
   comments: null,
   likes: null,
   addLikeError: null,
@@ -16,11 +15,6 @@ const appReducer = (state, action) => {
       return {
         ...state,
         isLoading: !state.isLoading,
-      };
-    case ACTIONS.SAVE_BLOGS:
-      return {
-        ...state,
-        blogs: payload.blogs,
       };
     case ACTIONS.UPDATE_ERROR:
       return {
