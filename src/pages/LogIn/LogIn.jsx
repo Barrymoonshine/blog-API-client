@@ -1,6 +1,7 @@
 import './LogIn.css';
 import { useForm } from 'react-hook-form';
-import useCreateAuth from '../../hooks/useCreateAuth';
+import useAuthDispatch from '../../hooks/useAuthDispatch';
+import useAuthState from '../../hooks/useAuthState';
 
 const LogIn = () => {
   const {
@@ -10,7 +11,8 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
 
-  const { createAuth, error, isLoading } = useCreateAuth();
+  const { createAuth } = useAuthDispatch();
+  const { authLoading, authError } = useAuthState();
 
   const onSubmit = async (formData) => {
     await createAuth('https://ancient-water-2934.fly.dev/user/log-in', {
@@ -20,6 +22,9 @@ const LogIn = () => {
         'Content-Type': 'application/json',
       },
     });
+    if (!authError) {
+      reset();
+    }
   };
 
   return (
@@ -46,8 +51,8 @@ const LogIn = () => {
           </span>
         )}
 
-        {error && <span className='error'>{error.message}</span>}
-        <button disabled={isLoading}> Log in </button>
+        {authError && <span className='error'>{authError.message}</span>}
+        <button disabled={authLoading}> Log in </button>
       </form>
     </>
   );

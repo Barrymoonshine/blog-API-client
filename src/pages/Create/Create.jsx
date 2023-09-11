@@ -1,6 +1,6 @@
 import './Create.css';
 import { useForm } from 'react-hook-form';
-import useAppState from '../../hooks/useAppState';
+import useAuthState from '../../hooks/useAuthState';
 import useFetch from '../../hooks/useFetch';
 
 const Create = () => {
@@ -11,7 +11,7 @@ const Create = () => {
     formState: { errors },
   } = useForm();
 
-  const { token } = useAppState();
+  const { token } = useAuthState();
 
   // Get rid of success and use isError instead
   const { sendFetch, success, setSuccess, isError, isLoading } = useFetch();

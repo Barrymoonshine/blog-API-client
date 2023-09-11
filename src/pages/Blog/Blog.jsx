@@ -2,6 +2,7 @@ import uniqid from 'uniqid';
 import './Blog.css';
 import useAppState from '../../hooks/useAppState';
 import useAppDispatch from '../../hooks/useAppDispatch';
+import useAuthState from '../../hooks/useAuthState';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
@@ -9,8 +10,9 @@ import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs, username, token, comments, likes, likesError } = useAppState();
+  const { blogs, comments, likes, likesError } = useAppState();
   const { addComment, handleAddLike } = useAppDispatch();
+  const { username, token, isLoggedIn } = useAuthState();
   const { id } = useParams();
   const {
     register,
@@ -26,8 +28,6 @@ const Blog = () => {
     },
     id
   );
-
-  console.log('likes on Blog', likes);
 
   const blog = blogs.find((item) => item._id === id);
   const isBlogLiked = likes.find(
@@ -74,15 +74,15 @@ const Blog = () => {
             <h5>{blog.region}</h5>
             <p>{blog.content}</p>
           </div>
-          {isBlogLiked && token && (
+          {isBlogLiked && isLoggedIn && (
             <button disabled={true} onClick={() => handleAddLike('blog', id)}>
               You like this blog!
             </button>
           )}
-          {!isBlogLiked && token && (
+          {!isBlogLiked && isLoggedIn && (
             <button onClick={() => handleAddLike('blog', id)}>Like</button>
           )}
-          {!token && <span>Log in to like this post </span>}
+          {!isLoggedIn && <span>Log in to like this post </span>}
           <div>Total likes : {totalBlogLikes}</div>
         </div>
         <div className='comments-title'>

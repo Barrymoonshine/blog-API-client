@@ -1,52 +1,12 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import ACTIONS from '../utils/ACTIONS';
+import { ACTIONS } from '../utils/ACTIONS';
 import { useEffect } from 'react';
 import { saveItem, getItem, removeItem } from '../helpers/localStorage';
 import checkDuplicateLike from '../helpers/helpers';
 
 const useAppDispatch = () => {
   const { state, dispatch } = useContext(AppContext);
-
-  const saveToken = (token) => {
-    saveItem('token', token);
-    dispatch({
-      type: ACTIONS.SAVE_TOKEN,
-      payload: { token },
-    });
-  };
-
-  const saveUsername = (username) => {
-    saveItem('username', username);
-    dispatch({
-      type: ACTIONS.SAVE_USERNAME,
-      payload: { username },
-    });
-  };
-
-  const handleLogIn = (token, username) => {
-    saveToken(token);
-    saveUsername(username);
-  };
-
-  const removeToken = () => {
-    removeItem('token');
-    dispatch({
-      type: ACTIONS.REMOVE_TOKEN,
-    });
-  };
-
-  const removeUsername = () => {
-    removeItem('username');
-    dispatch({
-      type: ACTIONS.REMOVE_USERNAME,
-    });
-  };
-
-  const handleLogOut = () => {
-    removeToken();
-    removeUsername();
-  };
 
   const toggleLoading = () => {
     dispatch({
@@ -147,32 +107,12 @@ const useAppDispatch = () => {
 
   // Only run on page-load or page refresh - currently causing bugs
   useEffect(() => {
-    // Check whether token is present and still valid
-    const token = getItem('token');
-    const verifyToken = async () => {
-      const response = await fetch(
-        'https://ancient-water-2934.fly.dev/user/authenticate',
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const username = getItem('username');
-        handleLogIn(token, username);
-      } else {
-        // Remove any data in local storage
-        handleLogOut();
-      }
-    };
-    if (token) {
-      verifyToken();
-    }
-
     // Save blogs and likes
+    console.log('useEffect in useAppDispatch called');
     if (!state.blogs && !state.likes) {
+      console.log(
+        'useEffect in useAppDispatch called & there is are not existing blogs or likes '
+      );
       let isMounted = true;
       if (isMounted) {
         const fetchData = async () => {
@@ -212,13 +152,10 @@ const useAppDispatch = () => {
 
   // Order return
   return {
-    handleLogIn,
-    handleLogOut,
     toggleLoading,
     updateError,
     saveComments,
     addComment,
-    saveUsername,
     deleteComment,
     handleAddLike,
   };

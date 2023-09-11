@@ -1,6 +1,7 @@
 import './SignUp.css';
 import { useForm } from 'react-hook-form';
-import useCreateAuth from '../../hooks/useCreateAuth';
+import useAuthDispatch from '../../hooks/useAuthDispatch';
+import useAuthState from '../../hooks/useAuthState';
 
 const SignUp = () => {
   const {
@@ -11,7 +12,8 @@ const SignUp = () => {
     watch,
   } = useForm();
 
-  const { createAuth, error, isLoading } = useCreateAuth();
+  const { createAuth } = useAuthDispatch();
+  const { authLoading, authError } = useAuthState();
 
   const onSubmit = async (formData) => {
     await createAuth('https://ancient-water-2934.fly.dev/user/sign-up', {
@@ -21,6 +23,9 @@ const SignUp = () => {
         'Content-Type': 'application/json',
       },
     });
+    if (!authError) {
+      reset();
+    }
   };
 
   return (
@@ -61,8 +66,8 @@ const SignUp = () => {
         />
         {errors.confirmPassword && <span>Passwords do not match</span>}
 
-        {error && <span className='error'>{error.message}</span>}
-        <button disabled={isLoading}> Sign up </button>
+        {authError && <span className='error'>{authError.message}</span>}
+        <button disabled={authLoading}> Sign up </button>
       </form>
     </>
   );
