@@ -24,7 +24,12 @@ const useBlogsDispatch = () => {
     });
   };
 
-  const getBlog = (id) => blogsState.blogs.find((item) => item._id === id);
+  const saveBlogs = (blogs) => {
+    blogsDispatch({
+      type: BLOGS_ACTIONS.SAVE_BLOGS,
+      payload: { blogs },
+    });
+  };
 
   const addBlog = async (blog, token) => {
     try {
@@ -38,11 +43,8 @@ const useBlogsDispatch = () => {
         },
       });
       if (response.ok) {
-        const newBlogs = [...blogsState.blogs, blog];
-        blogsDispatch({
-          type: BLOGS_ACTIONS.ADD_BLOG,
-          payload: { newBlogs },
-        });
+        const blogs = [...blogsState.blogs, blog];
+        saveBlogs(blogs);
       } else {
         const error = await response.json();
         saveBlogsError(error);
@@ -55,27 +57,22 @@ const useBlogsDispatch = () => {
   };
 
   const getBlogs = async () => {
-    toggleBlogsLoading();
-    removeBlogsError();
     try {
+      toggleBlogsLoading();
+      removeBlogsError();
       const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
         method: 'GET',
       });
       const blogs = await response.json();
-
-      blogsDispatch({
-        type: BLOGS_ACTIONS.SAVE_BLOGS,
-        payload: { blogs },
-      });
-    } catch (err) {
-      saveBlogsError(err);
+      saveBlogs(blogs);
+    } catch (error) {
+      saveBlogsError(error);
     } finally {
       toggleBlogsLoading();
     }
   };
 
   return {
-    getBlog,
     addBlog,
     getBlogs,
   };

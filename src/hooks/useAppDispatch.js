@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { ACTIONS } from '../utils/ACTIONS';
-import { useEffect } from 'react';
-import { checkDuplicateLike } from '../helpers/helpers';
 
 const useAppDispatch = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -61,94 +59,12 @@ const useAppDispatch = () => {
     dispatchComments(newComments);
   };
 
-  const updateLikesError = (error) => {
-    dispatch({
-      type: ACTIONS.UPDATE_LIKES_ERROR,
-      payload: { error },
-    });
-  };
-
-  const addLike = async (docType, docID) => {
-    try {
-      const newLike = { username: state.username, docType, docID };
-      const response = await fetch(`https://ancient-water-2934.fly.dev/like`, {
-        method: 'POST',
-        body: JSON.stringify(newLike),
-        headers: {
-          Authorization: `Bearer ${state.token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log('response', response);
-      if (response.ok) {
-        const newLikes = state.likes ? [...state.likes, newLike] : [newLike];
-        console.log('newLikes addLike', newLikes);
-        dispatch({
-          type: ACTIONS.ADD_LIKE,
-          payload: { newLikes },
-        });
-      } else {
-        const data = await response.json();
-        console.log('data', data);
-        updateLikesError(data);
-      }
-    } catch (error) {
-      console.log('err', error);
-      updateLikesError(error);
-    }
-  };
-
-  const handleAddLike = (docType, docID) => {
-    if (!checkDuplicateLike(state.likes, docID, state.username)) {
-      addLike(docType, docID);
-    }
-  };
-
-  // Only run on page-load or page refresh - currently causing bugs
-  useEffect(() => {
-    // Save blogs and likes
-    console.log('useEffect in useAppDispatch called');
-    if (!state.likes) {
-      console.log(
-        'useEffect in useAppDispatch called & there is are not existing blogs or likes '
-      );
-      let isMounted = true;
-      if (isMounted) {
-        const fetchData = async () => {
-          toggleLoading();
-          try {
-            const likesResponse = await fetch(
-              'https://ancient-water-2934.fly.dev/like',
-              { method: 'GET' }
-            );
-            const likes = await likesResponse.json();
-
-            dispatch({
-              type: ACTIONS.SAVE_LIKES,
-              payload: { likes },
-            });
-          } catch (err) {
-            updateError(err);
-          } finally {
-            toggleLoading();
-          }
-        };
-        fetchData();
-      }
-      return () => {
-        isMounted = false;
-      };
-    }
-  }, []);
-
-  // Order return
   return {
     toggleLoading,
     updateError,
     saveComments,
     addComment,
     deleteComment,
-    handleAddLike,
   };
 };
 

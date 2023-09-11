@@ -4,7 +4,13 @@ import useAppState from '../../hooks/useAppState';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useAuthState from '../../hooks/useAuthState';
 import useBlogsState from '../../hooks/useBlogsState';
-import { getObjFromArray } from '../../helpers/helpers';
+import useLikesState from '../../hooks/useLikesState';
+import useLikesDispatch from '../../hooks/useLikesDispatch';
+import {
+  getBlog,
+  checkUserLiked,
+  getTotalBlogLikes,
+} from '../../helpers/helpers';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../hooks/useFetch';
@@ -12,11 +18,17 @@ import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
 
 const Blog = () => {
-  const { blogs } = useBlogsState();
-  const { comments, likes, likesError } = useAppState();
-  const { addComment, handleAddLike } = useAppDispatch();
   const { username, token, isLoggedIn } = useAuthState();
+  const { blogs } = useBlogsState();
+  const { likes, likesLoading, likesError } = useLikesState();
   const { id } = useParams();
+  const { comments } = useAppState();
+  const blog = getBlog(blogs, id);
+  const isBlogLiked = checkUserLiked(likes, id, username);
+  const totalBlogLikes = getTotalBlogLikes(likes, id);
+
+  const { addComment } = useAppDispatch();
+  const { handleAddLike } = useLikesDispatch();
   const {
     register,
     handleSubmit,
@@ -31,14 +43,6 @@ const Blog = () => {
     },
     id
   );
-
-  const blog = getObjFromArray(blogs, id);
-  const isBlogLiked = likes.find(
-    (like) => like.docID === id && like.username === username
-  );
-  const totalBlogLikes = likes.filter(
-    (like) => like.docType === 'blog' && like.docID === id
-  ).length;
 
   const onSubmit = async (formData) => {
     const newComment = {
@@ -78,12 +82,20 @@ const Blog = () => {
             <p>{blog.content}</p>
           </div>
           {isBlogLiked && isLoggedIn && (
-            <button disabled={true} onClick={() => handleAddLike('blog', id)}>
-              You like this blog!
-            </button>
+            <button disabled={true}>You like this blog!</button>
           )}
           {!isBlogLiked && isLoggedIn && (
-            <button onClick={() => handleAddLike('blog', id)}>Like</button>
+            <button
+              disabled={likesLoading}
+              onClick={() => handleAddLike(username, 'blog', id, token)}
+            >
+              Like
+            </button>
+          )}
+          {likesError && (
+            <span>
+              There has been an error with liking this post, please try again{' '}
+            </span>
           )}
           {!isLoggedIn && <span>Log in to like this post </span>}
           <div>Total likes : {totalBlogLikes}</div>

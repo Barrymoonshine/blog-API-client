@@ -2,8 +2,6 @@ export const ACTIONS = {
   UPDATE_ERROR: 'update-error-from-server',
   TOGGLE_LOADING: 'toggle-loading-status',
   SAVE_COMMENTS: 'save-all-comments',
-  ADD_LIKE: 'add-new-like',
-  UPDATE_LIKES_ERROR: 'update-likes-error',
 };
 
 export const AUTH_ACTIONS = {
@@ -22,5 +20,11 @@ export const BLOGS_ACTIONS = {
   TOGGLE_BLOGS_LOADING: 'toggle-blogs-loading-status',
   SAVE_BLOGS_ERROR: 'save-blog-error',
   REMOVE_BLOGS_ERROR: 'remove-blog-error',
-  ADD_BLOG: 'add-new-blog',
+};
+
+export const LIKES_ACTIONS = {
+  SAVE_LIKES: 'save-all-likes',
+  TOGGLE_LIKES_LOADING: 'toggle-likes-loading-status',
+  SAVE_LIKES_ERROR: 'save-likes-error',
+  REMOVE_LIKES_ERROR: 'remove-likes-error',
 };

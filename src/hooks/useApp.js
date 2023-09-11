@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import appReducer, { initialState } from '../state/appReducer';
 import authReducer, { initialAuthState } from '../state/authReducer';
 import blogsReducer, { initialBlogsState } from '../state/blogsReducer';
+import likesReducer, { initialLikesState } from '../state/likesReducer';
 
 const useApp = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
@@ -9,6 +10,10 @@ const useApp = () => {
   const [blogsState, blogsDispatch] = useReducer(
     blogsReducer,
     initialBlogsState
+  );
+  const [likesState, likesDispatch] = useReducer(
+    likesReducer,
+    initialLikesState
   );
 
   return {
@@ -18,6 +23,8 @@ const useApp = () => {
     authDispatch,
     blogsState,
     blogsDispatch,
+    likesState,
+    likesDispatch,
   };
 };
 

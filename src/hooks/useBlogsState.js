@@ -10,6 +10,7 @@ const useBlogsState = () => {
 
   // Get all blogs from DB on page load or refresh
   useEffect(() => {
+    console.log('useBlogsState useEffect called');
     getBlogs();
   }, []);
 

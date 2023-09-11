@@ -29,11 +29,6 @@ const blogsReducer = (state, action) => {
         ...state,
         blogsError: null,
       };
-    case BLOGS_ACTIONS.ADD_BLOG:
-      return {
-        ...state,
-        blogs: payload.newBlogs,
-      };
     default:
       return state;
   }

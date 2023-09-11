@@ -2,9 +2,11 @@ import './Home.css';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
 import useBlogsState from '../../hooks/useBlogsState';
+import useLikesState from '../../hooks/useLikesState';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
+  const { likes } = useLikesState();
 
   return (
     <div className='home-container'>

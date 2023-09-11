@@ -8,8 +8,6 @@ const useAppState = () => {
     isLoading: state.isLoading,
     error: state.isLoading,
     comments: state.comments,
-    likes: state.likes,
-    likesError: state.likesError,
   };
 };
 
