@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { AUTH_ACTIONS } from '../utils/ACTIONS';
-import { useEffect } from 'react';
 import { saveItem, getItem, removeItem } from '../helpers/localStorage';
 
 const useAuthDispatch = () => {
@@ -92,39 +91,38 @@ const useAuthDispatch = () => {
     }
   };
 
-  // Only run on page-load or page refresh
-  useEffect(() => {
-    // Check whether token is present and still valid
-    console.log('useEffect in useAuthDispatch called');
-    const token = getItem('token');
-    const verifyToken = async () => {
-      const response = await fetch(
-        'https://ancient-water-2934.fly.dev/user/authenticate',
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const username = getItem('username');
-        handleLogIn(token, username);
-      } else {
-        // Remove any data in local storage
-        handleLogOut();
+  const verifyToken = async (token) => {
+    const response = await fetch(
+      'https://ancient-water-2934.fly.dev/user/authenticate',
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-    };
-    if (token) {
-      verifyToken();
+    );
+    if (response.ok) {
+      const username = getItem('username');
+      handleLogIn(token, username);
+    } else {
+      // Remove any data in local storage
+      handleLogOut();
     }
-  }, []);
+  };
+
+  const checkAuthStatus = () => {
+    const token = getItem('token');
+    if (token) {
+      verifyToken(token);
+    }
+  };
 
   return {
     handleLogIn,
     handleLogOut,
     toggleLogIn,
     createAuth,
+    checkAuthStatus,
   };
 };
 
