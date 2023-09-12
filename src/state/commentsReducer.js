@@ -17,7 +17,7 @@ const commentsReducer = (state, action) => {
     case COMMENTS_ACTIONS.TOGGLE_COMMENTS_LOADING:
       return {
         ...state,
-        commentsLoading: !payload.commentsLoading,
+        commentsLoading: !state.commentsLoading,
       };
     case COMMENTS_ACTIONS.SAVE_COMMENTS_ERROR:
       return {

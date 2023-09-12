@@ -23,25 +23,21 @@ const Blog = () => {
   const { handleAddLike, getLikes } = useLikesDispatch();
   const { getBlogs } = useBlogsDispatch();
   const { blogs } = useBlogsState();
-  const location = useLocation();
-
-  console.log('location', location);
 
   useEffect(() => {
-    console.log('handle route change here', location);
     getComments(id);
     getLikes();
     if (!blogs) {
       getBlogs();
     }
-  }, [location]);
+  }, []);
 
   const { username, token, isLoggedIn } = useAuthState();
   const { likes, likesLoading, likesError } = useLikesState();
   const { comments, commentsLoading, commentsError } = useCommentsState();
-  const blog = getBlog(blogs, id);
-  const isBlogLiked = checkUserLiked(likes, id, username);
-  const totalBlogLikes = getTotalBlogLikes(likes, id);
+  const blog = blogs && getBlog(blogs, id);
+  const isBlogLiked = likes && checkUserLiked(likes, id, username);
+  const totalBlogLikes = likes && getTotalBlogLikes(likes, id);
 
   const {
     register,
@@ -71,15 +67,15 @@ const Blog = () => {
       <div className='blog-page-container'>
         <div>
           <div className='blog-title'>
-            <h4>{blog.title}</h4>
-            <p>By: TBC, blog.author || Date: {blog.createdAt.slice(0, 10)}</p>
+            <h4>{blog?.title}</h4>
+            <p>By: TBC, blog?.author || Date: {blog?.createdAt.slice(0, 10)}</p>
           </div>
           <div>
-            <img className='blog-image' src={blog.image} alt='travel image' />
+            <img className='blog-image' src={blog?.image} alt='travel image' />
           </div>
           <div className='blog-content'>
-            <h5>{blog.region}</h5>
-            <p>{blog.content}</p>
+            <h5>{blog?.region}</h5>
+            <p>{blog?.content}</p>
           </div>
           {isBlogLiked && isLoggedIn && (
             <button disabled={true}>You like this blog!</button>
