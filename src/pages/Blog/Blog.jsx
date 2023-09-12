@@ -7,7 +7,7 @@ import useLikesDispatch from '../../hooks/useLikesDispatch';
 import useCommentsState from '../../hooks/useCommentsState';
 import useCommentsDispatch from '../../hooks/useCommentsDispatch';
 import useBlogsDispatch from '../../hooks/useBlogsDispatch';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   getBlog,
   checkUserLiked,
@@ -64,79 +64,95 @@ const Blog = () => {
 
   return (
     <>
-      <div className='blog-page-container'>
+      {!blog ? (
+        <span>Page is loading</span>
+      ) : (
         <div>
-          <div className='blog-title'>
-            <h4>{blog?.title}</h4>
-            <p>By: TBC, blog?.author || Date: {blog?.createdAt.slice(0, 10)}</p>
-          </div>
-          <div>
-            <img className='blog-image' src={blog?.image} alt='travel image' />
-          </div>
-          <div className='blog-content'>
-            <h5>{blog?.region}</h5>
-            <p>{blog?.content}</p>
-          </div>
-          {isBlogLiked && isLoggedIn && (
-            <button disabled={true}>You like this blog!</button>
-          )}
-          {!isBlogLiked && isLoggedIn && (
-            <button
-              disabled={likesLoading}
-              onClick={() => handleAddLike(username, 'blog', id, token)}
-            >
-              Like
-            </button>
-          )}
-          {likesError && (
-            <span>
-              There has been an error with liking this post, please try again{' '}
-            </span>
-          )}
-          {!isLoggedIn && <span>Log in to like this post </span>}
-          <div>Total likes : {totalBlogLikes}</div>
-        </div>
-        <div className='comments-title'>
-          <h4>Comments</h4>
-        </div>
-        {username ? (
-          <div className='comment-form-container'>
-            <form className='comment-form' onSubmit={handleSubmit(onSubmit)}>
-              <label htmlFor='content'> Add comment:</label>
-              <textarea
-                {...register('comment', {
-                  required: true,
-                })}
-                placeholder='Type your comment here'
-              />
-              {errors.comment && <span>This field is required</span>}
+          <div className='blog-page-container'>
+            <div>
+              <div className='blog-title'>
+                <h4>{blog.title}</h4>
+                <p>
+                  By: TBC, blog?.author || Date: {blog.createdAt.slice(0, 10)}
+                </p>
+              </div>
+              <div>
+                <img
+                  className='blog-image'
+                  src={blog.image}
+                  alt='travel image'
+                />
+              </div>
+              <div className='blog-content'>
+                <h5>{blog.region}</h5>
+                <p>{blog.content}</p>
+              </div>
+              {isBlogLiked && isLoggedIn && (
+                <button disabled={true}>You like this blog!</button>
+              )}
+              {!isBlogLiked && isLoggedIn && (
+                <button
+                  disabled={likesLoading}
+                  onClick={() => handleAddLike(username, 'blog', id, token)}
+                >
+                  Like
+                </button>
+              )}
+              {likesError && (
+                <span>
+                  There has been an error with liking this post, please try
+                  again
+                </span>
+              )}
+              {!isLoggedIn && <span>Log in to like this post </span>}
+              <div>Total likes : {totalBlogLikes}</div>
+            </div>
+            <div className='comments-title'>
+              <h4>Comments</h4>
+            </div>
+            {username ? (
+              <div className='comment-form-container'>
+                <form
+                  className='comment-form'
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <label htmlFor='content'> Add comment:</label>
+                  <textarea
+                    {...register('comment', {
+                      required: true,
+                    })}
+                    placeholder='Type your comment here'
+                  />
+                  {errors.comment && <span>This field is required</span>}
 
-              {commentsError && <span>{commentsError.message}</span>}
-              <button className='submit-button' disabled={commentsLoading}>
-                Submit
-              </button>
-            </form>
+                  {commentsError && <span>{commentsError.message}</span>}
+                  <button className='submit-button' disabled={commentsLoading}>
+                    Submit
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <h5> Please log in to add a comment </h5>
+            )}
           </div>
-        ) : (
-          <h5> Please log in to add a comment </h5>
-        )}
-      </div>
-      <div className='comments-container'>
-        {commentsLoading && <p>Comments are loading </p>}
-        {commentsError && <p>{commentsError.message} </p>}
-        {comments &&
-          comments.map((item) => (
-            <CommentCard
-              key={item.commentID}
-              id={item.commentID}
-              author={item.username}
-              username={username}
-              comment={item.comment}
-              createdAt={item.date}
-              token={token}
-            />
-          ))}
-      </div>
+          <div className='comments-container'>
+            {commentsLoading && <p>Comments are loading </p>}
+            {commentsError && <p>{commentsError.message} </p>}
+            {comments &&
+              comments.map((item) => (
+                <CommentCard
+                  key={item.commentID}
+                  id={item.commentID}
+                  author={item.username}
+                  username={username}
+                  comment={item.comment}
+                  createdAt={item.date}
+                  token={token}
+                />
+              ))}
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -54,24 +54,27 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = fetch('https://ancient-water-2934.fly.dev/comments', {
-        method: 'POST',
-        body: JSON.stringify(newComment),
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        'https://ancient-water-2934.fly.dev/comments',
+        {
+          method: 'POST',
+          body: JSON.stringify(comment),
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.ok) {
         // When adding a first comment to a blog this is sent as an object
         const newComments = commentsState.comments
           ? [...commentsState.comments, comment]
           : [comment];
-
+        console.log('newComments', newComments);
         saveComments(newComments);
       } else {
-        const error = (await response).json();
+        const error = await response.json();
         saveCommentsError(error);
       }
     } catch (error) {
@@ -111,7 +114,6 @@ const useCommentsDispatch = () => {
   };
 
   const getComments = async (id) => {
-    console.log('getComments called');
     try {
       toggleCommentsLoading();
       removeCommentsError();
