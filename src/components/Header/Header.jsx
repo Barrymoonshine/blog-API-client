@@ -2,10 +2,15 @@ import './Header.css';
 import { NavLink } from 'react-router-dom';
 import useAuthState from '../../hooks/useAuthState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
+import { useEffect } from 'react';
 
 const Header = () => {
   const { isLoggedIn } = useAuthState();
-  const { handleLogOut } = useAuthDispatch();
+  const { handleLogOut, checkAuthStatus } = useAuthDispatch();
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
   return (
     <header>

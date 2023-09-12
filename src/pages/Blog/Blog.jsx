@@ -1,67 +1,67 @@
 import uniqid from 'uniqid';
 import './Blog.css';
-import useAppState from '../../hooks/useAppState';
-import useAppDispatch from '../../hooks/useAppDispatch';
 import useAuthState from '../../hooks/useAuthState';
 import useBlogsState from '../../hooks/useBlogsState';
 import useLikesState from '../../hooks/useLikesState';
 import useLikesDispatch from '../../hooks/useLikesDispatch';
+import useCommentsState from '../../hooks/useCommentsState';
+import useCommentsDispatch from '../../hooks/useCommentsDispatch';
+import useBlogsDispatch from '../../hooks/useBlogsDispatch';
+import { useParams, useLocation } from 'react-router-dom';
 import {
   getBlog,
   checkUserLiked,
   getTotalBlogLikes,
 } from '../../helpers/helpers';
-import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import useFetch from '../../hooks/useFetch';
-import useGetComments from '../../hooks/useGetComments';
 import CommentCard from '../../components/CommentCard/CommentCard';
+import { useEffect } from 'react';
 
 const Blog = () => {
-  const { username, token, isLoggedIn } = useAuthState();
-  const { blogs } = useBlogsState();
-  const { likes, likesLoading, likesError } = useLikesState();
   const { id } = useParams();
-  const { comments } = useAppState();
+  const { addComment, getComments } = useCommentsDispatch();
+  const { handleAddLike, getLikes } = useLikesDispatch();
+  const { getBlogs } = useBlogsDispatch();
+  const { blogs } = useBlogsState();
+  const location = useLocation();
+
+  console.log('location', location);
+
+  useEffect(() => {
+    console.log('handle route change here', location);
+    getComments(id);
+    getLikes();
+    if (!blogs) {
+      getBlogs();
+    }
+  }, [location]);
+
+  const { username, token, isLoggedIn } = useAuthState();
+  const { likes, likesLoading, likesError } = useLikesState();
+  const { comments, commentsLoading, commentsError } = useCommentsState();
   const blog = getBlog(blogs, id);
   const isBlogLiked = checkUserLiked(likes, id, username);
   const totalBlogLikes = getTotalBlogLikes(likes, id);
 
-  const { addComment } = useAppDispatch();
-  const { handleAddLike } = useLikesDispatch();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const { sendFetch, isError, isLoading } = useFetch();
-  const { loading, error } = useGetComments(
-    `https://ancient-water-2934.fly.dev/comments/${id}`,
-    {
-      method: 'GET',
-    },
-    id
-  );
 
   const onSubmit = async (formData) => {
-    const newComment = {
-      ...formData,
-      blogID: id,
-      commentID: uniqid(),
-      date: new Date().toISOString().split('T')[0],
-      username,
-    };
-    await sendFetch('https://ancient-water-2934.fly.dev/comments', {
-      method: 'POST',
-      body: JSON.stringify(newComment),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+    await addComment(
+      {
+        ...formData,
+        blogID: id,
+        commentID: uniqid(),
+        date: new Date().toISOString().split('T')[0],
+        username,
       },
-    });
-    if (!isError) {
-      addComment(newComment);
+      token
+    );
+    if (!commentsError) {
       reset();
     }
   };
@@ -115,8 +115,8 @@ const Blog = () => {
               />
               {errors.comment && <span>This field is required</span>}
 
-              {isError && <span>{isError.message}</span>}
-              <button className='submit-button' disabled={isLoading}>
+              {commentsError && <span>{commentsError.message}</span>}
+              <button className='submit-button' disabled={commentsLoading}>
                 Submit
               </button>
             </form>
@@ -126,8 +126,8 @@ const Blog = () => {
         )}
       </div>
       <div className='comments-container'>
-        {loading && <p>Comments are loading </p>}
-        {error && <p>{error.message} </p>}
+        {commentsLoading && <p>Comments are loading </p>}
+        {commentsError && <p>{commentsError.message} </p>}
         {comments &&
           comments.map((item) => (
             <CommentCard

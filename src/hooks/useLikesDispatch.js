@@ -69,6 +69,7 @@ const useLikesDispatch = () => {
   };
 
   const getLikes = async () => {
+    console.log('getLikes called');
     try {
       toggleLikesLoading();
       removeLikesError();

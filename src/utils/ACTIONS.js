@@ -1,9 +1,3 @@
-export const ACTIONS = {
-  UPDATE_ERROR: 'update-error-from-server',
-  TOGGLE_LOADING: 'toggle-loading-status',
-  SAVE_COMMENTS: 'save-all-comments',
-};
-
 export const AUTH_ACTIONS = {
   TOGGLE_LOG_IN: 'toggle-user-log-in',
   SAVE_TOKEN: 'save-jwt',
@@ -27,4 +21,11 @@ export const LIKES_ACTIONS = {
   TOGGLE_LIKES_LOADING: 'toggle-likes-loading-status',
   SAVE_LIKES_ERROR: 'save-likes-error',
   REMOVE_LIKES_ERROR: 'remove-likes-error',
+};
+
+export const COMMENTS_ACTIONS = {
+  SAVE_COMMENTS: 'save-all-comments',
+  TOGGLE_COMMENTS_LOADING: 'toggle-comments-loading-status',
+  SAVE_COMMENTS_ERROR: 'save-comments-error',
+  REMOVE_COMMENTS_ERROR: 'remove-comments-error',
 };

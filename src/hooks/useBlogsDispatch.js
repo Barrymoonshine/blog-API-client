@@ -57,6 +57,7 @@ const useBlogsDispatch = () => {
   };
 
   const getBlogs = async () => {
+    console.log('getBlogs called');
     try {
       toggleBlogsLoading();
       removeBlogsError();

@@ -1,12 +1,19 @@
 import './Home.css';
 import BlogCard from '../../components/BlogCard/BlogCard';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useBlogsState from '../../hooks/useBlogsState';
-import useLikesState from '../../hooks/useLikesState';
+import useBlogsDispatch from '../../hooks/useBlogsDispatch';
+import { useEffect } from 'react';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
-  const { likes } = useLikesState();
+  const { getBlogs } = useBlogsDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('handle route change here', location);
+    getBlogs();
+  }, [location]);
 
   return (
     <div className='home-container'>
