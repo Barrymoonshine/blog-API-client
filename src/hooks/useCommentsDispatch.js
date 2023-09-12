@@ -88,7 +88,7 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = fetch(
+      const response = await fetch(
         `https://ancient-water-2934.fly.dev/comments/delete/${id}`,
         {
           method: 'DELETE',
@@ -103,7 +103,7 @@ const useCommentsDispatch = () => {
         );
         saveComments(newComments);
       } else {
-        const data = (await response).json();
+        const data = await response.json();
         saveCommentsError(data);
       }
     } catch (error) {

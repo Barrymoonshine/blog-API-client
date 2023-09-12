@@ -7,8 +7,8 @@ const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
 
   const { deleteComment } = useCommentsDispatch();
 
-  const handleDelete = async () => {
-    await deleteComment(id, token);
+  const handleDelete = () => {
+    deleteComment(id, token);
   };
 
   return (

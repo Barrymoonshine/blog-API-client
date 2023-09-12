@@ -28,6 +28,7 @@ const Blog = () => {
     getComments(id);
     getLikes();
     if (!blogs) {
+      // If page refreshed or loaded from blog, also fetch blogs from server
       getBlogs();
     }
   }, []);
