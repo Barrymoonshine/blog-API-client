@@ -10,7 +10,7 @@ const App = () => {
   const { getBlogs } = useBlogsDispatch();
   const { checkAuthStatus } = useAuthDispatch();
 
-  // Regardless of page loaded/refreshed, getBlogs and checkAuthStatus
+  // From any page load/refresh, getBlogs and checkAuthStatus
   useEffect(() => {
     getBlogs();
     checkAuthStatus();

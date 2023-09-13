@@ -45,18 +45,10 @@ const useLikesDispatch = () => {
           'Content-Type': 'application/json',
         },
       });
-      if (response.ok && response === 'Like deleted') {
-        const likes = likesState.filter(
-          (like) => like.docID !== docID && like.username !== username
-        );
-        saveLikes(likes);
-      } else if (response.ok) {
-        const likes = likesState.likes
-          ? [...likesState.likes, newLike]
-          : [newLike];
-        saveLikes(likes);
+      const data = await response.json();
+      if (response.ok) {
+        saveLikes(data);
       } else {
-        const data = await response.json();
         saveLikesError(data);
       }
     } catch (error) {
