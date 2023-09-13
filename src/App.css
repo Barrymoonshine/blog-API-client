@@ -1,17 +1,17 @@
-#root {
-  width: 100vw;
-  height: 100vh;
-}
-
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0px;
-  font-family: 'Lato', sans-serif;
+  width: 100vw;
   background-color: #f8fafc;
+  font-family: 'Lato', sans-serif;
   color: #3f3f46;
+}
+
+#root {
+  width: 95%;
 }
 
 ul {
@@ -28,9 +28,4 @@ button {
   border: none;
   font-family: 'Lato', sans-serif;
   font-size: 15px;
-}
-
-button:disabled:hover,
-button[disabled]:hover {
-  cursor: disabled;
 }

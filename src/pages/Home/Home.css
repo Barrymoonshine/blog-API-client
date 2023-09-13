@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
 }
 
 .welcome-container {
@@ -13,7 +12,6 @@
   gap: 40px;
   padding: 40px 40px 40px 80px;
   border-bottom: 1px solid #d4d4d8;
-  width: 100vw;
 }
 
 .welcome-container h4 {

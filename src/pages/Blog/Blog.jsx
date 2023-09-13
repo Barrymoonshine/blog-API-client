@@ -6,7 +6,6 @@ import useLikesState from '../../hooks/useLikesState';
 import useLikesDispatch from '../../hooks/useLikesDispatch';
 import useCommentsState from '../../hooks/useCommentsState';
 import useCommentsDispatch from '../../hooks/useCommentsDispatch';
-import useBlogsDispatch from '../../hooks/useBlogsDispatch';
 import { useParams } from 'react-router-dom';
 import {
   getBlog,
@@ -176,10 +175,10 @@ const Blog = () => {
                   key={item.commentID}
                   id={item.commentID}
                   author={item.username}
-                  username={username}
                   comment={item.comment}
                   createdAt={item.date}
-                  token={token}
+                  replies={item.replies}
+                  username={username}
                 />
               ))}
           </div>

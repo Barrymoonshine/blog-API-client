@@ -18,23 +18,45 @@ const Header = () => {
           <ul>
             <li>
               <NavLink to='/create' style={{ textDecoration: 'none' }}>
-                <h3>Create</h3>
+                <img
+                  className='header-icons'
+                  src='../images/create.png'
+                  alt='create'
+                />
+                Create
               </NavLink>
             </li>
             <li>
               <NavLink to='/my-account' style={{ textDecoration: 'none' }}>
-                <h3>My Account</h3>
+                <img
+                  className='header-icons'
+                  src='../images/my-account.png'
+                  alt='my account'
+                />
+                My Account
               </NavLink>
             </li>
             <li>
-              <button onClick={() => handleLogOut()}>Log out</button>
+              <button className='log-out-button' onClick={() => handleLogOut()}>
+                <img
+                  className='header-icons'
+                  src='../images/log-out.png'
+                  alt='log out'
+                />
+                Log out
+              </button>
             </li>
           </ul>
         ) : (
           <ul>
             <li>
               <NavLink to='/log-in' style={{ textDecoration: 'none' }}>
-                <h3>Log in</h3>
+                <img
+                  className='header-icons'
+                  src='../images/log-in.png'
+                  alt='log in'
+                />
+                Log in
               </NavLink>
             </li>
           </ul>
