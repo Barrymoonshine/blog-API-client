@@ -36,22 +36,28 @@ const useAuthDispatch = () => {
     });
   };
 
-  const toggleLogIn = () => {
+  const logIn = () => {
     authDispatch({
-      type: AUTH_ACTIONS.TOGGLE_LOG_IN,
+      type: AUTH_ACTIONS.LOG_IN,
+    });
+  };
+
+  const logOut = () => {
+    authDispatch({
+      type: AUTH_ACTIONS.LOG_OUT,
     });
   };
 
   const handleLogIn = (token, username) => {
     saveToken(token);
     saveUsername(username);
-    toggleLogIn();
+    logIn();
   };
 
   const handleLogOut = () => {
     removeToken();
     removeUsername();
-    toggleLogIn();
+    logOut();
   };
 
   const toggleAuthLoading = () => {
@@ -120,7 +126,6 @@ const useAuthDispatch = () => {
   return {
     handleLogIn,
     handleLogOut,
-    toggleLogIn,
     createAuth,
     checkAuthStatus,
   };

@@ -32,7 +32,7 @@ const useLikesDispatch = () => {
     });
   };
 
-  const addLike = async (username, docType, docID, token) => {
+  const toggleLike = async (username, docType, docID, token) => {
     try {
       removeLikesError();
       toggleLikesLoading();
@@ -45,8 +45,12 @@ const useLikesDispatch = () => {
           'Content-Type': 'application/json',
         },
       });
-
-      if (response.ok) {
+      if (response.ok && response === 'Like deleted') {
+        const likes = likesState.filter(
+          (like) => like.docID !== docID && like.username !== username
+        );
+        saveLikes(likes);
+      } else if (response.ok) {
         const likes = likesState.likes
           ? [...likesState.likes, newLike]
           : [newLike];
@@ -59,12 +63,6 @@ const useLikesDispatch = () => {
       saveLikesError(error);
     } finally {
       toggleLikesLoading();
-    }
-  };
-
-  const handleAddLike = (username, docType, docID, token) => {
-    if (!checkDuplicateLike(likesState.likes, docID, username)) {
-      addLike(username, docType, docID, token);
     }
   };
 
@@ -89,7 +87,7 @@ const useLikesDispatch = () => {
   };
 
   return {
-    handleAddLike,
+    toggleLike,
     getLikes,
   };
 };

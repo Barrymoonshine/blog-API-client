@@ -2,16 +2,9 @@ import './Home.css';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
 import useBlogsState from '../../hooks/useBlogsState';
-import useBlogsDispatch from '../../hooks/useBlogsDispatch';
-import { useEffect } from 'react';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
-  const { getBlogs } = useBlogsDispatch();
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
 
   return (
     <div className='home-container'>

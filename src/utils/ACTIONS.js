@@ -1,5 +1,6 @@
 export const AUTH_ACTIONS = {
-  TOGGLE_LOG_IN: 'toggle-user-log-in',
+  LOG_IN: 'log-user-in',
+  LOG_OUT: 'log-user-out',
   SAVE_TOKEN: 'save-jwt',
   REMOVE_TOKEN: 'remove-jwt',
   SAVE_USERNAME: 'save-username',

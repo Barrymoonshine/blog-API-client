@@ -1,4 +1,4 @@
-.blog-page-container,
+.blog-container,
 .comments-container {
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@
   width: 65%;
 }
 
-.blog-page-container div {
+.blog-container div {
   width: 75%;
   display: flex;
   flex-direction: column;
@@ -52,10 +52,37 @@
   font-size: 17px;
 }
 
+.like-icon,
+.liked-icon {
+  height: 25px;
+  width: 25px;
+}
+
+#likes-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 10px;
+}
+
 .comments-title h4 {
   font-size: 25px;
   margin: 20px 0px 30px 0px;
   text-align: center;
+}
+
+.comments-title h5 {
+  font-size: 18px;
+  margin: 10px 0px 20px 0px;
+  text-align: center;
+}
+
+.like-button {
+  padding: 2px;
+}
+
+.like-button:hover {
+  cursor: pointer;
 }
 
 .comment-form {

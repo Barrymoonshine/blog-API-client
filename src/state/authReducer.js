@@ -31,10 +31,15 @@ const authReducer = (state, action) => {
         ...state,
         username: null,
       };
-    case AUTH_ACTIONS.TOGGLE_LOG_IN:
+    case AUTH_ACTIONS.LOG_IN:
       return {
         ...state,
-        isLoggedIn: !state.isLoggedIn,
+        isLoggedIn: true,
+      };
+    case AUTH_ACTIONS.LOG_OUT:
+      return {
+        ...state,
+        isLoggedIn: false,
       };
     case AUTH_ACTIONS.TOGGLE_AUTH_LOADING:
       return {

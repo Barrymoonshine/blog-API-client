@@ -20,17 +20,12 @@ import { useEffect } from 'react';
 const Blog = () => {
   const { id } = useParams();
   const { addComment, getComments } = useCommentsDispatch();
-  const { handleAddLike, getLikes } = useLikesDispatch();
-  const { getBlogs } = useBlogsDispatch();
+  const { toggleLike, getLikes } = useLikesDispatch();
   const { blogs } = useBlogsState();
 
   useEffect(() => {
     getComments(id);
     getLikes();
-    if (!blogs) {
-      // If page refreshed or loaded from blog, also fetch blogs from server
-      getBlogs();
-    }
   }, []);
 
   const { username, token, isLoggedIn } = useAuthState();
@@ -68,8 +63,8 @@ const Blog = () => {
       {!blog ? (
         <span>Page is loading</span>
       ) : (
-        <div>
-          <div className='blog-page-container'>
+        <>
+          <div className='blog-container'>
             <div>
               <div className='blog-title'>
                 <h4>{blog.title}</h4>
@@ -89,52 +84,88 @@ const Blog = () => {
                 <p>{blog.content}</p>
               </div>
               {isBlogLiked && isLoggedIn && (
-                <button disabled={true}>You like this blog!</button>
+                <div id='likes-container'>
+                  You like this blog |
+                  <button
+                    className='like-button'
+                    disabled={likesLoading}
+                    onClick={() => toggleLike(username, 'blog', id, token)}
+                  >
+                    <img
+                      className='liked-icon'
+                      src='../images/liked.png'
+                      alt='liked'
+                    />
+                  </button>
+                  {totalBlogLikes}
+                </div>
               )}
               {!isBlogLiked && isLoggedIn && (
-                <button
-                  disabled={likesLoading}
-                  onClick={() => handleAddLike(username, 'blog', id, token)}
-                >
-                  Like
-                </button>
+                <div id='likes-container'>
+                  Like this blog |
+                  <button
+                    className='like-button'
+                    disabled={likesLoading}
+                    onClick={() => toggleLike(username, 'blog', id, token)}
+                  >
+                    <img
+                      className='like-icon'
+                      src='../images/like.png'
+                      alt='like'
+                    />
+                  </button>
+                  {totalBlogLikes}
+                </div>
+              )}
+              {!isLoggedIn && (
+                <div id='likes-container'>
+                  Log in to like this blog |
+                  <img
+                    className='like-icon'
+                    src='../images/like.png'
+                    alt='like'
+                  />
+                  {totalBlogLikes}
+                </div>
               )}
               {likesError && (
                 <span>
-                  There has been an error with liking this post, please try
+                  There has been an error with liking this blog, please try
                   again
                 </span>
               )}
-              {!isLoggedIn && <span>Log in to like this post </span>}
-              <div>Total likes : {totalBlogLikes}</div>
             </div>
             <div className='comments-title'>
               <h4>Comments</h4>
-            </div>
-            {username ? (
-              <div className='comment-form-container'>
-                <form
-                  className='comment-form'
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <label htmlFor='content'> Add comment:</label>
-                  <textarea
-                    {...register('comment', {
-                      required: true,
-                    })}
-                    placeholder='Type your comment here'
-                  />
-                  {errors.comment && <span>This field is required</span>}
 
-                  {commentsError && <span>{commentsError.message}</span>}
-                  <button className='submit-button' disabled={commentsLoading}>
-                    Submit
-                  </button>
-                </form>
-              </div>
-            ) : (
-              <h5> Please log in to add a comment </h5>
-            )}
+              {isLoggedIn ? (
+                <div className='comment-form-container'>
+                  <form
+                    className='comment-form'
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <label htmlFor='content'> Add comment:</label>
+                    <textarea
+                      {...register('comment', {
+                        required: true,
+                      })}
+                      placeholder='Type your comment here'
+                    />
+                    {errors.comment && <span>This field is required</span>}
+
+                    {commentsError && <span>{commentsError.message}</span>}
+                    <button
+                      className='submit-button'
+                      disabled={commentsLoading}
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                <h5> Please log in to add a comment </h5>
+              )}
+            </div>
           </div>
           <div className='comments-container'>
             {commentsLoading && <p>Comments are loading </p>}
@@ -152,7 +183,7 @@ const Blog = () => {
                 />
               ))}
           </div>
-        </div>
+        </>
       )}
     </>
   );
