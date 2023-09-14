@@ -11,7 +11,7 @@ const LogIn = () => {
     formState: { errors },
   } = useForm();
 
-  const { createAuth } = useAuthDispatch();
+  const { createAuth, removeAuthError } = useAuthDispatch();
   const { authLoading, authError } = useAuthState();
 
   const onSubmit = async (formData) => {
@@ -27,19 +27,25 @@ const LogIn = () => {
     }
   };
 
+  console.log('authError on LogIn', authError);
+
   return (
     <div className='log-in-container'>
       <h4>Welcome back weary traveler</h4>
       <h5>Sign in to your account</h5>
       <form className='log-in-form' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='Username'> Username:</label>
-        <input {...register('username', { required: true })} />
+        <input
+          onClick={() => removeAuthError()}
+          {...register('username', { required: true })}
+        />
         {errors.username && (
           <span className='log-in-error'>This field is required</span>
         )}
 
         <label htmlFor='password'> Password:</label>
         <input
+          onClick={() => removeAuthError()}
           type='password'
           {...register('password', {
             required: true,
@@ -55,7 +61,7 @@ const LogIn = () => {
           </span>
         )}
 
-        {authError && <span className='error'>{authError.message}</span>}
+        {authError && <span className='log-in-error'>{authError}</span>}
         <button className='log-in-button' disabled={authLoading}>
           Log in
         </button>

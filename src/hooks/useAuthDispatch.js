@@ -85,9 +85,12 @@ const useAuthDispatch = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
+      console.log('data in create Auth', data);
+      console.log('response', response);
       if (response.ok) {
         handleLogIn(data.token, JSON.parse(options.body).username);
       } else {
+        console.log('authError', data);
         saveAuthError(data);
       }
     } catch (err) {
@@ -128,6 +131,7 @@ const useAuthDispatch = () => {
     handleLogOut,
     createAuth,
     checkAuthStatus,
+    removeAuthError,
   };
 };
 

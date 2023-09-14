@@ -51,7 +51,7 @@ const authReducer = (state, action) => {
         ...state,
         authError: null,
       };
-    case AUTH_ACTIONS.SAVE_AUTH_ERROR_AUTH_ERROR:
+    case AUTH_ACTIONS.SAVE_AUTH_ERROR:
       return {
         ...state,
         authError: payload.error,
