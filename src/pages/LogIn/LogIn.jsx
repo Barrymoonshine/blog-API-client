@@ -16,14 +16,17 @@ const LogIn = () => {
   const { authLoading, authError, isLoggedIn } = useAuthState();
 
   const onSubmit = async (formData) => {
-    await createAuth('https://ancient-water-2934.fly.dev/user/log-in', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!authError) {
+    const reqSent = await createAuth(
+      'https://ancient-water-2934.fly.dev/user/log-in',
+      {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (reqSent) {
       reset();
     }
   };
@@ -34,7 +37,7 @@ const LogIn = () => {
         <Navigate to='/' />
       ) : (
         <div className='log-in-container'>
-          <h4>Welcome back weary traveler</h4>
+          <h4>Welcome back fellow traveler</h4>
           <h5>Sign in to your account</h5>
           <p>
             Or{' '}
@@ -42,19 +45,19 @@ const LogIn = () => {
               <span>Sign up for a new account</span>
             </Link>
           </p>
-          <form className='log-in-form' onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onClick={() => removeAuthError()}
+            className='log-in-form'
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <label htmlFor='Username'> Username:</label>
-            <input
-              onClick={() => removeAuthError()}
-              {...register('username', { required: true })}
-            />
+            <input {...register('username', { required: true })} />
             {errors.username && (
               <span className='log-in-error'>This field is required</span>
             )}
 
             <label htmlFor='password'> Password:</label>
             <input
-              onClick={() => removeAuthError()}
               type='password'
               {...register('password', {
                 required: true,
