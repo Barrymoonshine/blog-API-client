@@ -35,6 +35,10 @@ nav ul li a,
   padding: 0px;
 }
 
+.log-out-button:hover {
+  cursor: pointer;
+}
+
 .header-icons {
   width: 25px;
   height: 25px;

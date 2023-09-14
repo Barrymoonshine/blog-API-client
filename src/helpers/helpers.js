@@ -8,3 +8,12 @@ export const checkUserLiked = (likes, id, username) =>
 
 export const getTotalBlogLikes = (likes, id) =>
   likes.filter((like) => like.docType === 'blog' && like.docID === id).length;
+
+export const getTopThreeLikedBlogs = (blogs, likes) =>
+  blogs
+    .map((blog) => ({
+      ...blog,
+      likes: getTotalBlogLikes(likes, blog._id),
+    }))
+    .sort((a, b) => b.likes - a.likes)
+    .slice(0, 3);

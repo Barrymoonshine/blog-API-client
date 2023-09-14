@@ -19,12 +19,11 @@ import { useEffect } from 'react';
 const Blog = () => {
   const { id } = useParams();
   const { addComment, getComments } = useCommentsDispatch();
-  const { toggleLike, getLikes } = useLikesDispatch();
+  const { toggleLike } = useLikesDispatch();
   const { blogs } = useBlogsState();
 
   useEffect(() => {
     getComments(id);
-    getLikes();
   }, []);
 
   const { username, token, isLoggedIn } = useAuthState();

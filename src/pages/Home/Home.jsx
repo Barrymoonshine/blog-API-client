@@ -2,23 +2,40 @@ import './Home.css';
 import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
 import useBlogsState from '../../hooks/useBlogsState';
+import useAuthState from '../../hooks/useAuthState';
+import { getTopThreeLikedBlogs } from '../../helpers/helpers';
+import useLikesState from '../../hooks/useLikesState';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
+  const { isLoggedIn, username } = useAuthState();
+  const { likes } = useLikesState();
+
+  const topThreeLikedBlogs = likes && getTopThreeLikedBlogs(blogs, likes);
+
+  console.log('topThreeLikeBlogs on Home', topThreeLikedBlogs);
 
   return (
     <div className='home-container'>
       <div className='welcome-container'>
-        <div>
-          <h4>Create the travel blog of your dreams</h4>
-          <p>
-            Sign up for a free account today, to create and edit your very own
-            travel blog!
-          </p>
-          <Link to='/sign-up' style={{ textDecoration: 'none' }}>
-            Sign up
-          </Link>
-        </div>
+        {isLoggedIn ? (
+          <div>
+            <h4>Welcome back {username}</h4>
+            <h5>What would you like to do today?</h5>
+            <p>The world is your lobster :-)</p>
+          </div>
+        ) : (
+          <div>
+            <h4>Create the travel blog of your dreams</h4>
+            <p>
+              Sign up for a free account today, to create and edit your very own
+              travel blog!
+            </p>
+            <Link to='/sign-up' style={{ textDecoration: 'none' }}>
+              <span className='sign-up-link'>Sign up</span>
+            </Link>
+          </div>
+        )}
         <div>
           <img
             className='welcome-image'
@@ -27,10 +44,11 @@ const Home = () => {
           />
         </div>
       </div>
+      <h4>Most liked blogs </h4>
       {blogsError && <p>Error! {blogsError}</p>}
       {blogsLoading && <p>Loading...</p>}
-      {blogs &&
-        blogs.map((blog) => (
+      {topThreeLikedBlogs &&
+        topThreeLikedBlogs.map((blog) => (
           <BlogCard
             key={blog._id}
             id={blog._id}
@@ -39,6 +57,7 @@ const Home = () => {
             region={blog.region}
             image={blog.image}
             createdAt={blog.createdAt}
+            likes={blog.likes}
           />
         ))}
     </div>

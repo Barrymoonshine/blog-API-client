@@ -20,7 +20,7 @@ const Header = () => {
               <NavLink to='/create' style={{ textDecoration: 'none' }}>
                 <img
                   className='header-icons'
-                  src='../images/create.png'
+                  src='./images/create.png'
                   alt='create'
                 />
                 Create
@@ -30,7 +30,7 @@ const Header = () => {
               <NavLink to='/my-account' style={{ textDecoration: 'none' }}>
                 <img
                   className='header-icons'
-                  src='../images/my-account.png'
+                  src='./images/my-account.png'
                   alt='my account'
                 />
                 My Account

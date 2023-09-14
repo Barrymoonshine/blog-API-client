@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import { LIKES_ACTIONS } from '../utils/ACTIONS';
-import { checkDuplicateLike } from '../helpers/helpers';
 
 const useLikesDispatch = () => {
-  const { likesState, likesDispatch } = useContext(AppContext);
+  const { likesDispatch } = useContext(AppContext);
 
   const toggleLikesLoading = () => {
     likesDispatch({

@@ -28,8 +28,10 @@ const LogIn = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className='log-in-container'>
+      <h4>Welcome back weary traveler</h4>
+      <p>Please log in to contribute to Sayonara</p>
+      <form className='log-in-form' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='Username'> Username:</label>
         <input {...register('username', { required: true })} />
         {errors.username && <span>This field is required</span>}
@@ -54,7 +56,7 @@ const LogIn = () => {
         {authError && <span className='error'>{authError.message}</span>}
         <button disabled={authLoading}> Log in </button>
       </form>
-    </>
+    </div>
   );
 };
 
