@@ -1,35 +1,63 @@
 .log-in-container {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  height: 80vh;
+  width: 100%;
 }
 
 .log-in-container h4 {
-  font-size: 25px;
+  font-size: 30px;
+  margin-bottom: 0px;
 }
 
-.log-in-container p {
+.log-in-container h5 {
+  font-size: 25px;
   color: #a21caf;
 }
 
 .log-in-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
 }
 
 .log-in-form label {
   align-self: flex-start;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   padding-bottom: 10px;
 }
 
 .log-in-form input {
-  font-size: 18px;
-  margin-bottom: 30px;
-  width: 500px;
+  font-size: 15px;
+  margin-bottom: 25px;
+  width: 400px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 7px;
+}
+
+.log-in-button {
+  background-color: #a21caf;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.log-in-button:hover {
+  background-color: #83188d;
+  cursor: pointer;
+}
+
+.log-in-error {
+  width: 416px;
+  color: #ef4444;
+  padding-bottom: 15px;
+  margin-top: -15px;
 }

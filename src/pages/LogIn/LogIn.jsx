@@ -30,11 +30,13 @@ const LogIn = () => {
   return (
     <div className='log-in-container'>
       <h4>Welcome back weary traveler</h4>
-      <p>Please log in to contribute to Sayonara</p>
+      <h5>Sign in to your account</h5>
       <form className='log-in-form' onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor='Username'> Username:</label>
         <input {...register('username', { required: true })} />
-        {errors.username && <span>This field is required</span>}
+        {errors.username && (
+          <span className='log-in-error'>This field is required</span>
+        )}
 
         <label htmlFor='password'> Password:</label>
         <input
@@ -46,7 +48,7 @@ const LogIn = () => {
           })}
         />
         {errors.password && (
-          <span>
+          <span className='log-in-error'>
             Please enter a password that is between 8 and 20 characters long and
             contains at least one number, one capital letter and one special
             symbol(!@#$%^&*=+-_)
@@ -54,7 +56,9 @@ const LogIn = () => {
         )}
 
         {authError && <span className='error'>{authError.message}</span>}
-        <button disabled={authLoading}> Log in </button>
+        <button className='log-in-button' disabled={authLoading}>
+          Log in
+        </button>
       </form>
     </div>
   );

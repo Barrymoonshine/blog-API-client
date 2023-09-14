@@ -3,10 +3,12 @@ header {
   justify-content: space-between;
   padding: 10px;
   position: sticky;
+  max-width: 100%;
   top: 0;
   left: 0;
   z-index: 1;
-  background-color: #f8fafc;
+  background-color: white;
+  box-shadow: 0 1px 1px 0 rgb(209, 205, 205);
 }
 
 header h3 {
