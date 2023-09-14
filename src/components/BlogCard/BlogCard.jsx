@@ -19,9 +19,13 @@ const BlogCard = ({ id, image, region, title, caption, createdAt }) => {
         <p className='caption-container'>{caption}</p>
         <p>
           {' '}
-          <Link to={`/blog/${id}`}>Read blog</Link> |
-          <img className='like-icon' src='../images/like.png' alt='like' />{' '}
-          {totalBlogLikes}{' '}
+          <Link to={`/blog/${id}`}>Read blog</Link> |{' '}
+          <img
+            className='likes-blog-card'
+            src='../images/like.png'
+            alt='like'
+          />{' '}
+          {totalBlogLikes}
         </p>
         <p className='blog-credits'>By: TBC, Date: {createdAt.slice(0, 10)} </p>
       </div>

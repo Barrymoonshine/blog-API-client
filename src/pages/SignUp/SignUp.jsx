@@ -17,14 +17,17 @@ const SignUp = () => {
   const { authLoading, authError, isLoggedIn } = useAuthState();
 
   const onSubmit = async (formData) => {
-    await createAuth('https://ancient-water-2934.fly.dev/user/sign-up', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (!authError) {
+    const reqSent = await createAuth(
+      'https://ancient-water-2934.fly.dev/user/sign-up',
+      {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    if (reqSent) {
       reset();
     }
   };
