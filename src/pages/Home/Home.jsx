@@ -13,8 +13,6 @@ const Home = () => {
 
   const topThreeLikedBlogs = likes && getTopThreeLikedBlogs(blogs, likes);
 
-  console.log('topThreeLikeBlogs on Home', topThreeLikedBlogs);
-
   return (
     <div className='home-container'>
       <div className='welcome-container'>
@@ -29,7 +27,7 @@ const Home = () => {
             <h4>Create the travel blog of your dreams</h4>
             <p>
               Sign up for a free account today, to create and edit your very own
-              travel blog!
+              travel blogs!
             </p>
             <Link to='/sign-up' style={{ textDecoration: 'none' }}>
               <span className='sign-up-link'>Sign up</span>
@@ -44,7 +42,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <h4>Most liked blogs </h4>
+      <h4>Popular blogs </h4>
       {blogsError && <p>Error! {blogsError}</p>}
       {blogsLoading && <p>Loading...</p>}
       {topThreeLikedBlogs &&
@@ -57,7 +55,6 @@ const Home = () => {
             region={blog.region}
             image={blog.image}
             createdAt={blog.createdAt}
-            likes={blog.likes}
           />
         ))}
     </div>

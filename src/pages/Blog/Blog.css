@@ -1,17 +1,16 @@
-.blog-container,
+.blog-details-container,
 .comments-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
 }
 
 .comments-container div {
   width: 65%;
 }
 
-.blog-container div {
+.blog-details-container div {
   width: 75%;
   display: flex;
   flex-direction: column;

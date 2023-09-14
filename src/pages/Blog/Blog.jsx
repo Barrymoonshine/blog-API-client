@@ -62,7 +62,7 @@ const Blog = () => {
         <span>Page is loading</span>
       ) : (
         <>
-          <div className='blog-container'>
+          <div className='blog-details-container'>
             <div>
               <div className='blog-title'>
                 <h4>{blog.title}</h4>

@@ -4,14 +4,10 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0px;
-  width: 100vw;
+  width: 100%;
   background-color: #f8fafc;
   font-family: 'Lato', sans-serif;
   color: #3f3f46;
-}
-
-#root {
-  width: 95%;
 }
 
 ul {
@@ -21,6 +17,10 @@ ul {
 
 a {
   color: #3f3f46;
+}
+
+main {
+  padding: 10px;
 }
 
 button {
