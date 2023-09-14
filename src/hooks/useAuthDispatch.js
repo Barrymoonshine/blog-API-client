@@ -4,7 +4,7 @@ import { AUTH_ACTIONS } from '../utils/ACTIONS';
 import { saveItem, getItem, removeItem } from '../helpers/localStorage';
 
 const useAuthDispatch = () => {
-  const { authDispatch } = useContext(AppContext);
+  const { authState, authDispatch } = useContext(AppContext);
 
   const saveToken = (token) => {
     saveItem('token', token);
@@ -85,18 +85,19 @@ const useAuthDispatch = () => {
     try {
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log('data in create Auth', data);
-      console.log('response', response);
       if (response.ok) {
         handleLogIn(data.token, JSON.parse(options.body).username);
+        toggleAuthLoading();
+        return true;
       } else {
         console.log('authError', data);
+        toggleAuthLoading();
         saveAuthError(data);
+        return false;
       }
     } catch (err) {
       saveAuthError(err);
-    } finally {
-      toggleAuthLoading();
+      return false;
     }
   };
 
@@ -126,12 +127,15 @@ const useAuthDispatch = () => {
     }
   };
 
+  const getAuthStatus = () => authState.isLoggedIn;
+
   return {
     handleLogIn,
     handleLogOut,
     createAuth,
     checkAuthStatus,
     removeAuthError,
+    getAuthStatus,
   };
 };
 
