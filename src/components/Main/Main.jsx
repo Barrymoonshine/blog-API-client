@@ -7,6 +7,7 @@ import NotFound from '../../pages/NotFound/NotFound';
 import LogIn from '../../pages/LogIn/LogIn';
 import SignUp from '../../pages/SignUp/SignUp';
 import Blog from '../../pages/Blog/Blog';
+import Region from '../../pages/Region/Region';
 
 const Main = () => {
   return (
@@ -18,6 +19,7 @@ const Main = () => {
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/my-account' element={<MyAccount />} />
         <Route path='/blog/:id' element={<Blog />} />
+        <Route path='/region/:region' element={<Region />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </main>

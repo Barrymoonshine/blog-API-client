@@ -1,0 +1,17 @@
+.region-menu {
+  background-color: #3f3f46;
+  color: #f8fafc;
+  padding-left: 10px;
+  padding-top: 15px;
+}
+
+.region-menu ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.region-menu ul li a {
+  color: #f8fafc;
+}

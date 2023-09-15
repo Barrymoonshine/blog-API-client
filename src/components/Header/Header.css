@@ -44,3 +44,18 @@ nav ul li a,
   width: 25px;
   height: 25px;
 }
+
+.region-menu-button {
+  align-self: center;
+  height: 27px;
+  font-size: 14px;
+  background-color: #334155;
+  padding: 0px 10px 0px 10px;
+  border-radius: 5px;
+  color: #f8fafc;
+}
+
+.region-menu-button:hover {
+  cursor: pointer;
+  background-color: #3f3f46;
+}

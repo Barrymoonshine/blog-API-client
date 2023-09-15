@@ -14,3 +14,6 @@ export const getTopThreeLikedBlogs = (blogs, likes) =>
     }))
     .sort((a, b) => b.likes - a.likes)
     .slice(0, 3);
+
+export const getRegionBlogs = (blogs, santisedRegion) =>
+  blogs.filter((blog) => blog.region === santisedRegion);

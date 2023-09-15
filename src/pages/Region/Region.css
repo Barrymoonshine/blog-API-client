@@ -1,0 +1,11 @@
+.region-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.region-container h3 {
+  font-size: 30px;
+}

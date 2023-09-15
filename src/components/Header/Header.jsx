@@ -1,15 +1,30 @@
 import './Header.css';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import RegionMenu from '../RegionMenu/RegionMenu';
 import useAuthState from '../../hooks/useAuthState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
 
 const Header = () => {
+  const [isRegionMenuVisible, setIsRegionMenuVisible] = useState(false);
   const { isLoggedIn } = useAuthState();
   const { handleLogOut } = useAuthDispatch();
 
+  const toggleMenuVisibility = () => {
+    setIsRegionMenuVisible((prevState) => !prevState);
+  };
+
   return (
     <header>
-      <p>Region</p>
+      <button
+        className='region-menu-button'
+        onClick={() => toggleMenuVisibility()}
+      >
+        Region ⌄
+      </button>
+      {isRegionMenuVisible && (
+        <RegionMenu toggleMenuVisibility={toggleMenuVisibility} />
+      )}
       <NavLink to='/' style={{ textDecoration: 'none' }}>
         <h3>Sayonara</h3>
       </NavLink>
@@ -20,7 +35,7 @@ const Header = () => {
               <NavLink to='/create' style={{ textDecoration: 'none' }}>
                 <img
                   className='header-icons'
-                  src='./images/create.png'
+                  src='../images/create.png'
                   alt='create'
                 />
                 Create
@@ -30,7 +45,7 @@ const Header = () => {
               <NavLink to='/my-account' style={{ textDecoration: 'none' }}>
                 <img
                   className='header-icons'
-                  src='./images/my-account.png'
+                  src='../images/my-account.png'
                   alt='my account'
                 />
                 My Account
