@@ -1,0 +1,64 @@
+.my-account-container {
+  display: flex;
+  height: 80vh;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-right: 1px solid #3f3f46;
+  padding: 10px 40px 10px 10px;
+  gap: 10px;
+}
+
+.account-details h5 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.account-details h6 {
+  font-size: 20px;
+  margin: 0px;
+}
+
+.reset-username-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.reset-username-form label {
+  align-self: flex-start;
+  font-size: 15px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.reset-username-form input {
+  font-size: 15px;
+  margin-bottom: 25px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.account-blogs {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-button,
+.update-username-button {
+  margin-top: 0px;
+  background-color: #a21caf;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.update-button,
+.update-username-button:hover {
+  background-color: #83188d;
+  cursor: pointer;
+}
