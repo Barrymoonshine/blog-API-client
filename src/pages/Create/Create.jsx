@@ -79,7 +79,7 @@ const Create = () => {
             <span className='create-error'>Please provide an image</span>
           )}
 
-          {blogsError && <span className='create-error'>{blogsError}</span>}
+          {blogsError && <span className='create-error'>BlogsError - TBC</span>}
           <button className='create-button' disabled={blogsLoading}>
             Submit
           </button>

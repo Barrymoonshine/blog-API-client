@@ -91,7 +91,7 @@ const useCommentsDispatch = () => {
       toggleCommentsLoading();
       removeCommentsError();
       const response = await fetch(
-        `https://ancient-water-2934.fly.dev/comments/delete/${id}`,
+        `https://ancient-water-2934.fly.dev/comments/${id}`,
         {
           method: 'DELETE',
           headers: {

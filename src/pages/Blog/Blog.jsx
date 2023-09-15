@@ -47,7 +47,7 @@ const Blog = () => {
         blogID: id,
         commentID: uniqid(),
         date: new Date().toISOString().split('T')[0],
-        username,
+        author: username,
       },
       token
     );
@@ -67,7 +67,7 @@ const Blog = () => {
               <div className='blog-title'>
                 <h4>{blog.title}</h4>
                 <p>
-                  By: TBC, blog?.author || Date: {blog.createdAt.slice(0, 10)}
+                  By: {blog.author} || Date: {blog.createdAt.slice(0, 10)}
                 </p>
               </div>
               <div>
@@ -173,11 +173,12 @@ const Blog = () => {
                 <CommentCard
                   key={item.commentID}
                   id={item.commentID}
-                  author={item.username}
+                  author={item.author}
                   comment={item.comment}
                   createdAt={item.date}
                   replies={item.replies}
                   username={username}
+                  token={token}
                 />
               ))}
           </div>

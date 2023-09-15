@@ -3,15 +3,15 @@ import BlogCard from '../../components/BlogCard/BlogCard';
 import { Link } from 'react-router-dom';
 import useBlogsState from '../../hooks/useBlogsState';
 import useAuthState from '../../hooks/useAuthState';
-import { getTopThreeLikedBlogs } from '../../helpers/helpers';
-import useLikesState from '../../hooks/useLikesState';
+// import { getTopThreeLikedBlogs } from '../../helpers/helpers';
+// import useLikesState from '../../hooks/useLikesState';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
   const { isLoggedIn, username } = useAuthState();
-  const { likes } = useLikesState();
+  // const { likes } = useLikesState();
 
-  const topThreeLikedBlogs = likes && getTopThreeLikedBlogs(blogs, likes);
+  // const topThreeLikedBlogs = likes && getTopThreeLikedBlogs(blogs, likes);
 
   return (
     <div className='home-container'>
@@ -45,8 +45,8 @@ const Home = () => {
       <h4>Popular blogs </h4>
       {blogsError && <p>Error! {blogsError}</p>}
       {blogsLoading && <p>Loading...</p>}
-      {topThreeLikedBlogs &&
-        topThreeLikedBlogs.map((blog) => (
+      {blogs &&
+        blogs.map((blog) => (
           <BlogCard
             key={blog._id}
             id={blog._id}
@@ -54,6 +54,7 @@ const Home = () => {
             caption={blog.caption}
             region={blog.region}
             image={blog.image}
+            author={blog.author}
             createdAt={blog.createdAt}
           />
         ))}

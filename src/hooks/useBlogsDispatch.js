@@ -35,7 +35,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      const response = fetch('https://ancient-water-2934.fly.dev/blogs', {
+      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
         method: 'POST',
         body: blog,
         headers: {
@@ -49,6 +49,7 @@ const useBlogsDispatch = () => {
         return true;
       } else {
         const error = await response.json();
+        console.log('error', error);
         saveBlogsError(error);
         toggleBlogsLoading();
         return false;

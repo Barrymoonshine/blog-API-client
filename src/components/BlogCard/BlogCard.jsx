@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useLikesState from '../../hooks/useLikesState';
 import { getTotalBlogLikes } from '../../helpers/helpers';
 
-const BlogCard = ({ id, image, region, title, caption, createdAt }) => {
+const BlogCard = ({ id, image, region, title, caption, createdAt, author }) => {
   const { likes } = useLikesState();
 
   const totalBlogLikes = getTotalBlogLikes(likes, id);
@@ -27,7 +27,9 @@ const BlogCard = ({ id, image, region, title, caption, createdAt }) => {
           />{' '}
           {totalBlogLikes}
         </p>
-        <p className='blog-credits'>By: TBC, Date: {createdAt.slice(0, 10)} </p>
+        <p className='blog-credits'>
+          By: {author}, Date: {createdAt.slice(0, 10)}{' '}
+        </p>
       </div>
     </div>
   );
