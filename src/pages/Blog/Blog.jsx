@@ -18,16 +18,16 @@ import { useEffect } from 'react';
 
 const Blog = () => {
   const { id } = useParams();
+  const { likes, likesLoading, likesError } = useLikesState();
+  const { username, token, isLoggedIn } = useAuthState();
+  const { blogs } = useBlogsState();
   const { addComment, getComments } = useCommentsDispatch();
   const { toggleLike } = useLikesDispatch();
-  const { blogs } = useBlogsState();
 
   useEffect(() => {
     getComments(id);
   }, []);
 
-  const { username, token, isLoggedIn } = useAuthState();
-  const { likes, likesLoading, likesError } = useLikesState();
   const { comments, commentsLoading, commentsError } = useCommentsState();
   const blog = blogs && getBlog(blogs, id);
   const isBlogLiked = likes && checkUserLiked(likes, id, username);
@@ -41,7 +41,7 @@ const Blog = () => {
   } = useForm();
 
   const onSubmit = async (formData) => {
-    await addComment(
+    const isReqSent = await addComment(
       {
         ...formData,
         blogID: id,
@@ -51,7 +51,7 @@ const Blog = () => {
       },
       token
     );
-    if (!commentsError) {
+    if (isReqSent) {
       reset();
     }
   };

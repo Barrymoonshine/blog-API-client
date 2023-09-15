@@ -5,6 +5,8 @@ import useAuthState from '../../hooks/useAuthState';
 import { Navigate, Link } from 'react-router-dom';
 
 const SignUp = () => {
+  const { createAuth, removeAuthError } = useAuthDispatch();
+  const { authLoading, authError, isLoggedIn } = useAuthState();
   const {
     register,
     handleSubmit,
@@ -13,11 +15,8 @@ const SignUp = () => {
     watch,
   } = useForm();
 
-  const { createAuth, removeAuthError } = useAuthDispatch();
-  const { authLoading, authError, isLoggedIn } = useAuthState();
-
   const onSubmit = async (formData) => {
-    const reqSent = await createAuth(
+    const isReqSent = await createAuth(
       'https://ancient-water-2934.fly.dev/user/sign-up',
       {
         method: 'POST',
@@ -27,7 +26,7 @@ const SignUp = () => {
         },
       }
     );
-    if (reqSent) {
+    if (isReqSent) {
       reset();
     }
   };

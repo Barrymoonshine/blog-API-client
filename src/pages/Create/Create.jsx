@@ -5,17 +5,15 @@ import useBlogsDispatch from '../../hooks/useBlogsDispatch';
 import useBlogsState from '../../hooks/useBlogsState';
 
 const Create = () => {
+  const { token, username } = useAuthState();
+  const { blogsLoading, blogsError } = useBlogsState();
+  const { addBlog } = useBlogsDispatch();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-
-  const { token } = useAuthState();
-  const { blogsLoading, blogsError } = useBlogsState();
-
-  const { addBlog } = useBlogsDispatch();
 
   const onSubmit = async (formData) => {
     const blog = new FormData();
@@ -25,10 +23,11 @@ const Create = () => {
     blog.append('content', formData.content);
     blog.append('region', formData.region);
     blog.append('image', formData.image[0]);
+    blog.append('author', username);
 
-    await addBlog(blog, token);
+    const isReqSent = await addBlog(blog, token);
 
-    if (!blogsError) {
+    if (isReqSent) {
       reset();
     }
   };
@@ -41,19 +40,21 @@ const Create = () => {
           <label htmlFor='title'> Title:</label>
           <input {...register('title', { required: true })} />
           {errors.title && (
-            <span className='create-error'>This field is required</span>
+            <span className='create-error'>Please provide a title</span>
           )}
 
           <label htmlFor='caption'> Caption:</label>
           <textarea rows='5' {...register('caption', { required: true })} />
           {errors.caption && (
-            <span className='create-error'>This field is required</span>
+            <span className='create-error'>Please provide a caption</span>
           )}
 
           <label htmlFor='content'> Content:</label>
           <textarea rows='15' {...register('content', { required: true })} />
           {errors.content && (
-            <span className='create-error'>This field is required</span>
+            <span className='create-error'>
+              Please provide content for your blog
+            </span>
           )}
 
           <label htmlFor='content'> Region:</label>
@@ -75,7 +76,7 @@ const Create = () => {
           <label htmlFor='image'> Image:</label>
           <input {...register('image', { required: true })} type='file' />
           {errors.image && (
-            <span className='create-error'>This field is required</span>
+            <span className='create-error'>Please provide an image</span>
           )}
 
           {blogsError && <span className='create-error'>{blogsError}</span>}

@@ -65,22 +65,24 @@ const useCommentsDispatch = () => {
           },
         }
       );
-
       if (response.ok) {
         // When adding a first comment to a blog this is sent as an object
         const newComments = commentsState.comments
           ? [...commentsState.comments, comment]
           : [comment];
-        console.log('newComments', newComments);
         saveComments(newComments);
+        toggleCommentsLoading();
+        return true;
       } else {
         const error = await response.json();
         saveCommentsError(error);
+        toggleCommentsLoading();
+        return false;
       }
     } catch (error) {
       saveCommentsError(error);
-    } finally {
       toggleCommentsLoading();
+      return false;
     }
   };
 

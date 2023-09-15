@@ -45,14 +45,18 @@ const useBlogsDispatch = () => {
       if (response.ok) {
         const blogs = [...blogsState.blogs, blog];
         saveBlogs(blogs);
+        toggleBlogsLoading();
+        return true;
       } else {
         const error = await response.json();
         saveBlogsError(error);
+        toggleBlogsLoading();
+        return false;
       }
     } catch (error) {
       saveBlogsError(error);
-    } finally {
       toggleBlogsLoading();
+      return false;
     }
   };
 
