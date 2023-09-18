@@ -134,7 +134,7 @@ const useAuthDispatch = () => {
       removeAuthError();
       toggleAuthLoading();
       const response = await fetch(
-        'https://ancient-water-2934.fly.dev/user/log-in',
+        'https://ancient-water-2934.fly.dev/user/username',
         {
           method: 'PATCH',
           body: JSON.stringify(payload),
@@ -161,6 +161,39 @@ const useAuthDispatch = () => {
     }
   };
 
+  const updatePassword = async (payload, token) => {
+    try {
+      removeAuthError();
+      toggleAuthLoading();
+      console.log('payload', payload);
+      const response = await fetch(
+        'https://ancient-water-2934.fly.dev/user/password',
+        {
+          method: 'PATCH',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        toggleAuthLoading();
+        return true;
+      } else {
+        const data = await response.json();
+        console.log('data', data);
+        saveAuthError(data);
+        toggleAuthLoading();
+        return false;
+      }
+    } catch (error) {
+      saveAuthError(error);
+      toggleAuthLoading();
+      return false;
+    }
+  };
+
   return {
     handleLogIn,
     handleLogOut,
@@ -169,6 +202,7 @@ const useAuthDispatch = () => {
     removeAuthError,
     getAuthStatus,
     updateUsername,
+    updatePassword,
   };
 };
 

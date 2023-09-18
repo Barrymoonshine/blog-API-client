@@ -1,6 +1,5 @@
 .my-account-container {
   display: flex;
-  height: 80vh;
 }
 
 .account-details {
@@ -10,6 +9,7 @@
   border-right: 1px solid #3f3f46;
   padding: 10px 40px 10px 10px;
   gap: 10px;
+  width: 250px;
 }
 
 .account-details h5 {
@@ -22,20 +22,23 @@
   margin: 0px;
 }
 
-.reset-username-form {
+.update-password-form,
+.update-username-form {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
 }
 
-.reset-username-form label {
+.update-password-form label,
+.update-username-form label {
   align-self: flex-start;
   font-size: 15px;
   font-weight: bold;
   padding-bottom: 10px;
 }
 
-.reset-username-form input {
+.update-password-form input,
+.update-username-form input {
   font-size: 15px;
   margin-bottom: 25px;
   border: 1px solid black;
@@ -61,4 +64,19 @@
 .update-username-button:hover {
   background-color: #83188d;
   cursor: pointer;
+}
+
+.update-credentials-error {
+  width: 100%;
+  color: #ef4444;
+  padding-bottom: 15px;
+  margin-top: -15px;
+  font-size: 13px;
+}
+
+.password-success {
+  width: 100%;
+  color: #14853d;
+  padding-bottom: 15px;
+  font-size: 17px;
 }
