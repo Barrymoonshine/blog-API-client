@@ -1,4 +1,7 @@
 import './BlogOverview.css';
+import useBlogsDispatch from '../../hooks/useBlogsDispatch';
+import useAuthState from '../../hooks/useAuthState';
+import useBlogsState from '../../hooks/useBlogsState';
 
 const BlogOverview = ({
   id,
@@ -9,6 +12,10 @@ const BlogOverview = ({
   createdAt,
   author,
 }) => {
+  const { token } = useAuthState();
+  const { blogsLoading, blogsError } = useBlogsState();
+  const { deleteBlog } = useBlogsDispatch();
+
   return (
     <div className='blog-list-container'>
       <div className='top-list-row'>
@@ -19,9 +26,12 @@ const BlogOverview = ({
         <h6>{title}</h6>
       </div>
       <div className='bottom-list-row'>
-        <button>Delete</button>
-        <button>Edit</button>
-        <button>Publish</button>
+        <button disabled={blogsLoading} onClick={() => deleteBlog(id, token)}>
+          Delete
+        </button>
+        <button disabled={blogsLoading}>Edit</button>
+        <button disabled={blogsLoading}>Publish</button>
+        {blogsError && <span>{blogsError}</span>}
       </div>
     </div>
   );

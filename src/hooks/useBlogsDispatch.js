@@ -77,9 +77,45 @@ const useBlogsDispatch = () => {
     }
   };
 
+  const deleteBlog = async (id, token) => {
+    try {
+      removeBlogsError();
+      toggleBlogsLoading();
+      const response = await fetch(
+        `https://ancient-water-2934.fly.dev/blogs/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        // Edge case, handle deleting last blog
+        const blogs =
+          blogsState.blogs.length === 1
+            ? null
+            : blogsState.blogs.filter((blog) => blog !== id);
+        saveBlogs(blogs);
+        toggleBlogsLoading();
+        return true;
+      } else {
+        const error = await response.json();
+        saveBlogsError(error);
+        toggleBlogsLoading();
+        return false;
+      }
+    } catch (error) {
+      saveBlogsError(error);
+      toggleBlogsLoading();
+      return false;
+    }
+  };
+
   return {
     addBlog,
     getBlogs,
+    deleteBlog,
   };
 };
 
