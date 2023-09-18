@@ -93,7 +93,7 @@ const useBlogsDispatch = () => {
         const blogs =
           blogsState.blogs.length === 1
             ? null
-            : blogsState.blogs.filter((blog) => blog !== id);
+            : blogsState.blogs.filter((blog) => blog._id !== id);
         saveBlogs(blogs);
         toggleBlogsLoading();
         return true;
