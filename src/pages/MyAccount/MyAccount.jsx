@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 const MyAccount = () => {
-  const [isUsernameFormVisible, setisUsernameFormVisible] = useState(false);
-  const { username, authError, authLoading } = useAuthState();
-  const { resetUsername, removeAuthError } = useAuthDispatch();
+  const [isUsernameFormVisible, setIsUsernameFormVisible] = useState(false);
+  const { username, authError, authLoading, token } = useAuthState();
+  const { removeAuthError, updateUsername } = useAuthDispatch();
   const {
     register,
     handleSubmit,
@@ -15,32 +15,17 @@ const MyAccount = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (formData) => {
-    const isReqSent = await resetUsername(
-      'https://ancient-water-2934.fly.dev/user/log-in',
-      {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+  const submitUsername = async (formData) => {
+    const isReqSent = await updateUsername({ ...formData, username }, token);
     if (isReqSent) {
       reset();
     }
   };
 
   const toggleUsernameFormVisibility = () => {
-    setisUsernameFormVisible((prevState) => !prevState);
+    setIsUsernameFormVisible((prevState) => !prevState);
   };
-  // Username
-  // Change password
-  // No. of blog posts
-  // No of likes
-  // Blogs
-  // Delete blog option
-  // Edit blog option
+
   return (
     <div className='my-account-container'>
       <div className='account-details'>
@@ -58,10 +43,10 @@ const MyAccount = () => {
           <form
             onClick={() => removeAuthError()}
             className='reset-username-form'
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(submitUsername)}
           >
             <label htmlFor='Username'> New username:</label>
-            <input {...register('username', { required: true })} />
+            <input {...register('newUsername', { required: true })} />
             {errors.username && (
               <span className='log-in-error'>This field is required</span>
             )}

@@ -129,6 +129,38 @@ const useAuthDispatch = () => {
 
   const getAuthStatus = () => authState.isLoggedIn;
 
+  const updateUsername = async (payload, token) => {
+    try {
+      removeAuthError();
+      toggleAuthLoading();
+      const response = await fetch(
+        'https://ancient-water-2934.fly.dev/user/log-in',
+        {
+          method: 'PATCH',
+          body: JSON.stringify(payload),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        saveUsername(payload.newUsername);
+        toggleAuthLoading();
+        return true;
+      } else {
+        const data = await response.json();
+        saveAuthError(data);
+        toggleAuthLoading();
+        return false;
+      }
+    } catch (error) {
+      saveAuthError(error);
+      toggleAuthLoading();
+      return false;
+    }
+  };
+
   return {
     handleLogIn,
     handleLogOut,
@@ -136,6 +168,7 @@ const useAuthDispatch = () => {
     checkAuthStatus,
     removeAuthError,
     getAuthStatus,
+    updateUsername,
   };
 };
 
