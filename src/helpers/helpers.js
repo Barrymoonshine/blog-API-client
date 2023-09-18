@@ -17,3 +17,12 @@ export const getTopThreeLikedBlogs = (blogs, likes) =>
 
 export const getRegionBlogs = (blogs, santisedRegion) =>
   blogs.filter((blog) => blog.region === santisedRegion);
+
+export const getTotalUserLikes = (blogs, likes, username) =>
+  blogs
+    .filter((blog) => blog.author === username)
+    .map((blog) => ({
+      ...blog,
+      likes: getTotalBlogLikes(likes, blog._id),
+    }))
+    .reduce((acc, curr) => acc + curr.likes, 0);

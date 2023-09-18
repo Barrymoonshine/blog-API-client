@@ -1,8 +1,11 @@
 import './MyAccount.css';
 import useAuthState from '../../hooks/useAuthState';
+import useBlogsState from '../../hooks/useBlogsState';
+import useLikesState from '../../hooks/useLikesState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { getTotalUserLikes } from '../../helpers/helpers';
 
 const MyAccount = () => {
   const [isUsernameFormVisible, setIsUsernameFormVisible] = useState(false);
@@ -10,6 +13,8 @@ const MyAccount = () => {
   const [isPasswordSuccessVisible, setIsPasswordSuccessVisible] =
     useState(false);
   const { username, authError, authLoading, token } = useAuthState();
+  const { blogs } = useBlogsState();
+  const { likes } = useLikesState();
   const { removeAuthError, updateUsername, updatePassword } = useAuthDispatch();
   const {
     register,
@@ -44,6 +49,8 @@ const MyAccount = () => {
   const hidePasswordSuccess = () => {
     setIsPasswordSuccessVisible(false);
   };
+
+  const userLikes = blogs && likes && getTotalUserLikes(blogs, likes, username);
 
   // Get total no. of user likes
 
@@ -180,8 +187,7 @@ const MyAccount = () => {
           </span>
         )}
         <h5>Account Stats</h5>
-        <p>Total likes:</p>
-
+        <p>Total likes: {userLikes}</p>
         <p>No. of posts:</p>
       </div>
       <div className='account-blogs'>
