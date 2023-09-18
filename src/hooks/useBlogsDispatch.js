@@ -42,15 +42,13 @@ const useBlogsDispatch = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      const data = await response.json();
       if (response.ok) {
-        const blogs = [...blogsState.blogs, blog];
-        saveBlogs(blogs);
+        saveBlogs(data);
         toggleBlogsLoading();
         return true;
       } else {
-        const error = await response.json();
-        console.log('error', error);
-        saveBlogsError(error);
+        saveBlogsError(data);
         toggleBlogsLoading();
         return false;
       }
