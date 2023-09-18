@@ -1,6 +1,6 @@
 import './Header.css';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import RegionMenu from '../RegionMenu/RegionMenu';
 import useAuthState from '../../hooks/useAuthState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
@@ -12,6 +12,12 @@ const Header = () => {
 
   const toggleMenuVisibility = () => {
     setIsRegionMenuVisible((prevState) => !prevState);
+  };
+
+  const navigate = useNavigate();
+
+  const logOutRedirect = () => {
+    navigate('/');
   };
 
   return (
@@ -52,7 +58,12 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <button className='log-out-button' onClick={() => handleLogOut()}>
+              <button
+                className='log-out-button'
+                onClick={() => {
+                  handleLogOut(), logOutRedirect();
+                }}
+              >
                 <img
                   className='header-icons'
                   src='../images/log-out.png'
