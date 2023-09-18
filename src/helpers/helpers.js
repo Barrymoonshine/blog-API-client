@@ -26,3 +26,6 @@ export const getTotalUserLikes = (blogs, likes, username) =>
       likes: getTotalBlogLikes(likes, blog._id),
     }))
     .reduce((acc, curr) => acc + curr.likes, 0);
+
+export const getUserBlogs = (blogs, username) =>
+  blogs.filter((blog) => blog.author === username);

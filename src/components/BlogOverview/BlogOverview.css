@@ -1,0 +1,29 @@
+.blog-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: 5px 5px 5px #d1d5db;
+}
+
+.travel-image-list {
+  width: 75px;
+  height: 75px;
+  border-radius: 5px;
+}
+
+.top-list-row,
+.bottom-list-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  width: 100%;
+}
+
+.blog-list-container h6 {
+  font-size: 20px;
+}

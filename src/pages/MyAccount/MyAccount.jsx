@@ -5,7 +5,8 @@ import useLikesState from '../../hooks/useLikesState';
 import useAuthDispatch from '../../hooks/useAuthDispatch';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { getTotalUserLikes } from '../../helpers/helpers';
+import { getTotalUserLikes, getUserBlogs } from '../../helpers/helpers';
+import BlogOverview from '../../components/BlogOverview/BlogOverview';
 
 const MyAccount = () => {
   const [isUsernameFormVisible, setIsUsernameFormVisible] = useState(false);
@@ -51,10 +52,8 @@ const MyAccount = () => {
   };
 
   const userLikes = blogs && likes && getTotalUserLikes(blogs, likes, username);
-
-  // Get total no. of user likes
-
-  // get total no. of blog posts
+  const userBlogs = blogs && getUserBlogs(blogs, username);
+  const totalPosts = blogs && userBlogs.length;
 
   return (
     <div
@@ -187,12 +186,24 @@ const MyAccount = () => {
           </span>
         )}
         <h5>Account Stats</h5>
-        <p>Total likes: {userLikes}</p>
-        <p>No. of posts:</p>
+        <p className='account-stats'>Total likes: {userLikes}</p>
+        <p className='account-stats'>No. of posts: {totalPosts}</p>
       </div>
-      <div className='account-blogs'>
+      <div className='user-blogs'>
         <h5>Your posts</h5>
-        Map through blog posts
+        {userBlogs &&
+          userBlogs.map((blog) => (
+            <BlogOverview
+              key={blog._id}
+              id={blog._id}
+              title={blog.title}
+              caption={blog.caption}
+              region={blog.region}
+              image={blog.image}
+              author={blog.author}
+              createdAt={blog.createdAt}
+            />
+          ))}
       </div>
     </div>
   );
