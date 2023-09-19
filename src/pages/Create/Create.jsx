@@ -24,6 +24,7 @@ const Create = () => {
     blog.append('region', formData.region);
     blog.append('image', formData.image[0]);
     blog.append('author', username);
+    blog.append('published', true);
 
     const isReqSent = await addBlog(blog, token);
 
@@ -79,7 +80,15 @@ const Create = () => {
             <span className='create-error'>Please provide an image</span>
           )}
 
-          {blogsError && <span className='create-error'>BlogsError - TBC</span>}
+          {Array.isArray(blogsError) &&
+            blogsError.map((error) => (
+              <span key={error.msg} className='create-error'>
+                {error.msg}
+              </span>
+            ))}
+          {blogsError && typeof blogsError === 'string' && (
+            <span className='create-error'>{blogsError}</span>
+          )}
           <button className='create-button' disabled={blogsLoading}>
             Submit
           </button>
