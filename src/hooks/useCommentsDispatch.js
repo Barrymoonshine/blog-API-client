@@ -87,12 +87,15 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/comments/${id}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const newComments = commentsState.comments.filter(
           (comment) => comment.commentID !== id
@@ -113,10 +116,15 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/comments/${id}`,
+        {
+          method: 'GET',
+        }
+      );
       const data = await response.json();
+      console.log('response', response);
+      console.log('data', data);
       if (response.ok) {
         // When no comments are found, Mongoose returns an empty array
         data.length === 0 ? handleSaveComments(null) : handleSaveComments(data);
