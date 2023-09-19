@@ -2,6 +2,7 @@ import './BlogOverview.css';
 import useBlogsDispatch from '../../hooks/useBlogsDispatch';
 import useAuthState from '../../hooks/useAuthState';
 import useBlogsState from '../../hooks/useBlogsState';
+import { Link } from 'react-router-dom';
 
 const BlogOverview = ({
   id,
@@ -34,7 +35,9 @@ const BlogOverview = ({
             alt='delete'
           />
         </button>
-        <button disabled={blogsLoading}>Edit</button>
+        <Link to={`/edit-blog/${id}`} style={{ textDecoration: 'none' }}>
+          <span className='sign-up-link'>Edit</span>
+        </Link>
         {isBlogPublished ? (
           <button
             onClick={() => togglePublished(id, isBlogPublished, token)}

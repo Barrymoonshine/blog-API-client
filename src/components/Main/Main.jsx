@@ -8,6 +8,7 @@ import LogIn from '../../pages/LogIn/LogIn';
 import SignUp from '../../pages/SignUp/SignUp';
 import Blog from '../../pages/Blog/Blog';
 import Region from '../../pages/Region/Region';
+import EditBlog from '../../pages/EditBlog/EditBlog';
 
 const Main = () => {
   return (
@@ -18,6 +19,7 @@ const Main = () => {
         <Route path='/log-in' element={<LogIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/my-account' element={<MyAccount />} />
+        <Route path='/edit-blog/:id' element={<EditBlog />} />
         <Route path='/blog/:id' element={<Blog />} />
         <Route path='/region/:region' element={<Region />} />
         <Route path='*' element={<NotFound />} />

@@ -141,11 +141,40 @@ const useBlogsDispatch = () => {
     }
   };
 
+  const editBlog = async (blog, token) => {
+    try {
+      removeBlogsError();
+      toggleBlogsLoading();
+      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
+        method: 'PUT',
+        body: blog,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        saveBlogs(data);
+        toggleBlogsLoading();
+        return true;
+      } else {
+        saveBlogsError(data);
+        toggleBlogsLoading();
+        return false;
+      }
+    } catch (error) {
+      saveBlogsError(error);
+      toggleBlogsLoading();
+      return false;
+    }
+  };
+
   return {
     addBlog,
     getBlogs,
     deleteBlog,
     togglePublished,
+    editBlog,
   };
 };
 
