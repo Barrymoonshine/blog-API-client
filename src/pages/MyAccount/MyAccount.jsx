@@ -103,8 +103,13 @@ const MyAccount = () => {
                 special symbol(!@#$%^&*=+-_)
               </span>
             )}
-
-            {authError && (
+            {Array.isArray(authError) &&
+              authError.map((error) => (
+                <span key={error.msg} className='update-credentials-error'>
+                  {error.msg}
+                </span>
+              ))}
+            {authError && typeof authError === 'string' && (
               <span className='update-credentials-error'>{authError}</span>
             )}
             <button className='update-button' disabled={authLoading}>
@@ -172,7 +177,13 @@ const MyAccount = () => {
               </span>
             )}
 
-            {authError && (
+            {Array.isArray(authError) &&
+              authError.map((error) => (
+                <span key={error.msg} className='update-credentials-error'>
+                  {error.msg}
+                </span>
+              ))}
+            {authError && typeof authError === 'string' && (
               <span className='update-credentials-error'>{authError}</span>
             )}
             <button className='update-button' disabled={authLoading}>

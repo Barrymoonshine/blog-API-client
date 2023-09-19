@@ -115,3 +115,7 @@
   border-radius: 10px;
   color: #f8fafc;
 }
+
+.comment-error {
+  color: #ef4444;
+}

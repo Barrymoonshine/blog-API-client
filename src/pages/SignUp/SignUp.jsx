@@ -88,11 +88,17 @@ const SignUp = () => {
             {errors.confirmPassword && (
               <span className='sign-up-error'>Passwords do not match</span>
             )}
-
-            {authError && <span className='sign-up-error'>{authError}</span>}
+            {Array.isArray(authError) &&
+              authError.map((error) => (
+                <span key={error.msg} className='sign-up-error'>
+                  {error.msg}
+                </span>
+              ))}
+            {authError && typeof authError === 'string' && (
+              <span className='sign-up-error'>{authError}</span>
+            )}
             <button className='sign-up-button' disabled={authLoading}>
-              {' '}
-              Sign up{' '}
+              Sign up
             </button>
           </form>
         </div>

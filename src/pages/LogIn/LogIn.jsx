@@ -71,8 +71,16 @@ const LogIn = () => {
                 special symbol(!@#$%^&*=+-_)
               </span>
             )}
+            {Array.isArray(authError) &&
+              authError.map((error) => (
+                <span key={error.msg} className='auth-error'>
+                  {error.msg}
+                </span>
+              ))}
+            {authError && typeof authError === 'string' && (
+              <span className='auth-error'>{authError}</span>
+            )}
 
-            {authError && <span className='log-in-error'>{authError}</span>}
             <button className='log-in-button' disabled={authLoading}>
               Log in
             </button>

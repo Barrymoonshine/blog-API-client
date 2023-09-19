@@ -151,7 +151,15 @@ const Blog = () => {
                     />
                     {errors.comment && <span>This field is required</span>}
 
-                    {commentsError && <span>{commentsError.message}</span>}
+                    {Array.isArray(commentsError) &&
+                      commentsError.map((error) => (
+                        <span key={error.msg} className='comment-error'>
+                          {error.msg}
+                        </span>
+                      ))}
+                    {commentsError && typeof commentsError === 'string' && (
+                      <span className='comment-error'>{commentsError}</span>
+                    )}
                     <button
                       className='submit-button'
                       disabled={commentsLoading}
