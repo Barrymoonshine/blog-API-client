@@ -1,6 +1,6 @@
 import './App.css';
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
+import MainRouter from './components/MainRouter/MainRouter';
 import Footer from './components/Footer/Footer';
 import useBlogsDispatch from './hooks/useBlogsDispatch';
 import useAuthDispatch from './hooks/useAuthDispatch';
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Main />
+      <MainRouter />
       <Footer />
     </>
   );
