@@ -15,10 +15,6 @@ const Home = () => {
   const topThreeLikedBlogs =
     blogs && likes && getTopThreeLikedBlogs(blogs, likes);
 
-  console.log('blogsError', blogsError);
-
-  console.log('blogs', blogs);
-
   return (
     <div className='home-container'>
       <div className='welcome-container'>

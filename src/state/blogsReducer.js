@@ -2,7 +2,7 @@ import { BLOGS_ACTIONS } from '../utils/ACTIONS';
 
 export const initialBlogsState = {
   blogs: null,
-  blogsLoading: false,
+  blogsLoading: true,
   blogsError: null,
 };
 
