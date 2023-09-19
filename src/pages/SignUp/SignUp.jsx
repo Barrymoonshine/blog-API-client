@@ -16,16 +16,13 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (formData) => {
-    const isReqSent = await createAuth(
-      'https://ancient-water-2934.fly.dev/auth',
-      {
-        method: 'POST',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    const isReqSent = await createAuth(`${import.meta.env.VITE_API_URL}/auth`, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (isReqSent) {
       reset();
     }

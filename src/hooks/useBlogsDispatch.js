@@ -35,7 +35,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
+      const response = await fetch(`${import.meta.env.API_URL}/blogs`, {
         method: 'POST',
         body: blog,
         headers: {
@@ -62,7 +62,8 @@ const useBlogsDispatch = () => {
   const getBlogs = async () => {
     try {
       removeBlogsError();
-      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
+      console.log(import.meta.env.VITE_API_URL);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`, {
         method: 'GET',
       });
       const blogs = await response.json();
@@ -79,7 +80,7 @@ const useBlogsDispatch = () => {
       removeBlogsError();
       toggleBlogsLoading();
       const response = await fetch(
-        `https://ancient-water-2934.fly.dev/blogs/${id}`,
+        `${import.meta.env.VITE_API_URL}/blogs/${id}`,
         {
           method: 'DELETE',
           headers: {
@@ -113,7 +114,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      const response = await fetch(`https://ancient-water-2934.fly.dev/blogs`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`, {
         method: 'PATCH',
         body: JSON.stringify({ id, published: !isBlogPublished }),
         headers: {
@@ -144,7 +145,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`, {
         method: 'PUT',
         body: blog,
         headers: {

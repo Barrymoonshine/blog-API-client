@@ -54,17 +54,14 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = await fetch(
-        'https://ancient-water-2934.fly.dev/comments',
-        {
-          method: 'POST',
-          body: JSON.stringify(comment),
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.ok) {
         // When adding a first comment to a blog this is sent as an object
         const newComments = commentsState.comments
@@ -90,15 +87,12 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = await fetch(
-        `https://ancient-water-2934.fly.dev/comments/${id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         const newComments = commentsState.comments.filter(
           (comment) => comment.commentID !== id
@@ -119,12 +113,9 @@ const useCommentsDispatch = () => {
     try {
       toggleCommentsLoading();
       removeCommentsError();
-      const response = await fetch(
-        `https://ancient-water-2934.fly.dev/comments/${id}`,
-        {
-          method: 'GET',
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
+        method: 'GET',
+      });
       const data = await response.json();
       if (response.ok) {
         // When no comments are found, Mongoose returns an empty array

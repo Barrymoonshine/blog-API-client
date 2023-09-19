@@ -36,7 +36,7 @@ const useLikesDispatch = () => {
       removeLikesError();
       toggleLikesLoading();
       const newLike = { username, docType, docID };
-      const response = await fetch(`https://ancient-water-2934.fly.dev/like`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/like`, {
         method: 'POST',
         body: JSON.stringify(newLike),
         headers: {
@@ -61,7 +61,7 @@ const useLikesDispatch = () => {
     try {
       toggleLikesLoading();
       removeLikesError();
-      const response = await fetch('https://ancient-water-2934.fly.dev/like', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/like`, {
         method: 'GET',
       });
       const data = await response.json();

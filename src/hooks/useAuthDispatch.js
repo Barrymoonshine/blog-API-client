@@ -102,7 +102,7 @@ const useAuthDispatch = () => {
   };
 
   const verifyToken = async (token) => {
-    const response = await fetch('https://ancient-water-2934.fly.dev/auth', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -131,7 +131,7 @@ const useAuthDispatch = () => {
       removeAuthError();
       toggleAuthLoading();
       const response = await fetch(
-        'https://ancient-water-2934.fly.dev/user/username',
+        `${import.meta.env.VITE_API_URL}/user/username`,
         {
           method: 'PATCH',
           body: JSON.stringify(payload),
@@ -164,7 +164,7 @@ const useAuthDispatch = () => {
       toggleAuthLoading();
       console.log('payload', payload);
       const response = await fetch(
-        'https://ancient-water-2934.fly.dev/user/password',
+        `${import.meta.env.VITE_API_URL}/user/password`,
         {
           method: 'PATCH',
           body: JSON.stringify(payload),
