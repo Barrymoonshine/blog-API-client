@@ -36,7 +36,7 @@ const BlogOverview = ({
           />
         </button>
         <Link to={`/edit-blog/${id}`} style={{ textDecoration: 'none' }}>
-          <span className='sign-up-link'>Edit</span>
+          <span className='edit-link'>Edit</span>
         </Link>
         {isBlogPublished ? (
           <button

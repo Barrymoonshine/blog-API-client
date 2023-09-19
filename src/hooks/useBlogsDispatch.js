@@ -61,7 +61,6 @@ const useBlogsDispatch = () => {
 
   const getBlogs = async () => {
     try {
-      toggleBlogsLoading();
       removeBlogsError();
       const response = await fetch('https://ancient-water-2934.fly.dev/blogs', {
         method: 'GET',

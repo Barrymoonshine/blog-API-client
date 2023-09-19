@@ -5,6 +5,7 @@ import useBlogsState from '../../hooks/useBlogsState';
 import useAuthState from '../../hooks/useAuthState';
 import { getTopThreeLikedBlogs } from '../../helpers/helpers';
 import useLikesState from '../../hooks/useLikesState';
+import ReactLoading from 'react-loading';
 
 const Home = () => {
   const { blogs, blogsLoading, blogsError } = useBlogsState();
@@ -13,6 +14,8 @@ const Home = () => {
 
   const topThreeLikedBlogs =
     blogs && likes && getTopThreeLikedBlogs(blogs, likes);
+
+  console.log('blogsLoading', blogsLoading);
 
   return (
     <div className='home-container'>
@@ -45,7 +48,14 @@ const Home = () => {
       </div>
       <h4>Popular blogs </h4>
       {blogsError && <p>Error! {blogsError}</p>}
-      {blogsLoading && <p>Loading...</p>}
+      {blogsLoading && (
+        <ReactLoading
+          type={'spin'}
+          color={'#4040eb'}
+          height={467}
+          width={175}
+        />
+      )}
       {topThreeLikedBlogs &&
         topThreeLikedBlogs.map((blog) => (
           <BlogCard

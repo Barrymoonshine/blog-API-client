@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 500px;
+  max-width: 500px;
   padding: 10px;
   border-radius: 10px;
   background-color: #fafafa;
@@ -43,4 +43,12 @@
 .publish-button:hover,
 .unpublish-button:hover {
   cursor: pointer;
+}
+
+.edit-link {
+  vertical-align: middle;
+  background-color: #a21caf;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  color: #f8fafc;
 }
