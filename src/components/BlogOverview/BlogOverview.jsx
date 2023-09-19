@@ -11,10 +11,11 @@ const BlogOverview = ({
   caption,
   createdAt,
   author,
+  isBlogPublished,
 }) => {
   const { token } = useAuthState();
   const { blogsLoading, blogsError } = useBlogsState();
-  const { deleteBlog } = useBlogsDispatch();
+  const { deleteBlog, togglePublished } = useBlogsDispatch();
 
   return (
     <div className='blog-list-container'>
@@ -34,7 +35,23 @@ const BlogOverview = ({
           />
         </button>
         <button disabled={blogsLoading}>Edit</button>
-        <button disabled={blogsLoading}>Publish</button>
+        {isBlogPublished ? (
+          <button
+            onClick={() => togglePublished(id, isBlogPublished, token)}
+            disabled={blogsLoading}
+            className='unpublish-button'
+          >
+            Published
+          </button>
+        ) : (
+          <button
+            onClick={() => togglePublished(id, isBlogPublished, token)}
+            disabled={blogsLoading}
+            className='publish-button'
+          >
+            Not published
+          </button>
+        )}
         {blogsError && <span>{blogsError}</span>}
       </div>
     </div>

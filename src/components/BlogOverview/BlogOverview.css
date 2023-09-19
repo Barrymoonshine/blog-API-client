@@ -27,3 +27,18 @@
 .blog-list-container h6 {
   font-size: 20px;
 }
+
+.unpublish-button {
+  background-color: #22c55e;
+  padding: 10px;
+}
+
+.publish-button {
+  background-color: #dc2626;
+  padding: 10px;
+}
+
+.publish-button:hover,
+.unpublish-button:hover {
+  cursor: pointer;
+}

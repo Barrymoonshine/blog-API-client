@@ -110,10 +110,48 @@ const useBlogsDispatch = () => {
     }
   };
 
+  const togglePublished = async (id, isBlogPublished, token) => {
+    try {
+      removeBlogsError();
+      toggleBlogsLoading();
+      console.log('{ id, published: !isBlogPublished }', {
+        id,
+        published: !isBlogPublished,
+      });
+      const response = await fetch(`http://localhost:3000/blogs`, {
+        method: 'PATCH',
+        body: JSON.stringify({ id, published: !isBlogPublished }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const error = await response.json();
+        console.log('response', error);
+        const blogs = blogsState.blogs.map((blog) => {
+          if (blog._id === id) {
+            return { ...blog, published: !isBlogPublished };
+          }
+          return blog;
+        });
+        saveBlogs(blogs);
+      } else {
+        const error = await response.json();
+        saveBlogsError(error);
+      }
+    } catch (error) {
+      saveBlogsError(error);
+    } finally {
+      toggleBlogsLoading();
+    }
+  };
+
   return {
     addBlog,
     getBlogs,
     deleteBlog,
+    togglePublished,
   };
 };
 

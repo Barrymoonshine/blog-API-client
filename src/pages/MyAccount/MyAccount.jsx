@@ -202,6 +202,7 @@ const MyAccount = () => {
               image={blog.image}
               author={blog.author}
               createdAt={blog.createdAt}
+              isBlogPublished={blog.published}
             />
           ))}
       </div>
