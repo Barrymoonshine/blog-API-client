@@ -3,17 +3,9 @@ import useBlogsDispatch from '../../hooks/useBlogsDispatch';
 import useAuthState from '../../hooks/useAuthState';
 import useBlogsState from '../../hooks/useBlogsState';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const BlogOverview = ({
-  id,
-  image,
-  region,
-  title,
-  caption,
-  createdAt,
-  author,
-  isBlogPublished,
-}) => {
+const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
   const { token } = useAuthState();
   const { blogsLoading, blogsError } = useBlogsState();
   const { deleteBlog, togglePublished } = useBlogsDispatch();
@@ -59,6 +51,14 @@ const BlogOverview = ({
       </div>
     </div>
   );
+};
+
+BlogOverview.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  isBlogPublished: PropTypes.bool.isRequired,
 };
 
 export default BlogOverview;

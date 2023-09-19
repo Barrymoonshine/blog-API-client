@@ -1,5 +1,6 @@
 import './RegionMenu.css';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const RegionMenu = ({ toggleMenuVisibility }) => {
   return (
@@ -42,6 +43,10 @@ const RegionMenu = ({ toggleMenuVisibility }) => {
       </ul>
     </div>
   );
+};
+
+RegionMenu.propTypes = {
+  toggleMenuVisibility: PropTypes.func.isRequired,
 };
 
 export default RegionMenu;

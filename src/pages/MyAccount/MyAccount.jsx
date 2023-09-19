@@ -208,11 +208,8 @@ const MyAccount = () => {
               key={blog._id}
               id={blog._id}
               title={blog.title}
-              caption={blog.caption}
               region={blog.region}
               image={blog.image}
-              author={blog.author}
-              createdAt={blog.createdAt}
               isBlogPublished={blog.published}
             />
           ))}

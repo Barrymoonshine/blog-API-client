@@ -1,6 +1,7 @@
 import './CommentCard.css';
 import useCommentsState from '../../hooks/useCommentsState';
 import useCommentsDispatch from '../../hooks/useCommentsDispatch';
+import PropTypes from 'prop-types';
 
 const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
   const { commentsLoading } = useCommentsState();
@@ -33,6 +34,15 @@ const CommentCard = ({ comment, id, author, createdAt, username, token }) => {
       </div>
     </div>
   );
+};
+
+CommentCard.propTypes = {
+  comment: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
 };
 
 export default CommentCard;

@@ -2,6 +2,7 @@ import './BlogCard.css';
 import { Link } from 'react-router-dom';
 import useLikesState from '../../hooks/useLikesState';
 import { getTotalBlogLikes } from '../../helpers/helpers';
+import PropTypes from 'prop-types';
 
 const BlogCard = ({ id, image, region, title, caption, createdAt, author }) => {
   const { likes } = useLikesState();
@@ -33,6 +34,16 @@ const BlogCard = ({ id, image, region, title, caption, createdAt, author }) => {
       </div>
     </div>
   );
+};
+
+BlogCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
 };
 
 export default BlogCard;
