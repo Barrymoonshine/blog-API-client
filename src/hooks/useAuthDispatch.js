@@ -162,7 +162,6 @@ const useAuthDispatch = () => {
     try {
       removeAuthError();
       toggleAuthLoading();
-      console.log('payload', payload);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/user/password`,
         {
@@ -179,7 +178,6 @@ const useAuthDispatch = () => {
         return true;
       } else {
         const data = await response.json();
-        console.log('data', data);
         saveAuthError(data);
         toggleAuthLoading();
         return false;

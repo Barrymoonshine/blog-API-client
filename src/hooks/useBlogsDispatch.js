@@ -35,7 +35,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      const response = await fetch(`${import.meta.env.API_URL}/blogs`, {
+      const response = await fetch(`${import.meta.env.VITE.API_URL}/blogs`, {
         method: 'POST',
         body: blog,
         headers: {

@@ -123,8 +123,6 @@ const useCommentsDispatch = () => {
         }
       );
       const data = await response.json();
-      console.log('response', response);
-      console.log('data', data);
       if (response.ok) {
         // When no comments are found, Mongoose returns an empty array
         data.length === 0 ? handleSaveComments(null) : handleSaveComments(data);

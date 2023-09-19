@@ -69,7 +69,7 @@
 }
 
 .update-credentials-error {
-  width: 100%;
+  max-width: 200px;
   color: #ef4444;
   padding-bottom: 15px;
   margin-top: -15px;
