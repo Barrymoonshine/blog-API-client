@@ -27,7 +27,11 @@ const BlogOverview = ({
       </div>
       <div className='bottom-list-row'>
         <button disabled={blogsLoading} onClick={() => deleteBlog(id, token)}>
-          Delete
+          <img
+            className='delete-icon'
+            src='../images/delete.png'
+            alt='delete'
+          />
         </button>
         <button disabled={blogsLoading}>Edit</button>
         <button disabled={blogsLoading}>Publish</button>
