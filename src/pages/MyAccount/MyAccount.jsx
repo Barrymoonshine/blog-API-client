@@ -187,7 +187,7 @@ const MyAccount = () => {
         )}
         <h5>Account Stats</h5>
         <p className='account-stats'>Total likes: {userLikes}</p>
-        <p className='account-stats'>No. of posts: {totalPosts}</p>
+        <p className='account-stats'>Total posts: {totalPosts}</p>
       </div>
       <div className='user-blogs'>
         <h5>Your posts</h5>

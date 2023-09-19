@@ -114,11 +114,7 @@ const useBlogsDispatch = () => {
     try {
       removeBlogsError();
       toggleBlogsLoading();
-      console.log('{ id, published: !isBlogPublished }', {
-        id,
-        published: !isBlogPublished,
-      });
-      const response = await fetch(`http://localhost:3000/blogs`, {
+      const response = await fetch(`https://ancient-water-2934.fly.dev/blogs`, {
         method: 'PATCH',
         body: JSON.stringify({ id, published: !isBlogPublished }),
         headers: {
@@ -127,8 +123,6 @@ const useBlogsDispatch = () => {
         },
       });
       if (response.ok) {
-        const error = await response.json();
-        console.log('response', error);
         const blogs = blogsState.blogs.map((blog) => {
           if (blog._id === id) {
             return { ...blog, published: !isBlogPublished };

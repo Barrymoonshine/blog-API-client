@@ -8,6 +8,7 @@ export const getTotalBlogLikes = (likes, id) =>
 
 export const getTopThreeLikedBlogs = (blogs, likes) =>
   blogs
+    .filter((blog) => blog.published === true)
     .map((blog) => ({
       ...blog,
       likes: getTotalBlogLikes(likes, blog._id),
@@ -16,7 +17,9 @@ export const getTopThreeLikedBlogs = (blogs, likes) =>
     .slice(0, 3);
 
 export const getRegionBlogs = (blogs, santisedRegion) =>
-  blogs.filter((blog) => blog.region === santisedRegion);
+  blogs.filter(
+    (blog) => blog.region === santisedRegion && blog.published === true
+  );
 
 export const getTotalUserLikes = (blogs, likes, username) =>
   blogs
