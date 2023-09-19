@@ -102,15 +102,12 @@ const useAuthDispatch = () => {
   };
 
   const verifyToken = async (token) => {
-    const response = await fetch(
-      'https://ancient-water-2934.fly.dev/user/authenticate',
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch('https://ancient-water-2934.fly.dev/auth', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (response.ok) {
       const username = getItem('username');
       handleLogIn(token, username);

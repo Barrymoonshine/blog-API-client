@@ -16,7 +16,7 @@ const LogIn = () => {
 
   const onSubmit = async (formData) => {
     const isReqSent = await createAuth(
-      'https://ancient-water-2934.fly.dev/user/log-in',
+      'https://ancient-water-2934.fly.dev/user',
       {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -80,7 +80,6 @@ const LogIn = () => {
             {authError && typeof authError === 'string' && (
               <span className='auth-error'>{authError}</span>
             )}
-
             <button className='log-in-button' disabled={authLoading}>
               Log in
             </button>
