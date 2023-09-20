@@ -8,7 +8,6 @@ import BlogCard from '../../components/BlogCard/BlogCard';
 const Region = () => {
   const { blogs } = useBlogsState();
   const { region } = useParams();
-  console.log('blogs on region', blogs);
 
   const formattedRegion = formatRegion(region);
   const regionBlogs = blogs && getRegionBlogs(blogs, formattedRegion);
