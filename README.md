@@ -2,6 +2,10 @@
 
 Live link: https://blog-api-client-theta.vercel.app/
 
+![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-home.png?raw=true)
+
+![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-my-account.png?raw=true)
+
 ## Summary
 
 Sayonara is a travel blog and community in which users can create and manage their own blogs and engage with a wider community of like-minded travelers through liking and commenting on blogs.
