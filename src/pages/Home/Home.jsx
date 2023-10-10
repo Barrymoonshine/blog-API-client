@@ -15,6 +15,8 @@ const Home = () => {
   const topThreeLikedBlogs =
     blogs && likes && getTopThreeLikedBlogs(blogs, likes);
 
+  console.log('blogsLoading', blogsLoading);
+
   return (
     <div className='home-container'>
       <div className='welcome-container'>
@@ -52,6 +54,7 @@ const Home = () => {
           color={'#4040eb'}
           height={467}
           width={175}
+          className='react-loading'
         />
       )}
       {topThreeLikedBlogs &&
