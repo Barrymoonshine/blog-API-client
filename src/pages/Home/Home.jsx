@@ -15,8 +15,6 @@ const Home = () => {
   const topThreeLikedBlogs =
     blogs && likes && getTopThreeLikedBlogs(blogs, likes);
 
-  console.log('blogsLoading', blogsLoading);
-
   return (
     <div className='home-container'>
       <div className='welcome-container'>
@@ -46,7 +44,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <h4>Popular blogs </h4>
+      <h3>Popular blogs </h3>
       {blogsError && <p>Error! {blogsError}</p>}
       {blogsLoading && (
         <ReactLoading
