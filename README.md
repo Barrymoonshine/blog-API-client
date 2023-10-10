@@ -2,9 +2,9 @@
 
 Live link: https://blog-api-client-theta.vercel.app/
 
-![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-home.png?raw=true)
+![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-home-two.png?raw=true)
 
-![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-my-account.png?raw=true)
+![Model](https://github.com/Barrymoonshine/blog-API-client/blob/main/public/images/sayonara-screenshot-my-account-two.png?raw=true)
 
 ## Summary
 
