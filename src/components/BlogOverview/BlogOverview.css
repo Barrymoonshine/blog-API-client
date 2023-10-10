@@ -58,3 +58,27 @@
   border-radius: 10px;
   color: #f8fafc;
 }
+
+@media (max-width: 500px) {
+  .unpublish-button {
+    background-color: #22c55e;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .publish-button {
+    background-color: #dc2626;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .edit-link {
+    background-color: #a21caf;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    color: #f8fafc;
+    font-size: 10px;
+  }
+}
