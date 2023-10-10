@@ -102,3 +102,16 @@
   font-size: 25px;
   margin-bottom: 10px;
 }
+
+@media (max-width: 1000px) {
+  .account-details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid #3f3f46;
+    padding: 10px 40px 10px 10px;
+    gap: 10px;
+    min-width: 100px;
+    height: 95vh;
+  }
+}

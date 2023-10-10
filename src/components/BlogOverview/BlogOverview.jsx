@@ -5,14 +5,6 @@ import useBlogsState from '../../hooks/useBlogsState';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-BlogOverview.propTypes = {
-  id: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  region: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  isBlogPublished: PropTypes.bool.isRequired,
-};
-
 const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
   const { token } = useAuthState();
   const { blogsLoading, blogsError } = useBlogsState();
@@ -60,3 +52,11 @@ const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
 };
 
 export default BlogOverview;
+
+BlogOverview.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  isBlogPublished: PropTypes.bool.isRequired,
+};
