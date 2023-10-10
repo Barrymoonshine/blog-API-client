@@ -7,5 +7,9 @@
 }
 
 .region-container h3 {
-  font-size: 30px;
+  font-size: 26px;
+  padding: 10px;
+  border: 1px solid #3f3f46;
+  box-shadow: 5px 5px #3f3f46;
+  margin: 25px 0px 5px 0px;
 }

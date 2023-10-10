@@ -14,7 +14,7 @@ const Region = () => {
 
   return (
     <div className='region-container'>
-      <h3>{formattedRegion} </h3>
+      <h3>{formattedRegion}</h3>
       {regionBlogs &&
         regionBlogs.map((blog) => (
           <BlogCard
