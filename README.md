@@ -22,6 +22,7 @@ Hosted and deployed on Vercel.
 - Manage account details, such as updating password and username
 - Filter travel blogs by geographic region
 - JWT authentication
+- Responsive design with Media Queries
 
 ## Key skills employed
 
