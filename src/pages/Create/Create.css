@@ -19,7 +19,7 @@
   background-color: white;
   padding: 40px;
   border-radius: 10px;
-  width: 600px;
+  width: 550px;
 }
 
 .create-form label {
@@ -54,8 +54,21 @@
 }
 
 .create-error {
-  width: 416px;
+  width: 100%;
   color: #ef4444;
   padding-bottom: 15px;
   margin-top: -15px;
+}
+
+@media (max-width: 630px) {
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 250px;
+  }
 }
