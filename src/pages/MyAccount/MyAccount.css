@@ -8,7 +8,7 @@
   flex-direction: column;
   height: 100%;
   border-right: 1px solid #3f3f46;
-  padding: 10px 40px 10px 10px;
+  padding: 10px;
   gap: 10px;
   min-width: 200px;
   height: 95vh;
@@ -34,14 +34,12 @@
 .update-password-form label,
 .update-username-form label {
   align-self: flex-start;
-  font-size: 15px;
   font-weight: bold;
   padding-bottom: 10px;
 }
 
 .update-password-form input,
 .update-username-form input {
-  font-size: 15px;
   margin-bottom: 25px;
   border: 1px solid black;
   border-radius: 5px;
@@ -69,7 +67,7 @@
 }
 
 .update-credentials-error {
-  max-width: 200px;
+  max-width: 100%;
   color: #ef4444;
   padding-bottom: 15px;
   margin-top: -15px;
@@ -108,10 +106,21 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    font-size: 12px;
     border-right: 1px solid #3f3f46;
-    padding: 10px 40px 10px 10px;
+    padding: 10px;
     gap: 10px;
-    min-width: 100px;
+    min-width: 110px;
     height: 95vh;
+  }
+
+  .account-details h5 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .account-details h6 {
+    font-size: 13px;
+    margin: 0px;
   }
 }
