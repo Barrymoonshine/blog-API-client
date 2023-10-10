@@ -26,6 +26,7 @@
   background-color: white;
   padding: 40px;
   border-radius: 10px;
+  width: 400px;
 }
 
 .sign-up-form label {
@@ -38,7 +39,6 @@
 .sign-up-form input {
   font-size: 15px;
   margin-bottom: 25px;
-  width: 400px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 7px;
@@ -62,4 +62,16 @@
   color: #ef4444;
   padding-bottom: 15px;
   margin-top: -15px;
+}
+
+@media (max-width: 550px) {
+  .sign-up-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 250px;
+  }
 }

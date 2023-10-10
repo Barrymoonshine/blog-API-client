@@ -26,6 +26,8 @@
   background-color: white;
   padding: 40px;
   border-radius: 10px;
+  width: 400px;
+  margin-top: 20px;
 }
 
 .log-in-form label {
@@ -38,7 +40,6 @@
 .log-in-form input {
   font-size: 15px;
   margin-bottom: 25px;
-  width: 400px;
   border: 1px solid black;
   border-radius: 5px;
   padding: 7px;
@@ -57,9 +58,23 @@
   cursor: pointer;
 }
 
-.log-in-error {
-  width: 416px;
+.log-in-error,
+.auth-error {
+  width: 100%;
   color: #ef4444;
   padding-bottom: 15px;
   margin-top: -15px;
+}
+
+@media (max-width: 550px) {
+  .log-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 250px;
+    margin-top: 20px;
+  }
 }
