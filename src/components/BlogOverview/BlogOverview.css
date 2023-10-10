@@ -20,6 +20,7 @@
 .bottom-list-row {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   gap: 10px;
   width: 100%;
 }
@@ -46,7 +47,6 @@
 }
 
 .edit-link {
-  vertical-align: middle;
   background-color: #a21caf;
   padding: 5px 10px 5px 10px;
   border-radius: 10px;
