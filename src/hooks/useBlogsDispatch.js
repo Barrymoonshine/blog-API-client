@@ -61,6 +61,7 @@ const useBlogsDispatch = () => {
 
   const getBlogs = async () => {
     try {
+      toggleBlogsLoading();
       removeBlogsError();
       const response = await fetch(`${import.meta.env.VITE_API_URL}/blogs`, {
         method: 'GET',

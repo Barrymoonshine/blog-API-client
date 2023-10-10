@@ -15,6 +15,8 @@ const Home = () => {
   const topThreeLikedBlogs =
     blogs && likes && getTopThreeLikedBlogs(blogs, likes);
 
+  console.log('blogsLoading', blogsLoading);
+
   return (
     <div className='home-container'>
       <div className='welcome-container'>
