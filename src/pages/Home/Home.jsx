@@ -19,13 +19,13 @@ const Home = () => {
     <div className='home-container'>
       <div className='welcome-container'>
         {isLoggedIn ? (
-          <div>
+          <div className='left-welcome-container'>
             <h4>Welcome back {username}</h4>
             <h5>What would you like to do today?</h5>
             <p>The world is your lobster :-)</p>
           </div>
         ) : (
-          <div>
+          <div className='left-welcome-container'>
             <h4>Create the travel blog of your dreams</h4>
             <p>
               Sign up for a free account today, to create and edit your very own
