@@ -3,11 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 500px;
+  width: 80%;
+  max-width: 700px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #fafafa;
-  box-shadow: 5px 5px 5px #d1d5db;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
 }
 
 .travel-image-list {
@@ -19,14 +21,18 @@
 .top-list-row,
 .bottom-list-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
-  width: 100%;
+  width: 80%;
 }
 
 .blog-list-container h6 {
   font-size: 20px;
+  width: 80%;
+  overflow: hidden;
+  max-height: 50px;
+  text-align: center;
 }
 
 .unpublish-button {

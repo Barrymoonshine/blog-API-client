@@ -5,6 +5,14 @@ import useBlogsState from '../../hooks/useBlogsState';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+BlogOverview.propTypes = {
+  id: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  region: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  isBlogPublished: PropTypes.bool.isRequired,
+};
+
 const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
   const { token } = useAuthState();
   const { blogsLoading, blogsError } = useBlogsState();
@@ -16,9 +24,7 @@ const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
         <img className='travel-image-list' src={image} alt='travel image' />
         <h4>{region}</h4>
       </div>
-      <div>
-        <h6>{title}</h6>
-      </div>
+      <h6>{title}</h6>
       <div className='bottom-list-row'>
         <button disabled={blogsLoading} onClick={() => deleteBlog(id, token)}>
           <img
@@ -51,14 +57,6 @@ const BlogOverview = ({ id, image, region, title, isBlogPublished }) => {
       </div>
     </div>
   );
-};
-
-BlogOverview.propTypes = {
-  id: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  region: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  isBlogPublished: PropTypes.bool.isRequired,
 };
 
 export default BlogOverview;
