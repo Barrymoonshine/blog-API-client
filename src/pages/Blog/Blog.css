@@ -119,3 +119,12 @@
 .comment-error {
   color: #ef4444;
 }
+
+@media (max-width: 500px) {
+  .blog-image {
+    align-self: center;
+    width: 350px;
+    height: 200px;
+    border-radius: 10px;
+  }
+}
