@@ -12,7 +12,7 @@ const App = () => {
   const { checkAuthStatus } = useAuthDispatch();
   const { getLikes } = useLikesDispatch();
 
-  // From any page load/refresh
+  // Get data from any page load/refresh
   useEffect(() => {
     getBlogs();
     checkAuthStatus();
