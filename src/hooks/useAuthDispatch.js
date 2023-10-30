@@ -190,6 +190,7 @@ const useAuthDispatch = () => {
   };
 
   return {
+    logIn,
     handleLogIn,
     handleLogOut,
     createAuth,

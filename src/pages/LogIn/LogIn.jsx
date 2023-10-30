@@ -46,14 +46,18 @@ const LogIn = () => {
             className='log-in-form'
             onSubmit={handleSubmit(onSubmit)}
           >
-            <label htmlFor='Username'> Username:</label>
-            <input {...register('username', { required: true })} />
+            <label htmlFor='username'> Username:</label>
+            <input
+              id='username'
+              {...register('username', { required: true })}
+            />
             {errors.username && (
               <span className='log-in-error'>This field is required</span>
             )}
 
             <label htmlFor='password'> Password:</label>
             <input
+              id='password'
               type='password'
               {...register('password', {
                 required: true,
