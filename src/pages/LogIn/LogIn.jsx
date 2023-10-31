@@ -52,7 +52,7 @@ const LogIn = () => {
               {...register('username', { required: true })}
             />
             {errors.username && (
-              <span className='log-in-error'>This field is required</span>
+              <span className='log-in-error'>Username is required</span>
             )}
 
             <label htmlFor='password'> Password:</label>
