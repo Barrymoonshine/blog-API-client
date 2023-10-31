@@ -45,6 +45,7 @@ const LogIn = () => {
             onClick={() => removeAuthError()}
             className='log-in-form'
             onSubmit={handleSubmit(onSubmit)}
+            aria-label='log-in-form'
           >
             <label htmlFor='username'> Username:</label>
             <input
