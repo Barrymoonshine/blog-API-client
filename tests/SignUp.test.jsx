@@ -2,30 +2,30 @@ import { render, screen } from '@testing-library/react';
 import { AppProvider } from '../src/context/AppContext';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import LogIn from '../src/pages/LogIn/LogIn';
-import MainRouter from '../src/components/MainRouter/MainRouter';
+import SignUp from '../src/pages/SignUp/SignUp';
 
-describe('Log in form Page', () => {
-  const wrappedLogInPage = (
+describe('SignUp form Page', () => {
+  const wrappedSignUpPage = (
     <BrowserRouter>
       <AppProvider>
-        <LogIn />
-        <MainRouter />
+        <SignUp />
       </AppProvider>
     </BrowserRouter>
   );
 
-  it('renders all key LogIn form elements', () => {
-    render(wrappedLogInPage);
+  it('renders all key SignUp form elements', () => {
+    render(wrappedSignUpPage);
+    screen.debug();
     expect(getUsernameInput()).toBeInTheDocument();
     expect(getPasswordInput()).toBeInTheDocument();
-    expect(getLogInBtn()).toBeInTheDocument();
+    expect(getConfPasswordInput()).toBeInTheDocument();
+    expect(getSignUpBtn()).toBeInTheDocument();
   });
 
   it('performs client side validation', async () => {
     const user = userEvent.setup();
-    render(wrappedLogInPage);
-    await user.click(getLogInBtn());
+    render(wrappedSignUpPage);
+    await user.click(getSignUpBtn());
 
     expect(
       screen.getByText('Username is required', { selector: 'span' })
@@ -38,41 +38,53 @@ describe('Log in form Page', () => {
         }
       )
     ).toBeInTheDocument();
+    expect(
+      screen.getByText('Passwords do not match', {
+        selector: 'span',
+      })
+    ).toBeInTheDocument();
   });
 
   it('submits form with correct data ', async () => {
     const handleOnSubmitMock = vi.fn();
     const user = userEvent.setup();
-    render(wrappedLogInPage);
+    render(wrappedSignUpPage);
 
-    screen.getByRole('form', { name: 'log-in-form' }).onsubmit = (e) => {
+    screen.getByRole('form', { name: 'sign-up-form' }).onsubmit = (e) => {
       e.preventDefault();
       handleOnSubmitMock({
         username: getUsernameInput().value,
         password: getPasswordInput().value,
+        confirmPassword: getConfPasswordInput().value,
       });
     };
 
-    await user.type(getUsernameInput(), 'Ernest Hemingway AI');
+    await user.type(getUsernameInput(), 'Test');
     await user.type(getPasswordInput(), 'Password!234');
-    await user.click(getLogInBtn());
+    await user.type(getConfPasswordInput(), 'Password!234');
+    await user.click(getSignUpBtn());
 
     expect(handleOnSubmitMock).toHaveBeenCalledWith({
-      username: 'Ernest Hemingway AI',
+      username: 'Test',
       password: 'Password!234',
+      confirmPassword: 'Password!234',
     });
   });
 });
 
 // Helper functions
 function getUsernameInput() {
-  return screen.getByRole('textbox', { name: /Username/i });
+  return screen.getByRole('textbox');
 }
 
 function getPasswordInput() {
-  return screen.getByLabelText(/Password/i);
+  return screen.getByLabelText('Password:');
 }
 
-function getLogInBtn() {
-  return screen.getByRole('button', { name: /Log In/i });
+function getConfPasswordInput() {
+  return screen.getByLabelText('Confirm password:');
+}
+
+function getSignUpBtn() {
+  return screen.getByRole('button', { name: /Sign up/i });
 }
