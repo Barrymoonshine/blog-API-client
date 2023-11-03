@@ -46,15 +46,20 @@ const SignUp = () => {
             onClick={() => removeAuthError()}
             className='sign-up-form'
             onSubmit={handleSubmit(onSubmit)}
+            aria-label='sign-up-form'
           >
             <label htmlFor='Username'> Username:</label>
-            <input {...register('username', { required: true })} />
+            <input
+              id='username'
+              {...register('username', { required: true })}
+            />
             {errors.username && (
-              <span className='sign-up-error'>This field is required</span>
+              <span className='sign-up-error'>Username is required</span>
             )}
 
             <label htmlFor='password'> Password:</label>
             <input
+              id='password'
               type='password'
               {...register('password', {
                 required: true,
@@ -70,8 +75,9 @@ const SignUp = () => {
               </span>
             )}
 
-            <label htmlFor='password'> Confirm password:</label>
+            <label htmlFor='Confirm password'> Confirm password:</label>
             <input
+              id='Confirm password'
               type='password'
               {...register('confirmPassword', {
                 required: true,
