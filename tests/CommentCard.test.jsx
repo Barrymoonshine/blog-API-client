@@ -24,7 +24,6 @@ describe('CommentCard component', () => {
 
   it('renders all comment elements', () => {
     render(wrappedCommentCardPage);
-    screen.debug();
     expect(getAuthor()).toBeInTheDocument();
     expect(getComment()).toBeInTheDocument();
     expect(getDate()).toBeInTheDocument();

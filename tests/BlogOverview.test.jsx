@@ -24,13 +24,65 @@ describe('BlogOverview component', () => {
 
   it('renders all blog overview elements', () => {
     render(wrappedBlogOverview);
-    screen.debug();
     expect(getImg()).toBeInTheDocument();
     expect(getRegion()).toBeInTheDocument();
     expect(getTitle()).toBeInTheDocument();
     expect(getDeleteButton()).toBeInTheDocument();
     expect(getEditButton()).toBeInTheDocument();
     expect(getPublishedButton()).toBeInTheDocument();
+  });
+
+  it('delete button called when clicked', async () => {
+    const user = userEvent.setup();
+    const deleteMock = vi.fn();
+
+    render(wrappedBlogOverview);
+
+    getDeleteButton().onclick = () => deleteMock();
+
+    await user.click(getDeleteButton());
+
+    expect(deleteMock).toHaveBeenCalled();
+  });
+
+  it('edit button called when clicked', async () => {
+    const user = userEvent.setup();
+    const editMock = vi.fn();
+
+    render(wrappedBlogOverview);
+
+    getEditButton().onclick = () => editMock();
+
+    await user.click(getEditButton());
+
+    expect(editMock).toHaveBeenCalled();
+  });
+
+  it('published button called when clicked', async () => {
+    const user = userEvent.setup();
+    const publishedMock = vi.fn();
+
+    render(wrappedBlogOverview);
+
+    getPublishedButton().onclick = () => publishedMock();
+
+    await user.click(getPublishedButton());
+
+    expect(publishedMock).toHaveBeenCalled();
+  });
+
+  it('published conditional rendering works ', async () => {
+    const blogPropsUnpublished = { ...blogProps, isBlogPublished: false };
+
+    render(
+      <BrowserRouter>
+        <AppProvider>
+          <BlogOverview {...blogPropsUnpublished} />
+        </AppProvider>
+      </BrowserRouter>
+    );
+
+    expect(screen.getByText('Not published')).toBeInTheDocument();
   });
 });
 
@@ -58,5 +110,5 @@ function getEditButton() {
 }
 
 function getPublishedButton() {
-  return screen.getByRole('button', { name: /published/i });
+  return screen.getByRole('button', { name: 'Published' });
 }

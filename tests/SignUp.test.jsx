@@ -15,7 +15,6 @@ describe('SignUp form Page', () => {
 
   it('renders all key SignUp form elements', () => {
     render(wrappedSignUpPage);
-    screen.debug();
     expect(getUsernameInput()).toBeInTheDocument();
     expect(getPasswordInput()).toBeInTheDocument();
     expect(getConfPasswordInput()).toBeInTheDocument();
