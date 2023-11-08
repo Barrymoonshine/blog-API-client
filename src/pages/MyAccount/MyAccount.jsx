@@ -83,12 +83,13 @@ const MyAccount = () => {
             <input {...register('newUsername', { required: true })} />
             {errors.newUsername && (
               <span className='update-credentials-error'>
-                This field is required
+                Username is required
               </span>
             )}
 
             <label htmlFor='password'> Password:</label>
             <input
+              id='password'
               type='password'
               {...register('password', {
                 required: true,
@@ -113,7 +114,7 @@ const MyAccount = () => {
               <span className='update-credentials-error'>{authError}</span>
             )}
             <button className='update-button' disabled={authLoading}>
-              Update
+              Submit username
             </button>
           </form>
         )}
@@ -132,6 +133,7 @@ const MyAccount = () => {
           >
             <label htmlFor='password'> Current Password:</label>
             <input
+              id='Current Password'
               type='password'
               {...register('password', {
                 required: true,
@@ -148,6 +150,7 @@ const MyAccount = () => {
             )}
             <label htmlFor='New Password'> New Password:</label>
             <input
+              id='New Password'
               type='password'
               {...register('newPassword', {
                 required: true,
@@ -164,6 +167,7 @@ const MyAccount = () => {
             )}
             <label htmlFor='Confirm Password'> Confirm New Password:</label>
             <input
+              id='Confirm New Password'
               type='password'
               {...register('confirmNewPassword', {
                 required: true,
@@ -187,7 +191,7 @@ const MyAccount = () => {
               <span className='update-credentials-error'>{authError}</span>
             )}
             <button className='update-button' disabled={authLoading}>
-              Update
+              Submit password
             </button>
           </form>
         )}
