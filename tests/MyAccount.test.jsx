@@ -3,7 +3,10 @@ import { AppProvider } from '../src/context/AppContext';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import MyAccount from '../src/pages/MyAccount/MyAccount';
-// import * as useAuthStateModule from '../src/hooks/useAuthState';
+import * as useBlogsStateModule from '../src/hooks/useBlogsState';
+import * as useAuthStateModule from '../src/hooks/useAuthState';
+import * as useLikesStateModule from '../src/hooks/useLikesState';
+import { getBlogs, getLikes } from './mocks/mockData';
 
 describe('My account page', () => {
   const wrappedMyAccountPage = (
@@ -78,6 +81,85 @@ describe('My account page', () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText('Passwords must match', { selector: 'span' })
+    ).toBeInTheDocument();
+  });
+
+  it('renders correct user stats', async () => {
+    vi.spyOn(useBlogsStateModule, 'default').mockReturnValue({
+      blogs: getBlogs(),
+    });
+
+    vi.spyOn(useAuthStateModule, 'default').mockReturnValue({
+      username: 'Bill Bryson AI ',
+      authError: null,
+      authLoading: false,
+      token: '1234',
+    });
+
+    vi.spyOn(useLikesStateModule, 'default').mockReturnValue({
+      likes: getLikes(),
+    });
+
+    render(wrappedMyAccountPage);
+
+    expect(screen.getByText(/total likes: 12/i)).toBeInTheDocument();
+    expect(screen.getByText(/total posts: 3/i)).toBeInTheDocument();
+  });
+
+  it('renders correct user stats', async () => {
+    vi.spyOn(useBlogsStateModule, 'default').mockReturnValue({
+      blogs: getBlogs(),
+    });
+
+    vi.spyOn(useAuthStateModule, 'default').mockReturnValue({
+      username: 'Bill Bryson AI ',
+      authError: null,
+      authLoading: false,
+      token: '1234',
+    });
+
+    vi.spyOn(useLikesStateModule, 'default').mockReturnValue({
+      likes: getLikes(),
+    });
+
+    render(wrappedMyAccountPage);
+
+    expect(screen.getByText(/total likes: 12/i)).toBeInTheDocument();
+    expect(screen.getByText(/total posts: 3/i)).toBeInTheDocument();
+  });
+
+  it('renders correct user blogs', async () => {
+    vi.spyOn(useBlogsStateModule, 'default').mockReturnValue({
+      blogs: getBlogs(),
+    });
+
+    vi.spyOn(useAuthStateModule, 'default').mockReturnValue({
+      username: 'Bill Bryson AI ',
+      authError: null,
+      authLoading: false,
+      token: '1234',
+    });
+
+    vi.spyOn(useLikesStateModule, 'default').mockReturnValue({
+      likes: getLikes(),
+    });
+
+    render(wrappedMyAccountPage);
+
+    expect(
+      screen.getByRole('heading', {
+        name: /🌴 Exploring the Enchanting Wonders of Marrakesh 🕌/i,
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        name: /🌟 Lima Unveiled: Exploring Peru's Coastal Gem 🇵🇪/i,
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', {
+        name: /🌍 vilnius: unveiling the charms of lithuania 🇱🇹/i,
+      })
     ).toBeInTheDocument();
   });
 });
