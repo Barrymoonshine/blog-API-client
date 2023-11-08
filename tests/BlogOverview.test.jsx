@@ -71,7 +71,7 @@ describe('BlogOverview component', () => {
     expect(publishedMock).toHaveBeenCalled();
   });
 
-  it('published conditional rendering works ', async () => {
+  it('published conditional rendering works', async () => {
     const blogPropsUnpublished = { ...blogProps, isBlogPublished: false };
 
     render(
