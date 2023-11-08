@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Header from '../src/components/Header/Header';
 import MainRouter from '../src/components/MainRouter/MainRouter';
+import * as useAuthStateModule from '../src/hooks/useAuthState';
 
 describe('Header component', () => {
   const wrappedHeader = (
@@ -60,5 +61,18 @@ describe('Header component', () => {
     expect(
       screen.getByText('Welcome back fellow traveler')
     ).toBeInTheDocument();
+  });
+
+  it('conditionally renders new nav for logged in users', async () => {
+    vi.spyOn(useAuthStateModule, 'default').mockReturnValue({
+      isLoggedIn: true,
+    });
+    render(wrappedHeader);
+
+    expect(screen.getByRole('img', { name: /create/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', { name: /my account/i })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /log out/i })).toBeInTheDocument();
   });
 });
